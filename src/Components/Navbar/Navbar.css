@@ -1,0 +1,42 @@
+.navbar__container {
+    background-color: rgb(41,40,38);
+    display: flex;
+    align-items: center; /* จัดให้ตรงกลางแนวตั้ง */
+    padding: 10px 20px;
+}
+
+.navbar__container img {
+    margin: 7px;
+    width: 100px;
+    height: auto;
+}
+
+.navbar__links {
+    margin-left: auto; /* ดันเมนูไปด้านขวา */
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    font-size: 25px;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.navbar__links a:hover {
+    animation: shake 0.3s ease-in-out infinite alternate;
+    border-radius: 3px;
+  }
+  
+  .navbar__links a {
+    all: unset
+  }
+  
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+    75% { transform: translateX(-3px); }
+    100% { transform: translateX(3px); }
+  }
+  
