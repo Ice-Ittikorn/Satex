@@ -1,19 +1,42 @@
-import React from 'react';
-import './Lock.css'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import './Lock.css';
 
 const Lock = () => {
+  const [username, setUsername] = useState('Cashel');
+  const [password, setPassword] = useState('1234');
+
+  const handleLogin = () => {
+    console.log('Username:', username);
+    console.log('Password:', password);
+  };
+
   return (
     <div className='Login'>
-      <i class="ri-user-fill"></i>
+      <i className="ri-user-fill"></i>
       <p className='test'>Username</p>
-      <input type='text' id='username' name='username' className='input'/>
+      <input 
+        type='text' 
+        id='username' 
+        name='username' 
+        className='input' 
+        value={username} 
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      
       <p className='test'>Password</p>
-      <input type='text' id='Password' name='Password'  className='input'/>
+      <input 
+        type='password' 
+        id='password' 
+        name='password'  
+        className='input' 
+        value={password} 
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      
       <br/>
-      <button class="lb">Login</button>
+      <button className="lb" onClick={handleLogin}>Login</button>
     </div>       
   );
 }
 
-export default Lock
+export default Lock;

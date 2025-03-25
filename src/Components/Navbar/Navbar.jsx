@@ -10,7 +10,7 @@ const Navbar = () => {
         <img src={photo.LoGo} alt="logo" />
         <div className="navbar__links">
           <Link to="/Login">Login</Link>
-          <Link to="/Login">Resgiter</Link>
+          <Link to="/Register">Resgiter</Link>
         </div>
       </div>
     </div>
