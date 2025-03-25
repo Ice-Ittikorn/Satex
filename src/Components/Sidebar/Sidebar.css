@@ -76,3 +76,12 @@
     width: auto;
     transition: 0.3s;
 }
+
+/* .sidebar-container {
+    width: 80px;
+    transition: width 0.3s;
+}
+
+.sidebar-container:hover {
+    width: 400px;
+} */

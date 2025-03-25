@@ -9,7 +9,6 @@ export const Manage_employee = () => {
         <div >
           <Navbar/>
           <Sidebar/>
-          <h1>Manage_employee</h1>
         </div>
         </>
       );
