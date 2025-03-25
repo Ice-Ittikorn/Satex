@@ -7,10 +7,30 @@
 .test{
     color: rgb(0, 0, 0);
     text-align: center;
+    margin-top: 20px;
 }
 
 .input{
     background-color: rgb(255, 255, 255);
-    margin-left: 650px;
+    margin-left: 620px;
+    width: 300px; /* ปรับขนาด input */
+    height: 40px;
+    border-radius: 10px; /* ทำให้ขอบโค้ง */
+    border: 1px solid #ffae00; /* เส้นขอบบางๆ */
+    padding: 10px;
+    font-size: 16px;
+    margin-top: 20px;
 }
-
+.lb {
+    background-color: orange; /* สีพื้นหลัง */
+    color: white; /* สีตัวอักษร */
+    font-size: 18px; /* ขนาดตัวอักษร */
+    padding: 10px 20px; /* ระยะห่างภายในปุ่ม */
+    border: none; /* เอาเส้นขอบออก */
+    border-radius: 8px; /* ทำให้ขอบโค้ง */
+    cursor: pointer; /* เปลี่ยนเมาส์เป็นแบบกดได้ */
+    transition: background-color 0.3s ease-in-out; /* ทำให้สีเปลี่ยนแบบนุ่มนวล */
+    background-color: darkorange; /* เปลี่ยนสีเมื่อเอาเมาส์ไปวาง */
+    margin-left: 725px;
+    margin-top: 20px;
+}

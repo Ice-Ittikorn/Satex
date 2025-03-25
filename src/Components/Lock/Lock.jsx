@@ -10,6 +10,8 @@ const Lock = () => {
       <input type='text' id='username' name='username' className='input'/>
       <p className='test'>Password</p>
       <input type='text' id='Password' name='Password'  className='input'/>
+      <br/>
+      <button class="lb">Login</button>
     </div>       
   );
 }
