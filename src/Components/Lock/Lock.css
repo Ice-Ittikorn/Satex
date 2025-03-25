@@ -1,35 +1,60 @@
-.Login i{
-    color: rgb(0, 0, 0);
-    font-size: 200px;
-    padding: 650px 650px;
+.Login {
+    display: flex;
+    flex-direction: column; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+    justify-content: center;
+    align-items: center;
+    height: 70vh; /* แก้จาก hv เป็น vh */
 }
 
-.test{
+.logo {
     color: rgb(0, 0, 0);
-    text-align: center;
-    margin-top: 20px;
+    font-size: 170px;
+    margin-bottom: 50px; /* เพิ่มระยะห่างด้านล่าง */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.input{
+.text{
+    text-align: lefts;
+}
+
+/* กำหนดให้ input มีกรอบ */
+.input {
     background-color: rgb(255, 255, 255);
-    margin-left: 620px;
-    width: 300px; /* ปรับขนาด input */
+    width: 400px; /* ขยายขนาด input */
     height: 40px;
-    border-radius: 10px; /* ทำให้ขอบโค้ง */
-    border: 1px solid #ffae00; /* เส้นขอบบางๆ */
-    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #ffae00; /* เพิ่มขนาดเส้นกรอบ */
     font-size: 16px;
-    margin-top: 20px;
+    padding: 5px 10px; /* เพิ่ม padding เพื่อให้พิมพ์ง่ายขึ้น */
+    margin: 10px 0; /* เพิ่มระยะห่าง */
+    outline: none; /* เอาเส้นขอบสีฟ้าออกเมื่อคลิก */
 }
-.lb {
-    background-color: orange; /* สีพื้นหลัง */
-    color: white; /* สีตัวอักษร */
-    font-size: 18px; /* ขนาดตัวอักษร */
-    padding: 10px 20px; /* ระยะห่างภายในปุ่ม */
-    border: none; /* เอาเส้นขอบออก */
-    border-radius: 8px; /* ทำให้ขอบโค้ง */
-    cursor: pointer; /* เปลี่ยนเมาส์เป็นแบบกดได้ */
-    transition: background-color 0.3s ease-in-out; /* ทำให้สีเปลี่ยนแบบนุ่มนวล */
-    background-color: darkorange; /* เปลี่ยนสีเมื่อเอาเมาส์ไปวาง */
-    margin-left: 725px;
+
+/* เปลี่ยนสีกรอบเมื่อคลิก */
+.input:focus {
+    border-color: darkorange;
+    box-shadow: 0 0 5px rgba(255, 166, 0, 0.5);
+}
+
+.button {
+    margin-top: 30px;
+    background-color: orange;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    padding: 10px 20px;
+}
+
+.button:hover {
+    background-color: darkorange;
+    align-items: center;
+}
+
+.btn{
+    text-align: center;
 }
