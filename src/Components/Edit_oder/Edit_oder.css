@@ -47,3 +47,84 @@
     background-color: #f7a636;
     border: 3px solid #eba038;
 }
+
+.oder_card {
+    background-color: #FFB856;
+    border: 3px solid #eba038;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    justify-content: flex-start; /* Align elements at the top */
+}
+
+.oder_card_oder {
+    margin-bottom: 10px;
+    font-size: 28px;
+    text-align: center;
+}
+
+.oder_card_Table {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: rgb(77, 76, 75);
+}
+
+.order-item-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* จัดให้ชื่อและจำนวนสินค้าอยู่ที่ขอบทั้งสองข้าง */
+    margin-bottom: 20px;
+}
+
+.oder_card_list {
+    font-size: 24px;
+}
+
+.oder_card_list_1 {
+    font-size: 24px;
+    text-align: end;
+}
+
+.oder_card_num {
+    font-size: 24px;
+    margin-left: auto; /* ให้จำนวนสินค้าอยู่ด้านขวาสุด */
+}
+
+/* Grid Layout */
+.oder_grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box; /* Ensure padding doesn't affect grid item layout */
+}
+
+.order-grid-item {
+    background-color: #FFB856;
+    border: 3px solid #eba038;
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    justify-content: flex-start; /* Align elements at the top */
+    box-sizing: border-box; /* Prevent border and padding from overflowing */
+    min-height: 400px; /* Adjust height for better consistency */
+}
+
+.order-card-header {
+    margin-bottom: 10px;
+}
+
+.order-item-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.oder_card_list,
+.oder_card_num {
+    font-size: 24px;
+}
