@@ -7,38 +7,38 @@ const Sidebar = () => {
     <div className='sidebar'>
 
       <div className='sidebar_menu'>
-        <i class="ri-hotel-line"/>
-        <Link to="/Login" className='text_link'>Login</Link>
-      </div>
-
-      <div className='sidebar_menu'>
-        <i class="ri-hotel-line"/>
-        <Link to="/Stock" className='text_link'>Stock</Link>
-      </div>
-
-      <div className='sidebar_menu'>
-        <i class="ri-hotel-line"/>
-        <Link to="/Edit_menu" className='text_link'>Edit menu</Link>
-      </div>
-
-      <div className='sidebar_menu'>
-        <i class="ri-hotel-line"/>
+        <i className="ri-pie-chart-2-fill"></i>
         <Link to="/Dashboard_menu" className='text_link'>Dashboard</Link>
       </div>
 
       <div className='sidebar_menu'>
-        <i class="ri-hotel-line"/>
-        <Link to="/Payment" className='text_link'>Payment</Link>
+        <i className="ri-bit-coin-fill"/>
+        <Link to="/Payment" className='text_link'>ระบบชำระเงิน</Link>
       </div>
 
       <div className='sidebar_menu'>
-        <i class="ri-hotel-line"/>
+        <i className="ri-restaurant-fill"/>
+        <Link to="/Edit_menu" className='text_link'>ระบบจัดการเมนูอาหาร</Link>
+      </div>
+
+      <div className='sidebar_menu'>
+        <i className="ri-list-unordered"/>
+        <Link to="/Oder" className='text_link'>Oder</Link>
+      </div>
+
+      <div className='sidebar_menu'>
+        <i className="ri-store-fill"/>
+        <Link to="/Stock" className='text_link'>Stock</Link>
+      </div>
+
+      <div className='sidebar_menu'>
+        <i className="ri-team-fill"/>
         <Link to="/Manage_employee" className='text_link'>Manage employee</Link>
       </div>
 
       <div className='sidebar_menu'>
         <Link to="/" className='text_link_logout'>Logout</Link>
-      </div>
+      </div> 
 
     </div>
   );
