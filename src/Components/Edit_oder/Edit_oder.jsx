@@ -84,14 +84,14 @@ export const Edit_oder = () => {
             <span className='oder_card_num'>จำนวนสินค้า</span>
 
             <div className="order-items">
-            {group.items.map((product) => (
+              {group.items.map((product) => (
                 <div key={product.name} className="order-item">
-                <div className='order-item-details'>
+                  <div className='order-item-details'>
                     <span className='oder_card_list'>{product.name}</span>
                     <span className='oder_card_num'>{product.num}</span>
+                  </div>
                 </div>
-                </div>
-            ))}
+              ))}
             </div>
 
 
