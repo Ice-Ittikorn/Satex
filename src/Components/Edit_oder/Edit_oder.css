@@ -1,0 +1,49 @@
+.oderbar {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px;
+    padding-right: 90px;
+    width: 100%;
+}
+
+.edit_oder {
+    font-size: 24px;
+}
+
+.button_edit_oder_all,
+.button_edit_oder_cancel,
+.button_edit_oder_succeed {
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 20px;
+    padding: 10px 20px;
+    border: 3px solid #FFB856;
+    background-color: rgb(255, 255, 255);
+    transition: all 0.3s ease-in-out;
+}
+
+/* สีของปุ่มเมื่อปกติ */
+.button_edit_oder_cancel {
+    color: red;
+}
+.button_edit_oder_succeed {
+    color: green;
+}
+
+/* เอฟเฟกต์ hover */
+.button_edit_oder_all:hover,
+.button_edit_oder_cancel:hover,
+.button_edit_oder_succeed:hover {
+    background-color: #FFB856;
+    color: white;
+}
+
+/* สีของปุ่มที่ถูกกด */
+.button_edit_oder_all.active,
+.button_edit_oder_cancel.active,
+.button_edit_oder_succeed.active {
+    background-color: #f7a636;
+    border: 3px solid #eba038;
+}
