@@ -23,7 +23,7 @@ const Lock = () => {
       </div>
 
       <form onSubmit={handleLogin}>
-        <label className='text'>ชื่อผู้ใช้</label>
+        <label className='text'>Username</label>
         <br/>
         <input 
           type='text' 
@@ -35,7 +35,7 @@ const Lock = () => {
         />
         <br/>
 
-        <label className='text'>รหัสผ่าน</label>
+        <label className='text'>Password</label>
         <br/>
         <input 
           type='password' 
