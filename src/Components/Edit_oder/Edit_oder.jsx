@@ -36,6 +36,7 @@ export const Edit_oder = () => {
     { Oder: 10, table: 10, name: "สันคอหมู", num: 2 },
     { Oder: 11, table: 11, name: "หมูกรอบ", num: 2 },
     { Oder: 11, table: 11, name: "เนื้อวัว", num: 1 },
+    { Oder: 12, table: 11, name: "เนื้อวัว", num: 1 },
   ];
 
   // Group products by Oder and Table
