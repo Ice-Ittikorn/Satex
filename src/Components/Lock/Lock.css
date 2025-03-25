@@ -32,5 +32,4 @@
     transition: background-color 0.3s ease-in-out; /* ทำให้สีเปลี่ยนแบบนุ่มนวล */
     background-color: darkorange; /* เปลี่ยนสีเมื่อเอาเมาส์ไปวาง */
     margin-left: 725px;
-    margin-top: 20px;
 }
