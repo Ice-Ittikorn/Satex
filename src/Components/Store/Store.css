@@ -1,0 +1,121 @@
+/* ตั้งค่าพื้นฐานของ container */
+.stock-container {
+    width: 80%;
+    margin: auto;
+    font-family: 'Arial', sans-serif;
+}
+
+/* จัดตำแหน่งส่วนหัว */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* สไตล์หัวข้อ */
+.stock-title {
+    font-size: 24px;
+    color: #5a2d0c;
+}
+
+/* ปุ่มอัปเดตสต็อก */
+.update-button {
+    background-color: #5a2d0c;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* ช่องค้นหา */
+.search-bar {
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* จัดวางรายการสินค้า */
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+/* กล่องแสดงข้อมูลสินค้า */
+.product-card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+/* ใช้ figure เพื่อกำหนดขนาดรูปให้เท่ากัน */
+.product-figure {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+}
+
+/* รูปสินค้า */
+.product-image {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* สไตล์ของรายละเอียดสินค้า */
+.product-details p {
+    margin: 5px 0;
+}
+
+/* สีของสถานะสินค้า */
+.status {
+    font-weight: bold;
+}
+
+.in-stock {
+    color: green;
+}
+
+.out-of-stock {
+    color: red;
+}
+
+/* ปุ่มแก้ไข */
+.edit-button {
+    background-color: #f4a261;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 14px;
+}
+
+/* ทำให้ responsive */
+@media (max-width: 1024px) {
+    .product-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .product-list {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
