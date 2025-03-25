@@ -8,6 +8,7 @@ import Edit_menu from '../Pages/Edit_menu/Edit_menu';
 import Dashboard_menu from '../Pages/Dashboard_menu/Dashboard_menu';
 import Manage_employee from '../Pages/Manage_employee/Manage_employee';
 import { Oder } from '../Pages/Oder/Oder';
+import Register from '../Pages/Register/Register';
 
 
 const AppRoutes = () => {
@@ -23,6 +24,7 @@ const AppRoutes = () => {
             <Route path='/Dashboard_menu' element={<Dashboard_menu/>}/>
             <Route path='/Manage_employee' element={<Manage_employee/>}/>
             <Route path='/Oder' element={<Oder/>}/>
+            <Route path='/Register' element={<Register/>}/>
 
         </Routes>
     </Router>
