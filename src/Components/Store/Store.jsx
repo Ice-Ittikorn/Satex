@@ -1,9 +1,8 @@
 import React from 'react'
-import './Stock.css'
+import './Store.css'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
-
-export const Stock = () => {
+export const Store = () => {
   return (
     <div>
       <h1>dfghj</h1>
@@ -11,4 +10,4 @@ export const Stock = () => {
   )
 }
 
-
+export default Store
