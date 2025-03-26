@@ -1,0 +1,122 @@
+/* คอนเทนเนอร์หลัก */
+.editnemp-container {
+    width: 60%;
+    margin: auto;
+    text-align: left;
+    font-family: 'Arial', sans-serif;
+}
+
+/* หัวข้อ */
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #5a2d0c;
+    margin-bottom: 20px;
+}
+
+/* กล่องฟอร์ม */
+.edit-box {
+    border: 2px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    background: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* อัปโหลดรูปภาพ */
+.image-upload {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.image-placeholder {
+    width: 150px;
+    height: 150px;
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #5a2d0c;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px dashed #aaa;
+}
+
+/* แสดงรูปที่อัปโหลด */
+.image-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.preview-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* ปุ่มลบรูปภาพ */
+.remove-image-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 14px;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    transition: background-color 0.3s ease;
+}
+
+.remove-image-button:hover {
+    background-color: darkred;
+}
+
+/* ฟอร์มข้อมูล */
+.form-container {
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #5a2d0c;
+    width: 40%;
+}
+
+.form-group input {
+    width: 60%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* ปุ่มยืนยัน */
+.confirm-button {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.confirm-button:hover {
+    background-color: darkgreen;
+}
+
