@@ -6,20 +6,19 @@ import './AddEmp.css';
 export const AddEmp = () => {
     const navigate = useNavigate();
 
-    // กำหนด state สำหรับฟอร์มข้อมูลพนักงาน
+    // สร้าง state สำหรับจัดเก็บข้อมูลฟอร์ม
     const [formData, setFormData] = useState({
         name: '',
         lastname: '',
         phone: '',
         email: '',
+        gardID: '',
         username: '',
         password: '',
         job: '',
     });
 
-    const [error, setError] = useState(''); // สำหรับเก็บข้อความ error
-
-    // ฟังก์ชันสำหรับอัปเดตข้อมูลฟอร์ม
+    // ฟังก์ชันจัดการการเปลี่ยนแปลงข้อมูลในฟอร์ม
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setFormData((prevData) => ({
@@ -28,54 +27,115 @@ export const AddEmp = () => {
         }));
     };
 
-    // ฟังก์ชันการยืนยันข้อมูลและส่งข้อมูลไปยัง API
-    const handleSubmit = async () => {
-        // ตรวจสอบข้อมูลว่าผู้ใช้กรอกครบหรือไม่
-        if (!formData.name || !formData.lastname || !formData.phone || !formData.email || !formData.username || !formData.password || !formData.job) {
-            setError('กรุณากรอกข้อมูลให้ครบถ้วน');
-            return;
-        }
+    // ฟังก์ชันจัดการการส่งฟอร์ม
+    const handleSubmit = async (event) => {
+        event.preventDefault(); // ป้องกันไม่ให้ฟอร์มรีเฟรชหน้า
 
         try {
-            console.log(formData);  // ตรวจสอบข้อมูลที่จะส่งไป
-            await axios.post('http://localhost:3002/api/employees', formData, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            console.log('ข้อมูลพนักงานถูกเพิ่มสำเร็จ');
-            // เปลี่ยนเส้นทางไปที่หน้า Manage_employee พร้อมข้อความแจ้งเตือน
-            navigate('/Manage_employee', { state: { successMessage: 'ข้อมูลพนักงานถูกเพิ่มสำเร็จ!' } });
+            // ส่งข้อมูลไปยัง API
+            await axios.post('http://localhost:3002/api/employees', formData);
+            // เมื่อสำเร็จ ไปที่หน้ารายการพนักงาน
+            navigate('/Manage_employee', { state: { successMessage: 'เพิ่มพนักงานสำเร็จ!' } });
         } catch (error) {
-            // ตรวจสอบการตอบกลับจากเซิร์ฟเวอร์เมื่อเกิดข้อผิดพลาด
-            console.error('เกิดข้อผิดพลาดในการเพิ่มข้อมูลพนักงาน:', error.response ? error.response.data : error.message);
-            // แจ้งเตือนผู้ใช้หากมีข้อผิดพลาดจากเซิร์ฟเวอร์
-            alert('ไม่สามารถเพิ่มข้อมูลพนักงานได้: ' + (error.response ? error.response.data.message : error.message));
+            console.error('เกิดข้อผิดพลาด:', error);
+            alert('ไม่สามารถเพิ่มพนักงานได้');
         }
     };
 
     return (
-        <div className="editnemp-container">
-            <h1 className="title">ระบบจัดการพนักงาน</h1>
-            <div className="edit-box">
-                <div className="form-container">
-                    {Object.entries(formData).map(([key, value]) => (
-                        <div className="form-group" key={key}>
-                            <label>{key} :</label>
-                            <input
-                                type={key === 'password' ? 'password' : 'text'}
-                                name={key}
-                                value={value || ''}
-                                onChange={handleInputChange}
-                            />
-                        </div>
-                    ))}
+        <div className="form-container">
+            <h2>Employee Information</h2>
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="name">Name:</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                    />
                 </div>
-                {error && <div className="error-message">{error}</div>} {/* แสดงข้อความ error ถ้ามี */}
-                <button className="confirm-button" onClick={handleSubmit}>
-                    ยืนยัน
-                </button>
-            </div>
+                <div className="form-group">
+                    <label htmlFor="lastname">Lastname:</label>
+                    <input
+                        type="text"
+                        id="lastname"
+                        name="lastname"
+                        value={formData.lastname}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="phone">Phone:</label>
+                    <input
+                        type="text"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="email">Email:</label>
+                    <input
+                        type="text"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="gardID">Gard ID:</label>
+                    <input
+                        type="text"
+                        id="gardID"
+                        name="gardID"
+                        value={formData.gardID}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="username">Username:</label>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        value={formData.username}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password:</label>
+                    <input
+                        type="text"
+                        id="password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="job">Job:</label>
+                    <input
+                        type="text"
+                        id="job"
+                        name="job"
+                        value={formData.job}
+                        onChange={handleInputChange}
+                        required
+                    />
+                </div>
+                <button type="submit" className="submit-button">Submit</button>
+            </form>
         </div>
     );
 };

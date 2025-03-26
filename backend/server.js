@@ -158,6 +158,21 @@ app.delete('/api/employees/:id', (req, res) => {
     }
     res.json({ message: 'Employee deleted successfully' });
   });
+
+  // API สำหรับเพิ่มพนักงานใหม่
+app.post('/api/employees', (req, res) => {
+  const { name, lastname, phone, email, gardID, username, password, job } = req.body;
+
+  const stmt = db.prepare('INSERT INTO emp (name, lastname, phone, email, gardID, username, password, job) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+  stmt.run([name, lastname, phone, email, gardID, username, password, job], function (err) {
+      if (err) {
+          console.error('Error inserting data:', err.message);
+          return res.status(500).send('ไม่สามารถเพิ่มพนักงานได้');
+      }
+      res.status(200).send('เพิ่มพนักงานสำเร็จ!');
+  });
+});
+
 });
 
 // ✅ เริ่มเซิร์ฟเวอร์
