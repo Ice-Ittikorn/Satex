@@ -2,7 +2,8 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
-import Store from '../../Components/Store/Store';
+import Stockedit from '../../Components/Stockedit/Stockedit';
+
 
 export const Stock = () => {
   return (
@@ -15,7 +16,7 @@ export const Stock = () => {
           <Sidebar />
         </div>
         <div style={{ flex: 1, padding: "20px" }}>
-          <Store />
+          <Stockedit />
         </div>
       </div>
     </div>
