@@ -67,14 +67,13 @@ app.post('/login', (req, res) => {
   });
 });
 
-// ✅ ดึงข้อมูลพนักงานทั้งหมด
 app.get('/api/employees', (req, res) => {
   db.all('SELECT * FROM emp', [], (err, rows) => {
-    if (err) {
-      console.error('Error fetching data:', err.message);
-      return res.status(500).json({ error: err.message });
-    }
-    res.json(rows);
+      if (err) {
+          res.status(500).json({ error: err.message });
+          return;
+      }
+      res.json(rows); // ส่งข้อมูลพนักงานกลับไป
   });
 });
 

@@ -16,7 +16,7 @@ export const Manage_employee = () => {
           <Sidebar />
         </div>
         <div style={{ flex: 1, padding: "20px" }}>
-          <EditNemp />
+          <Editemp />
         </div>
       </div>
     </div>
