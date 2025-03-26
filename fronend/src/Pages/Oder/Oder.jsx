@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
 import Edit_oder from '../../Components/Edit_oder/Edit_oder';
+import Dolly from '../../Components/Dolly/Dolly';
 
 
 export const Oder = () => {
@@ -16,7 +17,7 @@ export const Oder = () => {
           <Sidebar />
         </div>
         <div style={{ flex: 1, padding: "20px" }}>
-          <Edit_oder />
+          <Dolly />
         </div>
       </div>
     </div>
