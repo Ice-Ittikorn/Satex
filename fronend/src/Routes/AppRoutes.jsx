@@ -11,7 +11,10 @@ import { Oder } from '../Pages/Oder/Oder';
 import Register from '../Pages/Register/Register';
 import Edit_emp_gard from '../Pages/Edit_emp_gard/edit_emp_gard';
 import { Add_emp } from '../Pages/add_emp/Add_emp';
-import TerminalO from '../Pages/TerminalO/TerminalO';
+import { StockEdit } from '../Pages/StockEdit/Stockedit';
+import TerminalO from '../Pages/TerminalO/TerminalO'
+
+
 
 
 
@@ -33,6 +36,7 @@ const AppRoutes = () => {
             <Route path="/Edit_emp_gard/:empId" element={<Edit_emp_gard />} />
             <Route path='/Add_emp' element={<Add_emp/>}/>
             <Route path='/TerminalO' element={<TerminalO/>}/> 
+            <Route path='/StockEdit' element={<StockEdit/>}/>
 
         </Routes>
     </Router>

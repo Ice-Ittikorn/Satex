@@ -1,5 +1,7 @@
 import React from 'react';
 import './Store.css';
+import { Link } from 'react-router-dom'; // นำเข้า Link จาก react-router-dom
+
 
 export const Store = () => {
   // ข้อมูลสินค้า (จำลอง)
@@ -17,7 +19,10 @@ export const Store = () => {
       {/* ส่วนหัวของหน้า */}
       <div className="header">
         <h1 className="stock-title">สินค้าคงคลัง</h1>
-        <button className="update-button">อัปเดตสต็อกสินค้า</button>
+        <Link to="/StockEdit">
+          <button className="update-button">อัปเดตสต็อกสินค้า</button>
+        </Link>
+        
       </div>
 
       {/* ช่องค้นหา */}

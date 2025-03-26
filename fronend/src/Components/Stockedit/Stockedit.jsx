@@ -46,7 +46,6 @@ export const Stockedit = () => {
             {/* หัวข้อและปุ่มอัปเดต */}
             <div className="header">
                 <h1 className="stock-title">สินค้าคงคลัง</h1>
-                <button className="update-button">อัปเดตสต็อกสินค้า</button>
             </div>
 
             {/* กล่องฟอร์มแก้ไขสต็อก */}

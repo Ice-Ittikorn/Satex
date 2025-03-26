@@ -5,7 +5,7 @@ import Sidebar from '../../Components/Sidebar/Sidebar';
 import Stockedit from '../../Components/Stockedit/Stockedit';
 import Store from '../../Components/Store/Store';
 
-export const Stock = () => {
+export const StockEdit = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <Navbar />
@@ -16,11 +16,11 @@ export const Stock = () => {
           <Sidebar />
         </div>
         <div style={{ flex: 1, padding: "20px" }}>
-          <Store />
+          <Stockedit />
         </div>
       </div>
     </div>
   );
 }
 
-export default Stock
+export default StockEdit

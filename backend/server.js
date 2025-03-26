@@ -189,6 +189,94 @@ app.post('/api/employees', (req, res) => {
   });
 });
 
+
+
+// ========== PUT: อัปเดตข้อมูล store ==========
+app.put('/stores/:id', (req, res) => {
+  const { name, instore, unit, imgstore } = req.body;
+  const { id } = req.params;
+  const sql = `UPDATE Store SET name = ?, instore = ?, unit = ?, imgstore = ? WHERE storeid = ?`;
+  db.run(sql, [name, instore, unit, imgstore, id], function (err) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({ updated: this.changes });
+  });
+});
+
+// ========== DELETE: ลบข้อมูล store ==========
+app.delete('/stores/:id', (req, res) => {
+  const { id } = req.params;
+  const sql = `DELETE FROM Store WHERE storeid = ?`;
+  db.run(sql, id, function (err) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({ deleted: this.changes });
+  });
+});
+
+// ========== GET: ดึงข้อมูล store ทั้งหมด ==========
+app.get('/stores', (req, res) => {
+  db.all('SELECT * FROM Store', [], (err, rows) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json(rows);
+  });
+});
+
+// ========== POST: เพิ่มข้อมูล store ==========
+app.post('/stores', (req, res) => {
+  const { name, instore, unit, imgstore } = req.body;
+  const sql = `INSERT INTO Store (name, instore, unit, imgstore) VALUES (?, ?, ?, ?)`;
+  db.run(sql, [name, instore, unit, imgstore], function (err) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      return;
+    }
+    res.json({ id: this.lastID });
+  });
+});
+
+
+
+    // กำหนดการจัดการการอัปโหลดไฟล์
+    const storage = multer.diskStorage({
+      destination: (req, file, cb) => {
+          // เก็บไฟล์ไว้ที่โฟลเดอร์ 'uploads'
+          cb(null, 'uploads/');
+      },
+      filename: (req, file, cb) => {
+          // ตั้งชื่อไฟล์ด้วย timestamp
+          cb(null, Date.now() + path.extname(file.originalname));
+      }
+    });
+  
+    // 📌 Endpoint สำหรับการเพิ่มเมนู
+  app.post('/api/employees', upload.single('image'), (req, res) => {
+    const { name, instore, unit, description, category_id, status } = req.body;
+    const imgstore = req.file ? `/uploads/${req.file.filename}` : null;
+  
+    // Insert into database
+    const query = `
+        INSERT INTO menu (name, instore,imgstore)
+        VALUES (?, ?, ?, ?)
+    `;
+    db.run(query, [name, instore, unit,imgstore, status], function(err) {
+        if (err) {
+            return res.status(500).json({ message: 'Failed to add menu item', error: err.message });
+        }
+        res.status(201).json({ message: 'Menu item added successfully', menu_id: this.lastID });
+    });
+  });
+  
+    const upload = multer({ storage: storage });
+  
+
 });
 
 // ✅ เริ่มเซิร์ฟเวอร์
