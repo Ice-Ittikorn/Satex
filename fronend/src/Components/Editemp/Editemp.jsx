@@ -4,6 +4,7 @@ import './Editemp.css';
 
 export const Editemp = () => {
     const [employees, setEmployees] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
@@ -26,22 +27,38 @@ export const Editemp = () => {
         fetchEmployees();
     }, []);
 
+    // ✅ กรองทุกฟิลด์ของพนักงาน
+    const filteredEmployees = employees.filter((emp) =>
+        Object.values(emp).some((value) =>
+            value?.toString().toLowerCase().includes(searchTerm.toLowerCase())
+        )
+    );
+
     return (
         <div className="employee-container">
             <h1 className="title">ระบบจัดการพนักงาน</h1>
             {errorMessage && <div className="error-message">{errorMessage}</div>}
+            
+            {/* Search Box */}
             <div className="search-box">
-                <input type="text" placeholder="ค้นหาพนักงานด้วยรหัส หรือชื่อ" />
+                <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)} // อัปเดตค่าใน state
+                    placeholder="ค้นหาพนักงาน"
+                />
             </div>
+
+            {/* Employee List */}
             <div className="employee-grid">
-                {employees.length > 0 ? (
-                    employees.map((emp) => (
+                {filteredEmployees.length > 0 ? (
+                    filteredEmployees.map((emp) => (
                         <div key={emp.empid} className="employee-card">
                             <div className="image-container">
                                 <img src={emp.image} alt={emp.name} className="employee-image" />
                             </div>
                             <div className="employee-info">
-                                <p><strong>รหัสพนักงาน:</strong> Em{emp.empid}</p>
+                                <p><strong>รหัสพนักงาน:</strong> {emp.empid}</p>
                                 <p><strong>ชื่อพนักงาน:</strong> {emp.name} {emp.lastname}</p>
                                 <p><strong>เบอร์โทร:</strong> {emp.Phone}</p>
                                 <p><strong>อีเมล:</strong> {emp.Email}</p>
@@ -51,9 +68,10 @@ export const Editemp = () => {
                         </div>
                     ))
                 ) : (
-                    <p>กำลังโหลดข้อมูล...</p>
+                    <p>ไม่พบข้อมูลพนักงาน</p>
                 )}
             </div>
+
             <button className="add-employee-button">เพิ่มพนักงาน</button>
         </div>
     );
