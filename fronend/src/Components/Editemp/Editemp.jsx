@@ -55,6 +55,28 @@ export const Editemp = () => {
         navigate('/Add_emp');
     };
 
+    // ✅ ฟังก์ชันลบพนักงาน (พร้อมการยืนยัน)
+    const handleDeleteClick = async (empId) => {
+        // แสดงกล่องยืนยัน
+        const isConfirmed = window.confirm('คุณแน่ใจหรือไม่ว่าต้องการลบพนักงานคนนี้?');
+        
+        if (!isConfirmed) {
+            return; // ถ้าผู้ใช้กด "ยกเลิก" จะไม่ทำการลบ
+        }
+
+        try {
+            // ส่งคำขอลบข้อมูลไปยัง API
+            await axios.delete(`http://localhost:3002/api/employees/${empId}`);
+            // รีเฟรชข้อมูลพนักงานหลังจากลบ
+            setEmployees(employees.filter(emp => emp.empid !== empId));
+            setSuccessMessage('ลบพนักงานสำเร็จ');
+            setTimeout(() => setSuccessMessage(''), 3000); // ลบข้อความแจ้งเตือนหลังจาก 3 วินาที
+        } catch (error) {
+            setErrorMessage('เกิดข้อผิดพลาดในการลบข้อมูล');
+            setTimeout(() => setErrorMessage(''), 3000);
+        }
+    };
+
     return (
         <div className="employee-container">
             <h1 className="title">ระบบจัดการพนักงาน</h1>
@@ -85,9 +107,19 @@ export const Editemp = () => {
                                 <p><strong>อีเมล:</strong> {emp.email}</p>
                                 <p><strong>ตำแหน่ง:</strong> {emp.job}</p>
                             </div>
-                            <button className="edit-button" onClick={() => handleEditClick(emp.empid)}>
-                                แก้ไข
-                            </button>
+                            <div className="employee-actions">
+                                <button className="edit-button" onClick={() => handleEditClick(emp.empid)}>
+                                    แก้ไข
+                                </button>
+                                {/* ปุ่มลบ */}
+                                <button 
+                                    className="delete-button" 
+                                    onClick={() => handleDeleteClick(emp.empid)}
+                                    title="ลบพนักงาน"
+                                >
+                                    <i className="ri-delete-bin-5-line"></i>
+                                </button>
+                            </div>
                         </div>
                     ))
                 ) : (

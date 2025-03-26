@@ -64,6 +64,22 @@ app.post('/login', (req, res) => {
   });
 });
 
+app.delete('/api/employees/:empId', (req, res) => {
+  const { empId } = req.params;
+  const query = 'DELETE FROM emp WHERE empid = ?';
+  
+  db.run(query, [empId], function (err) {
+      if (err) {
+          return res.status(500).json({ message: 'เกิดข้อผิดพลาดในการลบข้อมูล' });
+      }
+      if (this.changes === 0) {
+          return res.status(404).json({ message: 'ไม่พบพนักงานที่ต้องการลบ' });
+      }
+      res.status(200).json({ message: 'ลบพนักงานสำเร็จ' });
+  });
+});
+
+
 // ✅ ดึงข้อมูลพนักงานทั้งหมด
 app.get('/api/employees', (req, res) => {
   db.all('SELECT * FROM emp', [], (err, rows) => {

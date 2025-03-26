@@ -84,3 +84,45 @@
   bottom: 20px;
   right: 20px;
 }
+
+.employee-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.delete-button {
+  background-color: red;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  color: white;
+  font-size: 18px;
+  border-radius: 5px;
+}
+
+.delete-button:hover {
+  background-color: darkred;
+}
+
+.ri-delete-bin-5-line {
+  font-size: 20px;
+}
+
+.delete-button {
+  background-color: red;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  color: white;
+  font-size: 18px;
+  border-radius: 5px;
+}
+
+.delete-button:hover {
+  background-color: darkred;
+}
+
+.ri-delete-bin-5-line {
+  font-size: 20px;
+}
+
