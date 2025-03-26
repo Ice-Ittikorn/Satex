@@ -3,6 +3,8 @@ import './Sidebar.css'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 const Sidebar = () => {
+
+
   return (
     <div className='sidebar'>
 
@@ -36,9 +38,7 @@ const Sidebar = () => {
         <Link to="/Manage_employee" className='text_link'>Manage employee</Link>
       </div>
 
-      <div className='sidebar_menu'>
-        <Link to="/" className='text_link_logout'>Logout</Link>
-      </div> 
+
 
     </div>
   );
