@@ -1,59 +1,90 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
 import './EditNemp.css';
 
 export const EditNemp = () => {
-    const [imagePreview, setImagePreview] = useState(null);
+    const { empId } = useParams(); 
+    const navigate = useNavigate();  
 
-    // ฟังก์ชันอัปโหลดรูปภาพ
-    const handleImageUpload = (event) => {
-        const file = event.target.files[0];
-        if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImagePreview(reader.result);
-            };
-            reader.readAsDataURL(file);
+    const [formData, setFormData] = useState({
+        empid: '',
+        name: '',
+        lastname: '',
+        phone: '',
+        email: '',
+        username: '',
+        password: '',
+        job: '',
+    });
+
+    useEffect(() => {
+        if (!empId) {
+            alert('ไม่พบข้อมูลพนักงาน');
+            return;
         }
+
+        // ✅ ดึงข้อมูลพนักงานจาก API โดยใช้ empId
+        const fetchEmployeeData = async () => {
+            try {
+                const response = await axios.get(`http://localhost:3002/api/employees/${empId}`);
+                if (response.data) {
+                    setFormData(response.data);
+                }
+            } catch (error) {
+                console.error('เกิดข้อผิดพลาดในการดึงข้อมูลพนักงาน:', error);
+                alert('ไม่สามารถดึงข้อมูลพนักงานได้');
+            }
+        };
+
+        fetchEmployeeData();
+    }, [empId]);
+
+    // ✅ ฟังก์ชันสำหรับอัปเดตข้อมูลฟอร์ม
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
     };
 
-    // ฟังก์ชันลบรูปภาพ
-    const handleImageRemove = () => {
-        setImagePreview(null);
+    // ✅ ฟังก์ชันการยืนยันข้อมูล
+    const handleSubmit = async () => {
+        if (!formData.empid) {
+            alert('ข้อมูลพนักงานไม่สมบูรณ์');
+            return;
+        }
+    
+        try {
+            await axios.put(`http://localhost:3002/api/employees/${formData.empid}`, formData);
+            navigate('/Manage_employee', { state: { successMessage: 'ข้อมูลพนักงานถูกอัปเดตสำเร็จ!' } });
+        } catch (error) {
+            alert('ไม่สามารถอัปเดตข้อมูลพนักงานได้');
+        }
     };
 
     return (
         <div className="editnemp-container">
             <h1 className="title">ระบบจัดการพนักงาน</h1>
             <div className="edit-box">
-                {/* อัปโหลดรูปภาพ */}
-                <div className="image-upload">
-                    {imagePreview ? (
-                        <div className="image-wrapper">
-                            <img src={imagePreview} alt="พนักงาน" className="preview-image" />
-                            <button className="remove-image-button" onClick={handleImageRemove}>
-                                ✖
-                            </button>
-                        </div>
-                    ) : (
-                        <label className="image-placeholder">
-                            เพิ่มรูปภาพ
-                            <input type="file" accept="image/*" onChange={handleImageUpload} hidden />
-                        </label>
-                    )}
-                </div>
-
-                {/* ฟอร์มกรอกข้อมูล */}
                 <div className="form-container">
-                    {['รหัสพนักงาน', 'ชื่อพนักงาน', 'เบอร์โทร', 'อีเมล์', 'เลขประจำตัวประชาชน', 'ตำแหน่ง', 'ที่อยู่'].map((label, index) => (
-                        <div className="form-group" key={index}>
-                            <label>{label} :</label>
-                            <input type="text" />
+                    {Object.entries(formData).map(([key, value]) => (
+                        <div className="form-group" key={key}>
+                            <label>{key} :</label>
+                            <input
+                                type={key === 'password' ? 'password' : 'text'}
+                                name={key}
+                                value={value || ''}
+                                onChange={handleInputChange}
+                                disabled={key === 'empid'}
+                            />
                         </div>
                     ))}
                 </div>
-
-                {/* ปุ่มยืนยัน */}
-                <button className="confirm-button">ยืนยัน</button>
+                <button className="confirm-button" onClick={handleSubmit}>
+                    ยืนยัน
+                </button>
             </div>
         </div>
     );

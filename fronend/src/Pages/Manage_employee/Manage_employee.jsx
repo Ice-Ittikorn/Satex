@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
 import Editemp from '../../Components/Editemp/Editemp';
-import EditNemp from '../../Components/EditNemp/EditNemp';
 
 export const Manage_employee = () => {
     return (

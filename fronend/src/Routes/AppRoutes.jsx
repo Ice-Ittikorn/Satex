@@ -9,6 +9,7 @@ import Dashboard_menu from '../Pages/Dashboard_menu/Dashboard_menu';
 import Manage_employee from '../Pages/Manage_employee/Manage_employee';
 import { Oder } from '../Pages/Oder/Oder';
 import Register from '../Pages/Register/Register';
+import Edit_emp_gard from '../Pages/Edit_emp_gard/edit_emp_gard';
 
 
 
@@ -27,6 +28,7 @@ const AppRoutes = () => {
             <Route path='/Manage_employee' element={<Manage_employee/>}/>
             <Route path='/Oder' element={<Oder/>}/>
             <Route path='/Register' element={<Register/>}/>
+            <Route path="/Edit_emp_gard/:empId" element={<Edit_emp_gard />} /> 
 
         </Routes>
     </Router>
