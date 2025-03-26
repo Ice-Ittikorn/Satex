@@ -1,19 +1,38 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './Lock.css';
 
 const Lock = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleLogin = (event) => {
-    event.preventDefault(); // ป้องกันการรีเฟรชหน้า
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
     if (!username || !password) {
       alert('กรุณากรอกชื่อผู้ใช้และรหัสผ่าน');
       return;
     }
 
-    console.log('Username:', username);
-    console.log('Password:', password);
+    try {
+      // 🔥 เปลี่ยน endpoint ให้ถูกต้อง `/login`
+      const res = await axios.post('http://localhost:3002/login', {
+        username,
+        password,
+      });
+
+      if (res.data.success) {
+        alert(res.data.message);
+        navigate('/'); // ไปหน้า Home
+      } else {
+        alert(res.data.message);
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert(error.response?.data?.message || 'เกิดข้อผิดพลาด');
+    }
   };
 
   return (
@@ -48,12 +67,11 @@ const Lock = () => {
 
         <br />
         <div className='btn'>
-        <button type="submit" className="button">เข้าสู่ระบบ</button>
+          <button type="submit" className="button">เข้าสู่ระบบ</button>
         </div>
       </form>
-      
     </div>       
   );
-}
+};
 
 export default Lock;

@@ -1,10 +1,19 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
+const cors = require('cors');
+
 const app = express();
-const port = 3001; // เปลี่ยนพอร์ตเป็น 3001
+const port = 3002;
 
 // ใช้ middleware เพื่อแปลงข้อมูลจาก JSON
 app.use(express.json());
+
+// ใช้ CORS ให้รองรับทุกกรณี
+app.use(cors({
+  origin: '*', // อนุญาตทุก domain (ถ้าต้องการเจาะจงให้ใช้ origin: 'http://localhost:10001')
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // เชื่อมต่อกับฐานข้อมูล SQLite
 let db = new sqlite3.Database('example.db', (err) => {
@@ -12,7 +21,7 @@ let db = new sqlite3.Database('example.db', (err) => {
     console.error('Error opening database:', err.message);
   } else {
     console.log('Connected to the SQLite database.');
-    
+
     // สร้างตาราง "emp" ถ้ายังไม่มี
     db.run(`
       CREATE TABLE IF NOT EXISTS "emp" (
@@ -36,7 +45,29 @@ let db = new sqlite3.Database('example.db', (err) => {
   }
 });
 
-// Endpoint เพื่อดึงข้อมูลพนักงานทั้งหมด
+// ✅ Endpoint สำหรับเช็ค Login
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({ message: 'กรุณากรอกชื่อผู้ใช้และรหัสผ่าน' });
+  }
+
+  const query = `SELECT * FROM emp WHERE Username = ? AND Password = ?`;
+
+  db.get(query, [username, password], (err, row) => {
+    if (err) {
+      return res.status(500).json({ message: 'เกิดข้อผิดพลาดในเซิร์ฟเวอร์' });
+    }
+    if (row) {
+      return res.status(200).json({ success: true, message: 'เข้าสู่ระบบสำเร็จ' });
+    } else {
+      return res.status(401).json({ success: false, message: 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง' });
+    }
+  });
+});
+
+// ✅ ดึงข้อมูลพนักงานทั้งหมด
 app.get('/api/employees', (req, res) => {
   db.all('SELECT * FROM emp', [], (err, rows) => {
     if (err) {
@@ -47,7 +78,7 @@ app.get('/api/employees', (req, res) => {
   });
 });
 
-// Endpoint เพื่อดึงข้อมูลพนักงานตาม empid
+// ✅ ดึงข้อมูลพนักงานตาม empid
 app.get('/api/employees/:id', (req, res) => {
   const { id } = req.params;
   db.get('SELECT * FROM emp WHERE empid = ?', [id], (err, row) => {
@@ -63,7 +94,7 @@ app.get('/api/employees/:id', (req, res) => {
   });
 });
 
-// Endpoint เพื่อเพิ่มพนักงานใหม่
+// ✅ เพิ่มพนักงานใหม่
 app.post('/api/employees', (req, res) => {
   const { name, lastname, Phone, Email, gardID, Username, Password, Job } = req.body;
 
@@ -83,7 +114,7 @@ app.post('/api/employees', (req, res) => {
   stmt.finalize();
 });
 
-// Endpoint เพื่ออัพเดตข้อมูลพนักงาน
+// ✅ อัพเดตข้อมูลพนักงาน
 app.put('/api/employees/:id', (req, res) => {
   const { id } = req.params;
   const { name, lastname, Phone, Email, gardID, Username, Password, Job } = req.body;
@@ -106,7 +137,7 @@ app.put('/api/employees/:id', (req, res) => {
   });
 });
 
-// Endpoint เพื่อลบพนักงาน
+// ✅ ลบพนักงาน
 app.delete('/api/employees/:id', (req, res) => {
   const { id } = req.params;
 
@@ -124,7 +155,7 @@ app.delete('/api/employees/:id', (req, res) => {
   });
 });
 
-// เริ่มเซิร์ฟเวอร์
+// ✅ เริ่มเซิร์ฟเวอร์ (มีอันเดียว)
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
