@@ -1,76 +1,86 @@
 .employee-container {
-    font-family: "Arial", sans-serif;
-    padding: 20px;
-    max-width: 1100px;
-    margin: auto;
-  }
-  
-  .title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 15px;
-  }
-  
-  .search-box input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    margin-bottom: 20px;
-  }
-  
-  .employee-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* ขึ้นบรรทัดใหม่เมื่อเกิน 4 คน */
-    gap: 20px;
-    justify-content: center;
-  }
-  
-  .employee-card {
-    background: #f9f9f9;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    position: relative;
-  }
-  
-  .employee-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 10px;
-    object-fit: cover;
-  }
-  
-  .employee-info {
-    text-align: left;
-    margin-top: 10px;
-  }
-  
-  .edit-button {
-    background: orange;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-  }
-  
-  .add-employee-button {
-    background: orange;
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    font-size: 14px;
-    border-radius: 5px;
-    cursor: pointer;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-  }
-  
+  font-family: "Arial", sans-serif;
+  padding: 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.employee-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  justify-content: center;
+}
+
+.employee-card {
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+}
+
+.image-container {
+  width: 120px;
+  height: 120px;
+  margin: auto;
+  overflow: hidden;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+}
+
+.employee-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.employee-info {
+  text-align: left;
+  margin-top: 10px;
+  padding-bottom: 40px;
+}
+
+.edit-button {
+  background: orange;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.add-employee-button {
+  background: orange;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}

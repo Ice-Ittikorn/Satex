@@ -12,7 +12,6 @@ export const Editemp = () => {
                 console.log('กำลังดึงข้อมูลพนักงาน...');
                 const response = await axios.get('http://localhost:3002/api/employees');
                 console.log('ข้อมูลพนักงานที่ดึงมา:', response.data);
-                // ตรวจสอบว่าได้ข้อมูลเป็นอาร์เรย์หรือไม่
                 if (Array.isArray(response.data)) {
                     setEmployees(response.data);
                 } else {
@@ -30,20 +29,17 @@ export const Editemp = () => {
     return (
         <div className="employee-container">
             <h1 className="title">ระบบจัดการพนักงาน</h1>
-
-            {/* แสดงข้อความแสดงข้อผิดพลาด */}
             {errorMessage && <div className="error-message">{errorMessage}</div>}
-
             <div className="search-box">
                 <input type="text" placeholder="ค้นหาพนักงานด้วยรหัส หรือชื่อ" />
             </div>
-
-            {/* ตรวจสอบว่า employees มีข้อมูลหรือไม่ */}
             <div className="employee-grid">
                 {employees.length > 0 ? (
                     employees.map((emp) => (
                         <div key={emp.empid} className="employee-card">
-                            <img src={emp.image} alt={emp.name} className="employee-image" />
+                            <div className="image-container">
+                                <img src={emp.image} alt={emp.name} className="employee-image" />
+                            </div>
                             <div className="employee-info">
                                 <p><strong>รหัสพนักงาน:</strong> Em{emp.empid}</p>
                                 <p><strong>ชื่อพนักงาน:</strong> {emp.name} {emp.lastname}</p>
@@ -58,7 +54,6 @@ export const Editemp = () => {
                     <p>กำลังโหลดข้อมูล...</p>
                 )}
             </div>
-
             <button className="add-employee-button">เพิ่มพนักงาน</button>
         </div>
     );

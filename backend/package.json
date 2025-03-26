@@ -23,5 +23,4 @@
     "nodemon": "^3.1.9"
   },
   "proxy": "http://localhost:3002"
-
 }
