@@ -40,3 +40,12 @@
     100% { transform: translateX(3px); }
   }
   
+  .username{
+    padding: 20px;
+
+  }
+
+  .but_logout{
+    padding: 20px;
+    font-size: 18px;
+  }
