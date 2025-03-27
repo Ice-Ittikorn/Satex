@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import "./Store.css";
 
-export const Store = () => {
+
+// Export default คอมโพเนนต์นี้
+const Store = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -10,6 +12,7 @@ export const Store = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // ฟังก์ชันต่างๆ
   const fetchProducts = async () => {
     try {
       const response = await fetch("http://localhost:3002/api/stores");
@@ -32,14 +35,13 @@ export const Store = () => {
     }
   }, [location.state]);
 
-  // Filter products based on the search term
   useEffect(() => {
     if (searchTerm) {
       const filtered = products.filter(
         (product) =>
           product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          product.storeid.toString().includes(searchTerm) ||  // Search by storeid
-          product.instore.toString().includes(searchTerm) // Search by instore quantity
+          product.Storeid.toString().includes(searchTerm) ||  // Search by Storeid
+          product.count.toString().includes(searchTerm) // Search by count quantity
       );
       setFilteredProducts(filtered);
     } else {
@@ -47,13 +49,13 @@ export const Store = () => {
     }
   }, [searchTerm, products]);
 
-  const handleEditClick = (storeid) => {
-    navigate(`/StockMack/${storeid}`);
+  const handleEditClick = (Storeid) => {
+    navigate(`/StockMack/${Storeid}`);
   };
 
-  const handleDeleteClick = (storeid) => {
+  const handleDeleteClick = (Storeid) => {
     if (window.confirm("คุณแน่ใจว่าจะลบสินค้านี้?")) {
-      fetch(`http://localhost:3002/api/stores/${storeid}`, {
+      fetch(`http://localhost:3002/api/stores/${Storeid}`, {
         method: 'DELETE',
       })
       .then(response => response.json())
@@ -85,33 +87,28 @@ export const Store = () => {
 
       <div className="employee-grid">
         {filteredProducts.length > 0 ? (
-          filteredProducts.map((product) => {
-            const isLowStock = product.instore < 5;
+          filteredProducts.map((product, index) => {
+            const isLowStock = product.count < 5;
             return (
               <div 
-                key={product.storeid} 
+                key={`${product.Storeid}-${index}`}  // เพิ่ม index เพื่อให้ key เป็นเอกลักษณ์
                 className={`employee-card ${isLowStock ? 'low-stock' : ''}`} 
               >
                 <div className="product-image-wrapper">
-                  <img 
-                    src={`http://localhost:3002${product.imgstore}`} 
-                    alt={product.name} 
-                    className="product-image" 
-                    onError={(e) => e.target.src = "/placeholder.jpg"} 
-                  />
+                <img src={`http://localhost:3002${product.image}`} alt={product.name} className="product-image" onError={(e) => e.target.src = "/placeholder.jpg"} />
                 </div>
                 <p><strong>ชื่อสินค้า:</strong> {product.name}</p>
                 <div className="employee-info">
-                  <p><strong>รหัสสินค้า:</strong> {product.storeid}</p>
-                  <p><strong>จำนวนคงเหลือ:</strong> {product.instore} {product.unit}</p>
+                  <p><strong>รหัสสินค้า:</strong> {product.Storeid}</p>
+                  <p><strong>จำนวนคงเหลือ:</strong> {product.count} {product.unit}</p>
                 </div>
                 <div className="employee-actions">
-                  <button className="edit-button" onClick={() => handleEditClick(product.storeid)}>
+                  <button className="edit-button" onClick={() => handleEditClick(product.Storeid)}>
                     แก้ไข
                   </button>
                   <button 
                     className="delete-button" 
-                    onClick={() => handleDeleteClick(product.storeid)}
+                    onClick={() => handleDeleteClick(product.Storeid)}
                     title="ลบสินค้า"
                   >
                     <i className="ri-delete-bin-5-line"></i>
@@ -128,4 +125,5 @@ export const Store = () => {
   );
 };
 
+// Export default คอมโพเนนต์นี้
 export default Store;

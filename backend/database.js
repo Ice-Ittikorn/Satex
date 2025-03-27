@@ -70,6 +70,8 @@ let db = new sqlite3.Database('example.db', (err) => {
             console.table(rows); // แสดงผลข้อมูลแบบตาราง
           }
 
+    
+
           // ปิดการเชื่อมต่อฐานข้อมูลหลังจากดึงข้อมูลเสร็จ
           db.close((err) => {
             if (err) {
@@ -81,6 +83,78 @@ let db = new sqlite3.Database('example.db', (err) => {
         });
       }
     });
+
+    db.run(`
+      CREATE TABLE IF NOT EXISTS "Store" (
+          Storeid INTEGER PRIMARY KEY AUTOINCREMENT,
+          name TEXT,
+          count TEXT,
+          unit TEXT,
+          image TEXT
+      );
+    
+        `, (err) => {
+          if (err) {
+            console.error('Error creating table:', err.message);
+          } else {
+            console.log('Table "Store" is ready.');
+    
+          
+            
+            // เตรียมคำสั่ง INSERT ให้ตรงกับโครงสร้างของตาราง
+            let stmt2 = db.prepare(`
+              INSERT INTO "Store" (name, count, unit, image)
+              VALUES (?,?,?,?)
+            `);
+    
+            // เพิ่มองค์ประกอบในตาราง
+            stmt2.run('น้ำตาล', '23', "กิโลกรัม", "/uploads/1743059388221.jpeg", (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+              stmt2.finalize(); // ปิดคำสั่ง
+            });
+    
+            stmt2.run('น้ำมัน', '32', "ลิตร", "/uploads/1743059388221.jpeg", (err) => {
+                if (err) {
+                  console.error('Error inserting second data:', err.message);
+                } else {
+                  console.log('Second data inserted successfully.');
+                }
+              });
+    
+              stmt2.run('เนื้อ', '83', "กิโลกรัม", "/uploads/1743059388221.jpeg", (err) => {
+                if (err) {
+                  console.error('Error inserting second data:', err.message);
+                } else {
+                  console.log('Second data inserted successfully.');
+                }
+              });
+            
+            // ดึงข้อมูลจากตารางและแสดงผล
+            db.all('SELECT * FROM "Store"', [], (err, rows) => {
+              if (err) {
+                console.error('Error fetching data:', err.message);
+              } else {
+                console.log('Menu Data:');
+                console.table(rows); // แสดงผลข้อมูลแบบตาราง
+              }
+    
+        
+    
+              // ปิดการเชื่อมต่อฐานข้อมูลหลังจากดึงข้อมูลเสร็จ
+              db.close((err) => {
+                if (err) {
+                  console.error('Error closing database:', err.message);
+                } else {
+                  console.log('Closed the database connection.');
+                }
+              });
+            });
+          }
+        });
 
        }
     });

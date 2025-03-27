@@ -2,8 +2,8 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Navbar from '../../Components/Navbar/Navbar';
 import Sidebar from '../../Components/Sidebar/Sidebar';
-import Stockedit from '../../Components/Stockedit/Stockedit';
 import Store from '../../Components/Store/Store';
+
 
 export const Stock = () => {
   return (

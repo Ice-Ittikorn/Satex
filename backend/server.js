@@ -2,12 +2,11 @@ const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
 const multer = require('multer');
-const path = require('path'); // You forgot to import `path` for handling file extensions
+const path = require('path');
 
 const app = express();
 const port = 3002;
 
-// ✅ Middleware สำหรับแปลงข้อมูลจาก JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
@@ -16,52 +15,60 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// ✅ เชื่อมต่อฐานข้อมูล SQLite
-let db = new sqlite3.Database('example.db', (err) => {
+// เชื่อมต่อฐานข้อมูล SQLite
+const db = new sqlite3.Database('example.db', (err) => {
   if (err) {
     console.error('Error opening database:', err.message);
   } else {
-    console.log('Connected to the SQLite database.');
+    console.log('✅ Connected to the SQLite database.');
 
-    // ✅ สร้างตาราง "emp" ถ้ายังไม่มี
+    // ✅ สร้างตาราง emp
     db.run(`
-  CREATE TABLE IF NOT EXISTS "emp" (
-      empid INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT,
-      lastname TEXT,
-      phone TEXT,
-      email TEXT,
-      gardID TEXT,
-      username TEXT,
-      password TEXT,
-      job TEXT
-  )
+      CREATE TABLE IF NOT EXISTS emp (
+        empid INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        lastname TEXT,
+        phone TEXT,
+        email TEXT,
+        gardID TEXT,
+        username TEXT,
+        password TEXT,
+        job TEXT
+      )
     `, (err) => {
-      if (err) {
-        console.error('Error creating table:', err.message);
-      } else {
-        console.log('Table "emp" is ready.');
-      }
+      if (err) console.error('Error creating table:', err.message);
+      else console.log('✅ Table "emp" is ready.');
+    });
+
+    // ✅ สร้างตาราง store
+    db.run(`
+      CREATE TABLE IF NOT EXISTS store (
+        storeid INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        count INTEGER,
+        unit TEXT,
+        image TEXT
+      )
+    `, (err) => {
+      if (err) console.error('Error creating table:', err.message);
+      else console.log('✅ Table "store" is ready.');
     });
   }
 });
 
-const fetchEmployees = async () => {
-  try {
-      const response = await axios.get('http://localhost:3002/api/employees');
-      console.log('Employee Data:', response.data); // ดูข้อมูลที่ได้รับจาก API
-      if (Array.isArray(response.data)) {
-          setEmployees(response.data);
-      } else {
-          setErrorMessage('ข้อมูลพนักงานไม่ถูกต้อง');
-      }
-  } catch (error) {
-      setErrorMessage('เกิดข้อผิดพลาดในการดึงข้อมูล');
+// ✅ จัดการการอัปโหลดไฟล์
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
   }
-};
+});
 
+const upload = multer({ storage });
 
-// ✅ เช็ค Login
+// ✅ Login
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
 
@@ -88,21 +95,17 @@ app.get('/api/employees', (req, res) => {
   });
 });
 
-
-// ✅ ดึงข้อมูลพนักงานตาม empid
+// ✅ ดึงข้อมูลพนักงานตาม ID
 app.get('/api/employees/:id', (req, res) => {
   const { id } = req.params;
   db.get('SELECT * FROM emp WHERE empid = ?', [id], (err, row) => {
     if (err) return res.status(500).json({ error: err.message });
-    if (row) {
-      res.json(row);
-    } else {
-      res.status(404).json({ message: 'Employee not found' });
-    }
+    if (row) res.json(row);
+    else res.status(404).json({ message: 'Employee not found' });
   });
 });
 
-// ✅ เพิ่มพนักงานใหม่
+// ✅ เพิ่มข้อมูลพนักงานใหม่
 app.post('/api/employees', (req, res) => {
   const { name, lastname, phone, email, gardID, username, password, job } = req.body;
 
@@ -126,21 +129,14 @@ app.put('/api/employees/:id', (req, res) => {
   const { id } = req.params;
   const { name, lastname, phone, email, job, username, password } = req.body;
 
-  if (!name || !lastname || !phone || !email || !job || !username || !password) {
-    return res.status(400).json({ message: 'กรุณากรอกข้อมูลให้ครบถ้วน' });
-  }
-
   const sql = `
     UPDATE emp
     SET name = ?, lastname = ?, phone = ?, email = ?, job = ?, username = ?, password = ?
     WHERE empid = ?
   `;
-  
+
   db.run(sql, [name, lastname, phone, email, job, username, password, id], function (err) {
     if (err) return res.status(500).json({ error: err.message });
-    if (this.changes === 0) {
-      return res.status(404).json({ message: 'Employee not found' });
-    }
     res.json({ message: 'อัปเดตพนักงานสำเร็จ' });
   });
 });
@@ -148,104 +144,46 @@ app.put('/api/employees/:id', (req, res) => {
 // ✅ ลบข้อมูลพนักงาน
 app.delete('/api/employees/:id', (req, res) => {
   const { id } = req.params;
-
-  const query = 'DELETE FROM emp WHERE empid = ?';
-  db.run(query, [id], function (err) {
+  db.run('DELETE FROM emp WHERE empid = ?', [id], function (err) {
     if (err) return res.status(500).json({ error: err.message });
-    if (this.changes === 0) {
-      return res.status(404).json({ message: 'ไม่พบพนักงานที่ต้องการลบ' });
-    }
     res.json({ message: 'ลบพนักงานสำเร็จ' });
   });
-
 });
 
-// Create the Store table
-db.run(`
-  CREATE TABLE IF NOT EXISTS "Store" (
-    storeid INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    instore TEXT,
-    unit TEXT,
-    imgstore TEXT
-  )
-`, (err) => {
-  if (err) {
-    console.error('Error creating table:', err.message);
-  } else {
-    console.log('Table "Store" is ready.');
-  }
+// ✅ เพิ่มข้อมูลร้านค้า
+app.post('/api/stores', upload.single('image'), (req, res) => {
+  const { name, count, unit } = req.body;
+  const image = req.file ? `/uploads/${req.file.filename}` : null;
+
+  const query = `
+    INSERT INTO store (name, count, unit, image)
+    VALUES (?, ?, ?, ?)
+  `;
+  
+  db.run(query, [name, count, unit, image], function(err) {
+    if (err) return res.status(500).json({ error: err.message });
+    res.status(201).json({ storeid: this.lastID });
+  });
 });
 
-// ✅ ดึงข้อมูลร้านค้า
+// ✅ ดึงข้อมูลร้านค้าทั้งหมด
 app.get('/api/stores', (req, res) => {
-  db.all('SELECT * FROM Store', [], (err, rows) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
+  db.all('SELECT * FROM store', [], (err, rows) => {
+    if (err) return res.status(500).json({ error: err.message });
     res.json(rows);
   });
 });
 
-// การจัดการการอัปโหลดไฟล์
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  }
-});
-
-const upload = multer({ storage: storage });
-
-// ✅ Endpoint สำหรับการเพิ่มร้านค้า
-app.post('/api/stores', upload.single('image'), (req, res) => {
-  const { name, instore, unit } = req.body;
-  const imgstore = req.file ? `/uploads/${req.file.filename}` : null;
-
-  // Insert into the Store table
-  const query = `
-    INSERT INTO Store (name, instore, unit, imgstore)
-    VALUES (?, ?, ?, ?)
-  `;
-  
-  db.run(query, [name, instore, unit, imgstore], function(err) {
-    if (err) {
-      return res.status(500).json({ message: 'Failed to add store item', error: err.message });
-    }
-    res.status(201).json({ message: 'Store item added successfully', store_id: this.lastID });
-  });
-});
-
-const fetchEmployeeData = async () => {
-  try {
-      const response = await axios.get(`http://localhost:3002/api/employees/${empId}`);
-      console.log("Employee data:", response.data); // ➡️ ดูว่าได้ข้อมูลครบหรือเปล่า
-      if (response.data) {
-          setFormData(response.data);
-      }
-  } catch (error) {
-      console.error('เกิดข้อผิดพลาดในการดึงข้อมูลพนักงาน:', error);
-      alert('ไม่สามารถดึงข้อมูลพนักงานได้');
-  }
-};
-
-app.get('/api/employees/:id', (req, res) => {
+// ✅ ลบข้อมูลร้านค้า
+app.delete('/api/stores/:id', (req, res) => {
   const { id } = req.params;
-  db.get('SELECT * FROM emp WHERE empid = ?', [id], (err, row) => {
+  db.run('DELETE FROM store WHERE storeid = ?', [id], function(err) {
     if (err) return res.status(500).json({ error: err.message });
-    console.log('Data fetched:', row); // ➡️ เช็คว่าได้ข้อมูลครบไหม
-    if (row) {
-      res.json(row);
-    } else {
-      res.status(404).json({ message: 'Employee not found' });
-    }
+    res.json({ message: 'ลบร้านค้าสำเร็จ' });
   });
 });
 
-
-// ✅ เริ่มเซิร์ฟเวอร์
+// ✅ เปิดเซิร์ฟเวอร์
 app.listen(port, () => {
   console.log(`🚀 Server is running on http://localhost:${port}`);
 });

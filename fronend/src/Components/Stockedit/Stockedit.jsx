@@ -1,107 +1,94 @@
-import React, { useState } from 'react';
-import './Stockedit.css';
+import { useState } from 'react';
+import axios from 'axios';
 
-export const Stockedit = () => {
-    const [expiryDate, setExpiryDate] = useState('');
-    const [imagePreview, setImagePreview] = useState(null);
+const Stockedit = ({ storeData }) => {
+  const [name, setName] = useState(storeData?.name || '');
+  const [instore, setInstore] = useState(storeData?.instore || '');
+  const [unit, setUnit] = useState(storeData?.unit || '');
+  const [file, setFile] = useState(null);
 
-    // ฟังก์ชันจัดการการป้อนวันที่
-    const handleDateChange = (event) => {
-        let value = event.target.value.replace(/\D/g, ''); // เอาเฉพาะตัวเลข
-        if (value.length > 8) return; // จำกัดความยาวไม่เกิน 8 ตัว (DDMMYYYY)
+  // ✅ ตัวเลือกของหน่วย
+  const unitOptions = [
+    'กิโลกรัม',
+    'กรัม',
+    'ลิตร',
+    'มิลลิลิตร',
+    'ขวด',
+    'ถุง',
+    'ลูก',
+    'เม็ด',
+    'ใบ',
+  ];
 
-        let formattedValue = '';
-        if (value.length > 0) {
-            formattedValue = value.substring(0, 2); // วันที่ (DD)
-        }
-        if (value.length > 2) {
-            formattedValue += '/' + value.substring(2, 4); // เดือน (MM)
-        }
-        if (value.length > 4) {
-            formattedValue += '/' + value.substring(4, 8); // ปี (YYYY)
-        }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        setExpiryDate(formattedValue);
-    };
+    try {
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('instore', instore);
+      formData.append('unit', unit);
+      if (file) formData.append('image', file);
 
-    // ฟังก์ชันอัปโหลดรูปภาพ
-    const handleImageUpload = (event) => {
-        const file = event.target.files[0];
-        if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImagePreview(reader.result);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
+      if (storeData?.storeid) {
+        await axios.put(`http://localhost:3002/api/stores/${storeData.storeid}`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+        alert('Store updated successfully');
+      } else {
+        await axios.post('http://localhost:3002/api/stores', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+        alert('Store added successfully');
+      }
+    } catch (error) {
+      console.error('There was an error saving the product:', error);
+      alert(`Error: ${error.response?.data?.message || error.message}`);
+    }
+  };
 
-    // ฟังก์ชันลบรูปภาพ
-    const handleImageRemove = () => {
-        setImagePreview(null);
-    };
+  return (
+    <form onSubmit={handleSubmit}>
+      {/* ✅ Name */}
+      <div>
+        <label>Name:</label>
+        <input value={name} onChange={(e) => setName(e.target.value)} required />
+      </div>
 
-    return (
-        <div className="stockedit-container">
-            {/* หัวข้อและปุ่มอัปเดต */}
-            <div className="header">
-                <h1 className="stock-title">สินค้าคงคลัง</h1>
-            </div>
+      {/* ✅ Instore */}
+      <div>
+        <label>Instore:</label>
+        <input value={instore} onChange={(e) => setInstore(e.target.value)} required />
+      </div>
 
-            {/* กล่องฟอร์มแก้ไขสต็อก */}
-            <div className="edit-box">
-                {/* อัปโหลดรูปภาพ */}
-                <div className="image-upload">
-                    {imagePreview ? (
-                        <div className="image-wrapper">
-                            <img src={imagePreview} alt="สินค้า" className="preview-image" />
-                            <button className="remove-image-button" onClick={handleImageRemove}>
-                                ✖
-                            </button>
-                        </div>
-                    ) : (
-                        <label className="image-placeholder">
-                            เพิ่มรูปภาพ
-                            <input type="file" accept="image/*" onChange={handleImageUpload} hidden />
-                        </label>
-                    )}
-                </div>
+      {/* ✅ Unit (เลือกหรือพิมพ์เองได้) */}
+      <div>
+        <label>Unit:</label>
+        <input 
+          list="unit-options" 
+          value={unit} 
+          onChange={(e) => setUnit(e.target.value)} 
+          required 
+        />
+        <datalist id="unit-options">
+          {unitOptions.map((option) => (
+            <option key={option} value={option} />
+          ))}
+        </datalist>
+      </div>
 
-                {/* ฟอร์มข้อมูลสินค้า */}
-                <div className="form-container">
-                    <div className="form-group">
-                        <label>รหัสสินค้า :</label>
-                        <input type="text" disabled />
-                    </div>
-                    <div className="form-group">
-                        <label>ชื่อสินค้า :</label>
-                        <input type="text" />
-                    </div>
-                    <div className="form-group">
-                        <label>จำนวน :</label>
-                        <input type="number" />
-                    </div>
-                    <div className="form-group">
-                        <label>วันที่หมดอายุ :</label>
-                        <input
-                            type="text"
-                            placeholder="DD/MM/YYYY"
-                            value={expiryDate}
-                            onChange={handleDateChange}
-                            maxLength="10"
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>สถานะ :</label>
-                        <input type="text" />
-                    </div>
-                </div>
+      {/* ✅ Image */}
+      <div>
+        <label>Image:</label>
+        <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+      </div>
 
-                {/* ปุ่มยืนยัน */}
-                <button className="confirm-button">ยืนยัน</button>
-            </div>
-        </div>
-    );
+      {/* ✅ Submit Button */}
+      <button type="submit">
+        {storeData?.storeid ? 'Update Store' : 'Add Store'}
+      </button>
+    </form>
+  );
 };
 
 export default Stockedit;
