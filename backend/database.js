@@ -162,7 +162,7 @@ let db = new sqlite3.Database('example.db', (err) => {
               stmt2.finalize();
             });
             
-            stmt2.run('น้ำมันมะกอกหรือน้ำมันพืช', '15', 'ลิตร', '/uploads/s_น้ำมันมะกอกหรือน้ำมันพืช.jpeg', (err) => {
+            stmt2.run('น้ำมันมะกอก', '15', 'ลิตร', '/uploads/s_น้ำมันมะกอกหรือน้ำมันพืช.jpeg', (err) => {
               if (err) {
                 console.error('Error inserting data:', err.message);
               } else {

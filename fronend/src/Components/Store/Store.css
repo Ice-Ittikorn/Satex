@@ -3,6 +3,21 @@
     width: 80%;
     margin: auto;
     font-family: 'Arial', sans-serif;
+    margin-top: 110px;
+}
+
+.store-card {
+    background: #f9f9f9;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+}
+
+.employee-info {
+    text-align: left;
+    margin-top: 10px;
 }
 
 /* จัดตำแหน่งส่วนหัว */
@@ -49,6 +64,10 @@
     gap: 20px;
 }
 
+.gard-info2 p{
+    padding: 10px;
+}
+
 /* กล่องแสดงข้อมูลสินค้า */
 .product-card {
     background: #fff;
@@ -75,6 +94,7 @@
     max-height: 100%;
     border-radius: 10px;
     object-fit: cover;
+    margin-top: 10px;
 }
 
 /* สไตล์ของรายละเอียดสินค้า */
@@ -95,17 +115,6 @@
     color: red;
 }
 
-/* ปุ่มแก้ไข */
-.edit-button {
-    background-color: #f4a261;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    font-size: 14px;
-}
 
 /* ทำให้ responsive */
 @media (max-width: 1024px) {
@@ -118,4 +127,40 @@
     .product-list {
         grid-template-columns: repeat(1, 1fr);
     }
+}
+
+.button-container2 {
+    display: flex; /* จัดให้อยู่ในแถวเดียว */
+    align-items: center;
+    text-align: center;
+    margin-top: 15px ;
+    
+}
+
+.edit-btn2 {
+    background-color:  #FFB856;
+    color: white;
+    width: 140px;
+    height: 50px;
+    margin-right: 15px ;
+    border-radius: 10px;
+    border: none;
+
+}
+
+.delete-btn {
+    background-color: #f44336;
+    color: white;
+    height: 50px;
+    width: 70px;
+    border: none;
+    border-radius: 10px;
+}
+
+.edit-btn:hover {
+    background-color: #45a049;
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f;
 }

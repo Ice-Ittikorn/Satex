@@ -3,6 +3,11 @@
     display: flex;
     align-items: center; /* จัดให้ตรงกลางแนวตั้ง */
     padding: 10px 20px;
+    position: fixed;  /* ทำให้ navbar อยู่คงที่ */
+    top: 0;  /* อยู่ที่ด้านบนสุด */
+    left: 0;
+    right: 0;
+    z-index: 1000; /* ทำให้แน่ใจว่า navbar อยู่ด้านหน้า */
 }
 
 .navbar__container img {

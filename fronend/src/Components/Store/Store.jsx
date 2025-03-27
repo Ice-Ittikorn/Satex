@@ -58,18 +58,18 @@ const Store = () => {
       fetch(`http://localhost:3002/api/stores/${Storeid}`, {
         method: 'DELETE',
       })
-      .then(response => response.json())
-      .then(() => fetchProducts())
-      .catch(error => console.error("Error deleting product:", error));
+        .then(response => response.json())
+        .then(() => fetchProducts())
+        .catch(error => console.error("Error deleting product:", error));
     }
   };
 
   return (
     <div className="stock-container">
       <div className="header">
-        {successMessage && <div className="success-message">{successMessage}</div>}  
+        {successMessage && <div className="success-message">{successMessage}</div>}
         <h1 className="stock-title">สินค้าคงคลัง</h1>
-        
+
         <Link to="/StockEdit">
           <button className="update-button">อัปเดตสต็อกสินค้า</button>
         </Link>
@@ -90,33 +90,26 @@ const Store = () => {
           filteredProducts.map((product, index) => {
             const isLowStock = product.count < 5;
             return (
-              <div 
+              <div
                 key={`${product.Storeid}-${index}`}  // เพิ่ม index เพื่อให้ key เป็นเอกลักษณ์
-                className={`employee-card ${isLowStock ? 'low-stock' : ''}`} 
+                className={`store-card ${isLowStock ? 'low-stock' : ''}`}
               >
-<img 
-  src={`http://localhost:3002${product.image}`} 
-  alt={product.name} 
-  className="product-image" 
-  onError={(e) => e.target.src = "/placeholder.jpg"} 
-/>
-
                 <p><strong>ชื่อสินค้า:</strong> {product.name}</p>
-                <div className="employee-info">
+                <img
+                  src={`http://localhost:3002${product.image}`}
+                  alt={product.name}
+                  className="product-image"
+                  onError={(e) => e.target.src = "/placeholder.jpg"}
+                />
+
+
+                <div className="gard-info2">
                   <p><strong>รหัสสินค้า:</strong> {product.Storeid}</p>
                   <p><strong>จำนวนคงเหลือ:</strong> {product.count} {product.unit}</p>
                 </div>
-                <div className="employee-actions">
-                  <button className="edit-button" onClick={() => handleEditClick(product.Storeid)}>
-                    แก้ไข
-                  </button>
-                  <button 
-                    className="delete-button" 
-                    onClick={() => handleDeleteClick(product.Storeid)}
-                    title="ลบสินค้า"
-                  >
-                    <i className="ri-delete-bin-5-line"></i>
-                  </button>
+                <div className="button-container2">
+                  <button className="edit-btn2" onClick={() => handleEditClick(product.Storeid)}>แก้ไข</button>
+                  <button className="delete-btn" onClick={() => handleDeleteClick(product.Storeid)} title="ลบสินค้า"><i className="ri-delete-bin-5-line"></i></button>
                 </div>
               </div>
             );
