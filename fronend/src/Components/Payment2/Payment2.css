@@ -1,53 +1,36 @@
 .payment {
-    text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
-    padding: 20px; /* เพิ่มระยะห่างภายใน */
-  }
-  
-  .payment h1 {
-    margin-bottom: 20px; /* เพิ่มระยะห่างด้านล่างหัวข้อ */
-    text-align: left; /* จัดข้อความของหัวข้อให้ชิดซ้าย */
-  }
-  
-  .payment_content {
-    display: grid; /* ใช้การจัดเรียงแบบ Grid */
-    grid-template-columns: repeat(4, 1fr); /* สร้าง 4 คอลัมน์ให้เท่ากัน */
-    gap: 50px; /* เพิ่มช่องว่างระหว่างปุ่ม */
-    max-width: 600px; /* จำกัดความกว้างสูงสุดของคอนเทนต์ */
-    margin: 0 auto; /* จัดให้อยู่ตรงกลางในแนวนอน */
-  }
-  
-  .payment_content button {
-    padding: 30px; /* เพิ่มขนาดของปุ่ม */
-    border: none; /* ลบเส้นขอบออกจากปุ่ม */
-    border-radius: 8px; /* ทำให้มุมของปุ่มโค้ง */
-    font-size: 16px; /* กำหนดขนาดตัวอักษรในปุ่ม */
-    cursor: pointer; /* เปลี่ยนเคอร์เซอร์เป็นรูปมือเมื่อชี้ที่ปุ่ม */
-    transition: background-color 0.3s ease; /* เพิ่มการเปลี่ยนสีพื้นหลังเมื่อมีการโฮเวอร์ */
-  }
-  
-  /* ปุ่มที่เป็นหมายเลขคู่ (2, 4, 6, ...) */
-  .payment_content button:nth-child(even) {
-    background-color: #4CAF50; /* สีเขียวสำหรับปุ่มคู่ */
-    color: white; /* สีข้อความเป็นสีขาว */
-  }
-  
-  /* ปุ่มที่เป็นหมายเลขคี่ (1, 3, 5, ...) และปุ่มที่เป็นหมายเลข 4n+4 (4, 8, 12, ...) */
-  .payment_content button:nth-child(odd),
-  .payment_content button:nth-child(4n+4) {
-    background-color: #f44336; /* สีแดงสำหรับปุ่มคี่ และปุ่มที่ 4, 8, 12, ... */
-    color: white; /* สีข้อความเป็นสีขาว */
-  }
-  
-  /* ปุ่มที่ 1 และ 4 ในแต่ละแถว */
-  .payment_content button:nth-child(4n+1) {
-    background-color: #e0e0e0; /* สีเทาสำหรับปุ่มที่ 1 และ 4 ในแต่ละแถว */
-    color: black; /* สีข้อความเป็นสีดำ */
-  }
-  
-  /* ปุ่มที่ 2 และ 3 ในแต่ละแถว */
-  .payment_content button:nth-child(4n+2),
-  .payment_content button:nth-child(4n+3) {
-    background-color: #4CAF50; /* สีเขียวสำหรับปุ่มที่ 2 และ 3 ในแต่ละแถว */
-    color: white; /* สีข้อความเป็นสีขาว */
-  }
-  
+  text-align: center;
+  padding: 20px;
+}
+
+.payment h1 {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.payment_content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.payment_content button {
+  padding: 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.payment_content button:nth-child(even) {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.payment_content button:nth-child(odd) {
+  background-color: #f44336;
+  color: white;
+}

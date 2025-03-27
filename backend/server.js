@@ -332,6 +332,39 @@ app.delete('/api/orders/table/:tableId', (req, res) => {
   });
 });
 
+app.get('/api/orders/table/:tableId', (req, res) => {
+  const tableId = req.params.tableId;
+  const query = `SELECT * FROM oder WHERE tableid = ?`; // ใช้ตาราง 'oder'
+
+  db.all(query, [tableId], (err, rows) => {
+    if (err) {
+      console.error('Error fetching orders:', err.message);
+      return res.status(500).send('Error fetching orders');
+    }
+    res.json({
+      orders: rows.map(order => ({
+        name: order.manu, // แสดง manu แทน name
+        price: order.price, // ใช้ราคาในฐานข้อมูล
+      })),
+    });
+  });
+});
+
+// API ลบคำสั่งซื้อทั้งหมดของโต๊ะนั้น
+app.delete('/api/orders/table/:tableId', (req, res) => {
+  const tableId = req.params.tableId;
+  const query = `DELETE FROM oder WHERE tableid = ?`; // ลบคำสั่งซื้อที่ตรงกับ tableId
+
+  db.run(query, [tableId], function(err) {
+    if (err) {
+      console.error('Error deleting orders for table:', err.message);
+      return res.status(500).send('Error deleting orders for table');
+    }
+    res.status(200).send('All orders for table deleted successfully');
+  });
+});
+
+
 
 
 // ✅ เปิดเซิร์ฟเวอร์

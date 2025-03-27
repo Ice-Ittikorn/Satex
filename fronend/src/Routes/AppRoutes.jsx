@@ -17,6 +17,7 @@ import STM from '../Pages/STM/STM';
 import Stockmack from '../Pages/Stockmack/Stockmack';
 import Send from '../Pages/Send/Send';
 import Chosemenu from '../Pages/Chosemenu/Chosemenu';
+import PMT from '../Pages/PMT/PMT';
 
 
 const AppRoutes = () => {
@@ -40,7 +41,8 @@ const AppRoutes = () => {
             <Route path='/STM' element={<STM/>}/>
             <Route path="/Stockmack/:storeid" element={<Stockmack/>} /> 
             <Route path="/Send" element={<Send/>} /> 
-            <Route path="/Chosemenu" element={<Chosemenu/>} /> 
+            <Route path="/Chosemenu" element={<Chosemenu/>} />
+            <Route path="/PMT" element={<PMT/>} />
 
         </Routes>
     </Router>
