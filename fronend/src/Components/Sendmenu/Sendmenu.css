@@ -1,31 +1,105 @@
+-------------------------------------------------------------------------------------------------
 .menu-container {
-    padding: 20px;
+    padding: 10px;
+    max-width: 100%;
+    margin: auto;
 }
 
 .menu-items {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    margin-top: 20px;
 }
 
 .menu-item {
-    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
     padding: 15px;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
-
-.menu-item h3 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-}
-
-.menu-item p {
-    margin: 5px 0;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    gap: 15px;
+    border-bottom: 3px solid #ffcc00;
 }
 
 .menu-item img {
-    max-width: 100%;
-    height: auto;
-    margin-top: 10px;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
 }
+
+.menu-content {
+    flex: 1;
+}
+
+.menu-item h3 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.menu-details {
+    font-size: 0.9em;
+    color: gray;
+    margin-bottom: 8px;
+}
+
+.menu-price {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 8px;
+}
+
+.menu-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.details-btn {
+    background-color: #ffcc00;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.add-btn {
+    background-color: #009900;
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .menu-item {
+        max-width: 600px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .menu-items {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .menu-item {
+        width: 45%;
+        max-width: 450px;
+    }
+}
+
