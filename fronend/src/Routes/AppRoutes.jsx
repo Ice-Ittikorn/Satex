@@ -24,6 +24,8 @@ import Stockmack from '../Pages/Stockmack/Stockmack';
 import Send from '../Pages/Send/Send';
 import Chosemenu from '../Pages/Chosemenu/Chosemenu';
 import Edit_odertable from '../Pages/Edit_odertable/Edit_oder';
+import PMT from '../Pages/PMT/PMT';
+
 
 const AppRoutes = () => {
   return (
@@ -51,6 +53,8 @@ const AppRoutes = () => {
           <Route path="/Send" element={<Send />} />
           <Route path="/Chosemenu" element={<Chosemenu />} />
           <Route path="/Edit_odertable" element={<Edit_odertable />} />
+          <Route path="/PMT" element={<PMT/>} />
+
         </Routes>
       </Router>
     </>

@@ -1,0 +1,45 @@
+.payment-terminal {
+    text-align: center;
+    padding: 20px;
+}
+
+.order-list {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+h2 {
+    margin-top: 20px;
+    color: #f44336;
+}
+
+.payment-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.payment-button:hover {
+    background-color: #45a049;
+}
+
+.payment-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
