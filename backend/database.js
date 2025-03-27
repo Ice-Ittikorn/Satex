@@ -108,30 +108,142 @@ let db = new sqlite3.Database('example.db', (err) => {
             `);
     
             // เพิ่มองค์ประกอบในตาราง
-            stmt2.run('น้ำตาล', '23', "กิโลกรัม", "/uploads/1743059388221.jpeg", (err) => {
+            stmt2.run('Pork Collar', '23', 'กิโลกรัม', '/uploads/s_Pork Collar.jpg', (err) => {
               if (err) {
                 console.error('Error inserting data:', err.message);
               } else {
                 console.log('Data inserted successfully.');
               }
-              stmt2.finalize(); // ปิดคำสั่ง
+              stmt2.finalize();
             });
-    
-            stmt2.run('น้ำมัน', '32', "ลิตร", "/uploads/1743059388221.jpeg", (err) => {
-                if (err) {
-                  console.error('Error inserting second data:', err.message);
-                } else {
-                  console.log('Second data inserted successfully.');
-                }
-              });
-    
-              stmt2.run('เนื้อ', '83', "กิโลกรัม", "/uploads/1743059388221.jpeg", (err) => {
-                if (err) {
-                  console.error('Error inserting second data:', err.message);
-                } else {
-                  console.log('Second data inserted successfully.');
-                }
-              });
+            
+            stmt2.run('Pork Loin', '24', 'กิโลกรัม', '/uploads/s_Pork Loin.jpg', (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+              stmt2.finalize();
+            });
+            
+            stmt2.run('Ribeye', '25', 'กิโลกรัม', '/uploads/s_Ribeye.jpg', (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+              stmt2.finalize();
+            });
+            
+            stmt2.run('Sirloin', '26', 'กิโลกรัม', '/uploads/s_Sirloin.jpg', (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+              stmt2.finalize();
+            });
+            
+            stmt2.run('Tenderloin', '27', 'กิโลกรัม', '/uploads/s_Tenderloin.jpg', (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+              stmt2.finalize();
+            });
+            
+            stmt2.run('เกลือ', '10', 'กิโลกรัม', '/uploads/s_เกลือ.jpg', (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+              stmt2.finalize();
+            });
+            
+            stmt2.run('น้ำมันมะกอกหรือน้ำมันพืช', '15', 'ลิตร', '/uploads/s_น้ำมันมะกอกหรือน้ำมันพืช.jpeg', (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+              stmt2.finalize();
+            });
+            
+            stmt2.run('เนย', '12', 'กิโลกรัม', '/uploads/s_เนย.jpg', (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+              stmt2.finalize();
+            });
+            
+            stmt2.run('เนื้อปลาแซลมอน', '30', 'กิโลกรัม', '/uploads/s_เนื้อปลาแซลมอน.jpg', (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+              stmt2.finalize();
+            });
+            
+            stmt2.run('ผักกาดหอม', '8', 'กิโลกรัม', '/uploads/s_ผักกาดหอม.png', (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+              stmt2.finalize();
+            });
+            
+            stmt2.run('กะหล่ำปลีม่วง', '9', 'กิโลกรัม', '/uploads/s_กะหล่ำปลีม่วง.jpg', (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+              stmt2.finalize();
+            });
+            
+            stmt2.run('มะเขือเทศเชอร์รี่', '7', 'กิโลกรัม', '/uploads/s_มะเขือเทศเชอร์รี่.jpg', (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+              stmt2.finalize();
+            });
+            
+            
+            stmt2.run('พริกหวาน', '11', 'กิโลกรัม', '/uploads/s_พริกหวาน.jpg', (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+              stmt2.finalize();
+            });
+            
+            stmt2.run('อะโวคาโด', '5', 'กิโลกรัม', '/uploads/s_อะโวคาโด.jpg', (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+              stmt2.finalize();
+            });
+            
+            stmt2.run('พริกไทยดำบด', '4', 'กิโลกรัม', '/uploads/s_พริกไทยดำบด.jpg', (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+              stmt2.finalize();
+            });
+            
             
             // ดึงข้อมูลจากตารางและแสดงผล
             db.all('SELECT * FROM "Store"', [], (err, rows) => {
@@ -142,20 +254,7 @@ let db = new sqlite3.Database('example.db', (err) => {
                 console.table(rows); // แสดงผลข้อมูลแบบตาราง
               }
 
-                          // เพิ่มองค์ประกอบในตาราง
-            stmt2.run('น้ำตาล', '23', "กิโลกรัม", "/uploads/1743059388221.jpeg", (err) => {
-              if (err) {
-                console.error('Error inserting data:', err.message);
-              } else {
-                console.log('Data inserted successfully.');
-              }
-              stmt2.finalize(); // ปิดคำสั่ง
-            });
 
-
-    
-        
-    
               // ปิดการเชื่อมต่อฐานข้อมูลหลังจากดึงข้อมูลเสร็จ
               db.close((err) => {
                 if (err) {
