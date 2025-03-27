@@ -1,27 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import './EDM.css';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
 export const EDM = () => {
-    const foodItems = [
-        { id: 1, img: "c:\Users\Not Sloth\Pictures\Saved Pictures\image0.jpg", name: "Steak" },
-        { id: 2, img: "c:\Users\Not Sloth\Pictures\Saved Pictures\image0.jpg", name: "Grilled Fish" },
-        { id: 3, img: "c:\Users\Not Sloth\Pictures\Saved Pictures\image0.jpg", name: "BBQ Pork" },
-        { id: 4, img: "c:\Users\Not Sloth\Pictures\Saved Pictures\image0.jpg", name: "Salad" },
-        { id: 5, img: "c:\Users\Not Sloth\Pictures\Saved Pictures\image0.jpg", name: "Soup" },
-    ];
+    const [foodItems, setFoodItems] = useState([]);
+
+    // ดึงข้อมูลจากฐานข้อมูล (menuid, name, inkitchen, menuimg)
+    useEffect(() => {
+        axios.get('http://localhost:3002/api/menu')
+            .then((response) => {
+                // เลือกเฉพาะ menuid, name, inkitchen, menuimg
+                const filteredData = response.data.map(item => ({
+                    menuid: item.menuid,
+                    name: item.name,
+                    inkitchen: item.inkitchen,
+                    menuimg: item.menuimg
+                }));
+                setFoodItems(filteredData);
+            })
+            .catch((error) => {
+                console.error('Error fetching menu data:', error);
+            });
+    }, []);
 
     return (
         <div className="menu-container">
             <h1>🍽️ ระบบจัดการเมนูอาหาร</h1>
             <div className="grid-container">
-                {/* แสดงรายการอาหาร */}
                 {foodItems.map((item) => (
-                    <div key={item.id} className="menu-item">
-                        <img src={item.img} alt={item.name} />
+                    <div key={item.menuid} className="menu-itemedm">
+                        <img 
+                            src={`http://localhost:3002${item.menuimg}`} 
+                            alt={item.name} 
+                            className="food-image"
+                            onError={(e) => e.target.src = "/placeholder.jpg"}
+                        />
+                        <p><strong>ID:</strong> {item.menuid}</p>
+                        <p><strong>Name:</strong> {item.name}</p>
+                        <p><strong>In Kitchen:</strong> {item.inkitchen}</p>
                     </div>
                 ))}
 
-                {/* เพิ่มช่องว่างตามภาพ */}
+                {/* เพิ่มช่องว่างให้ grid เต็ม */}
                 {Array.from({ length: 4 }).map((_, index) => (
                     <div key={index + foodItems.length} className="empty-slot"></div>
                 ))}
