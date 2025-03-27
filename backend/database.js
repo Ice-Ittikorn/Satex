@@ -9,17 +9,18 @@ let db = new sqlite3.Database('example.db', (err) => {
     
     // ตารางหมวดหมู่อาหาร (สร้างก่อนการ insert)
     db.run(`
-      CREATE TABLE IF NOT EXISTS "emp" (
-        empid INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT,
-        lastname TEXT,
-        Phone TEXT,
-        Email TEXT,
-        gardID TEXT,
-        Username TEXT,
-        Password TEXT,
-        Job TEXT
-      )
+  CREATE TABLE IF NOT EXISTS "emp" (
+      empid INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT,
+      lastname TEXT,
+      phone TEXT,
+      email TEXT,
+      gardID TEXT,
+      username TEXT,
+      password TEXT,
+      job TEXT
+  );
+
     `, (err) => {
       if (err) {
         console.error('Error creating table:', err.message);
@@ -30,7 +31,7 @@ let db = new sqlite3.Database('example.db', (err) => {
         
         // เตรียมคำสั่ง INSERT ให้ตรงกับโครงสร้างของตาราง
         let stmt1 = db.prepare(`
-          INSERT INTO "emp" (name, lastname, Phone, Email, gardID, Username, Password, Job)
+          INSERT INTO "emp" (name, lastname, phone, email, gardID, username, password, job)
           VALUES (?,?,?,?,?,?,?,?)
         `);
 

@@ -25,17 +25,17 @@ let db = new sqlite3.Database('example.db', (err) => {
 
     // ✅ สร้างตาราง "emp" ถ้ายังไม่มี
     db.run(`
-      CREATE TABLE IF NOT EXISTS emp (
-        empid INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT,
-        lastname TEXT,
-        phone TEXT,
-        email TEXT,
-        gardID TEXT,
-        username TEXT,
-        password TEXT,
-        job TEXT
-      )
+  CREATE TABLE IF NOT EXISTS "emp" (
+      empid INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT,
+      lastname TEXT,
+      phone TEXT,
+      email TEXT,
+      gardID TEXT,
+      username TEXT,
+      password TEXT,
+      job TEXT
+  )
     `, (err) => {
       if (err) {
         console.error('Error creating table:', err.message);
