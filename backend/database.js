@@ -268,7 +268,7 @@ let db = new sqlite3.Database('example.db', (err) => {
         });
 
         // ตารางหมวดหมู่อาหาร (สร้างก่อนการ insert)
-        db.run(`
+    db.run(`
           CREATE TABLE IF NOT EXISTS "menu" (
               menuid INTEGER PRIMARY KEY AUTOINCREMENT,
               name TEXT,
@@ -303,7 +303,7 @@ let db = new sqlite3.Database('example.db', (err) => {
                   }
                 });
 
-                stmt3.run('สเต็กเนื้อA5','Meat steak A5', '5', "219", 'ทำจากวัวตัวสีดำคุณภาพต้องสีดำเท่านั้นเพราะเนื้อจะนุ่มละมุ่น', 'เนื้อวัวA5,เกลือทะเล,พริกไทยดำ,เนย,กระเทียม,มันฝรั่งทอด,ผักเครื่อเคียง', 'ย่าง', 'สต็ก', "/uploads/1740cow.jpg", (err) => {
+                stmt3.run('สเต็กเนื้อA5','Meat steak A5', '5', "219", 'ทำจากวัวตัวสีดำคุณภาพต้องสีดำเท่านั้นเพราะเนื้อจะนุ่มละมุ่น', 'เนื้อวัวA5,เกลือทะเล,พริกไทยดำ,เนย,กระเทียม,มันฝรั่งทอด,ผักเครื่อเคียง', 'ย่าง', 'สเต็ก', "/uploads/1740cow.jpg", (err) => {
                   if (err) {
                     console.error(err.message);
                   } else {
@@ -311,7 +311,7 @@ let db = new sqlite3.Database('example.db', (err) => {
                   }
                 });
 
-                stmt3.run('สเต็กปลาแซลม่อน','Salmon Steak', '6', "349", 'ทำจากแซลม่อนส่งตรงจากเจแปนแดนปลาดิบ', 'เนื้อแซลม่อน,เกลือ,พริกไทยดำ,น้ำมันมะกอก,มะนาว,หน่อไม้ฝรั่ง,สลัด', 'ย่าง', 'สต็ก', "/uploads/1747salmon.jpg", (err) => {
+                stmt3.run('สเต็กปลาแซลม่อน','Salmon Steak', '6', "349", 'ทำจากแซลม่อนส่งตรงจากเจแปนแดนปลาดิบ', 'เนื้อแซลม่อน,เกลือ,พริกไทยดำ,น้ำมันมะกอก,มะนาว,หน่อไม้ฝรั่ง,สลัด', 'ย่าง', 'สเต็ก', "/uploads/1747salmon.jpg", (err) => {
                   if (err) {
                     console.error(err.message);
                   } else {
@@ -319,14 +319,14 @@ let db = new sqlite3.Database('example.db', (err) => {
                   }
                 });
 
-                stmt3.run('สเต็กไก่','Chicken Steak', '3', "169", 'ทำจากไก่ที่เลี้ยงด้วยกระสุนจากอัฟกานิสถาน', 'เนื้ออกไก่,ซอสหมัก,เกลือ,พริกไทย,น้ำมันมะกอก,สลัด,ซอสพริกไทยดำ', 'ทอด ย่าง', 'สต็ก', "/uploads/1927Chicken.jpg", (err) => {
+                stmt3.run('สเต็กไก่','Chicken Steak', '3', "169", 'ทำจากไก่ที่เลี้ยงด้วยกระสุนจากอัฟกานิสถาน', 'เนื้ออกไก่,ซอสหมัก,เกลือ,พริกไทย,น้ำมันมะกอก,สลัด,ซอสพริกไทยดำ', 'ทอด ย่าง', 'สเต็ก', "/uploads/1927Chicken.jpg", (err) => {
                   if (err) {
                     console.error(err.message);
                   } else {
                     console.log("เพิ่มเมนูเสร็จสิ้น");
                   }
                 });
-stmt3.run('สเต็กปลาดอลลี่','Dolly Steak', '5', "169", 'ทำจากปลาดอลลี่ที่ตกมาได้จากน่านน้ำอเมซอน', 'เนื้อปลาดอลลี่,เกลือ,พริกไทย,น้ำมันมะกอก,สลัด', 'ทอด ย่าง', 'สต็ก', "/uploads/1928Dolly.jpg", (err) => {
+stmt3.run('สเต็กปลาดอลลี่','Dolly Steak', '5', "169", 'ทำจากปลาดอลลี่ที่ตกมาได้จากน่านน้ำอเมซอน', 'เนื้อปลาดอลลี่,เกลือ,พริกไทย,น้ำมันมะกอก,สลัด', 'ทอด ย่าง', 'สเต็ก', "/uploads/1928Dolly.jpg", (err) => {
                   if (err) {
                     console.error(err.message);
                   } else {
@@ -396,7 +396,7 @@ stmt3.run('น้ำเปล่า','Water', '10', "10", 'เป็นน้ำ
                   }
                 });
 
-                stmt3.run('น้ำแข็ง','Ice', '100', "5", 'น้ำแข็งที่ทำมาจากก้อนน้ำแข็งที่ขั้วโลกใต้', 'น้ำแข็ง', 'ทุบ', 'เครื่องดื่ม', "/uploads/2014น้ำแข็ง.jpg", (err) => {
+                stmt3.run('น้ำแข็งแอตแลนติก','Ice Atlantic', '100', "5", 'น้ำแข็งที่ทำมาจากก้อนน้ำแข็งที่ขั้วโลกใต้', 'น้ำแข็ง', 'ทุบ', 'เครื่องดื่ม', "/uploads/2014น้ำแข็ง.jpg", (err) => {
                   if (err) {
                     console.error(err.message);
                   } else {
@@ -415,9 +415,6 @@ stmt3.run('น้ำเปล่า','Water', '10', "10", 'เป็นน้ำ
                     console.table(rows); // แสดงผลข้อมูลแบบตาราง
                   }
 
-                  
-        
-            
         
                   // ปิดการเชื่อมต่อฐานข้อมูลหลังจากดึงข้อมูลเสร็จ
                   db.close((err) => {
@@ -429,7 +426,73 @@ stmt3.run('น้ำเปล่า','Water', '10', "10", 'เป็นน้ำ
                   });
                 });
               }
+        });
+
+        db.run(`
+          CREATE TABLE IF NOT EXISTS "oder" (
+            oderid INTEGER PRIMARY KEY AUTOINCREMENT,
+            manu TEXT,
+            note TEXT,
+            tableid TEXT,
+            status TEXT,
+            price REAL  -- เพิ่มคอลัมน์ price เพื่อเก็บราคาสินค้า
+          );
+        `, (err) => {
+          if (err) {
+            console.error('Error creating table:', err.message);
+          } else {
+            console.log('Table "oder" is ready.');
+        
+            // การเพิ่มข้อมูลพร้อมกับราคา
+            let stmt4 = db.prepare(`
+              INSERT INTO "oder" (manu, note, tableid, status, price)
+              VALUES (?,?,?,?,?)
+            `);
+        
+            stmt4.run('ส้ม', 'หวานมาก', '1', 'รับออร์เดอร์', 50.0, (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
             });
+        
+            stmt4.run('มะนาว', 'หวานกว่าส้ม', '1', 'รับออร์เดอร์', 40.0, (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+            });
+        
+            stmt4.run('มะม่วง', 'หวานสุด', '1', 'รับออร์เดอร์', 60.0, (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+            });
+        
+            stmt4.run('น้ำเปล่า', 'ไม่หวาน', '2', 'รับออร์เดอร์', 20.0, (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+            });
+        
+            stmt4.run('น้ำเปล่ากว่า', 'ไม่เปรี้ยว', '2', 'รับออร์เดอร์', 25.0, (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+            });
+        
+            stmt4.finalize(); // Make sure to finalize the statement to release resources.
+          }
+        });
+        
 
        }
     });

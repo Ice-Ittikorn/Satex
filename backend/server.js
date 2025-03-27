@@ -80,6 +80,24 @@ const db = new sqlite3.Database('example.db', (err) => {
       else console.log('✅ Table "menu" is ready.');
     });
 
+        // ✅ สร้างตาราง oder
+
+    db.run(`
+          CREATE TABLE IF NOT EXISTS "oder" (
+            oderid INTEGER PRIMARY KEY AUTOINCREMENT,
+            manu TEXT,
+            note TEXT,
+            tableid TEXT,
+            status TEXT
+          );
+        `, (err) => {
+          if (err) {
+            console.error('Error creating table:', err.message);
+          } else {
+            console.log('Table "oder" is ready.');
+          }
+        });
+
 // ✅ จัดการการอัปโหลดไฟล์
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -273,6 +291,48 @@ app.post('/api/menu', (req, res) => {
     stmt.finalize();
   });
 });
+
+app.get('/api/orders', (req, res) => {
+  db.all('SELECT * FROM oder', [], (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.json(rows); // ส่งข้อมูลทั้งหมดจากตาราง "oder"
+  });
+});
+
+// API สำหรับการเพิ่มข้อมูลออร์เดอร์
+app.post('/api/orders', express.json(), (req, res) => {
+  const { manu, note, tableid, status } = req.body;
+  const stmt = db.prepare('INSERT INTO "oder" (manu, note, tableid, status) VALUES (?, ?, ?, ?)');
+  
+  stmt.run(manu, note, tableid, status, (err) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.status(201).json({ message: 'Order added successfully.' });
+  });
+  stmt.finalize();
+});
+
+// กำหนด API สำหรับลบข้อมูลทั้งหมดของโต๊ะ
+// กำหนด API สำหรับลบข้อมูลทั้งหมดของโต๊ะ
+app.delete('/api/orders/table/:tableId', (req, res) => {
+  const tableId = req.params.tableId;
+  const query = `DELETE FROM oder WHERE tableid = ?`;
+  
+  db.run(query, [tableId], function(err) {
+    if (err) {
+      console.error('Error deleting orders for table:', err.message);
+      return res.status(500).send('Error deleting orders for table');
+    }
+    res.status(200).send('All orders for table deleted successfully');
+  });
+});
+
+
 
 // ✅ เปิดเซิร์ฟเวอร์
 app.listen(port, () => {

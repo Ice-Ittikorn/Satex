@@ -1,132 +1,33 @@
-/* กำหนดขนาดของคอนเทนเนอร์หลัก */
-.container {
+.dolly-container {
+    margin-top: 110px;
+    margin-left: 100px;
+  }
+  
+  .dolly-table {
+    margin-bottom: 30px;
+  }
+  
+  table {
     width: 100%;
-    max-width: 700px;
-    margin: 20px auto;
-    text-align: center;
-    position: relative;
-}
-
-/* จัดตำแหน่งของ "ระบบจัดการเมนูอาหาร" ไปทางซ้ายมากขึ้น */
-.title {
-    position: absolute;
-    top: 10px;
-    left: -300px; /* ขยับไปทางซ้ายสุด */
-    font-weight: bold;
-    font-size: 24px;
-}
-
-/* กล่องเนื้อหาหลัก */
-.content {
-    background: #f9f9f9;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 60px;
-    text-align: center;
-}
-
-/* ชื่อเมนูอาหาร */
-.menu-title {
-    font-weight: bold;
-    font-size: 28px;
-}
-
-/* จัดตำแหน่งรูปภาพให้อยู่ตรงกลาง */
-.image-box {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-}
-
-/* ขนาดของรูปภาพ */
-.image {
-    width: 250px;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-/* กล่องวัตถุดิบ */
-.ingredients-box {
-    background: #ececec;
-    padding: 20px;
-    border-radius: 8px;
-}
-
-/* ชื่อส่วนวัตถุดิบ */
-.ingredients-title {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-/* กำหนดรูปแบบรายการวัตถุดิบ */
-.ingredient-list {
-    list-style: none;
-    padding: 0;
-}
-
-/* ปรับรูปแบบของแต่ละรายการวัตถุดิบ */
-.ingredient-list li {
-    text-align: left;
-    margin: 15px 0;
-    font-size: 22px;
-}
-
-/* รูปแบบของข้อความวัตถุดิบ */
-.ingredient-text {
-    font-size: 22px;
-}
-
-/* ช่อง Input ขณะกำลังแก้ไข */
-.edit-input {
-    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
     padding: 10px;
-    font-size: 22px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    opacity: 0.6; /* ทำให้สีจางลง */
-}
-
-/* ปุ่มแก้ไข และ ปุ่มยืนยัน */
-.edit-btn, .confirm-btn {
-    margin-top: 15px;
-    padding: 12px 24px;
-    font-size: 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-/* ปุ่มแก้ไขสีส้ม */
-.edit-btn {
-    background-color: orange;
-    color: white;
-}
-
-/* ปุ่มยืนยันสีเขียว */
-.confirm-btn {
-    background-color: green;
-    color: white;
-}
-
-/* กล่องข้อความยืนยันการแก้ไข */
-.confirm-message {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: green;
-    color: white;
-    padding: 15px 30px;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 24px;
-    animation: fadeOut 2s forwards;
-}
-
-/* ทำให้ข้อความยืนยันหายไปเอง */
-@keyframes fadeOut {
-    0% { opacity: 1; }
-    100% { opacity: 0; display: none; }
-}
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    width: 25%; /* กำหนดความกว้างของแต่ละคอลัมน์ */
+  }
+  
+  td {
+    width: 25%; /* กำหนดความกว้างของแต่ละคอลัมน์ */
+  }
+  
+  tbody tr:hover {
+    background-color: #f9f9f9;
+  }
+  

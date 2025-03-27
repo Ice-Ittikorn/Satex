@@ -1,81 +1,101 @@
-import React, { useState } from "react";
-import "./Dolly.css";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import './Dolly.css';
 
-export const Dolly = () => {
-  const [isEditing, setIsEditing] = useState(false); // สถานะสำหรับโหมดแก้ไข
-  const [ingredients, setIngredients] = useState([
-    "เนื้อปลาดอลลี่ 180 กรัม",
-    "เกลือ 1/2 ช้อนชา",
-    "พริกไทย 1/2 ช้อนชา",
-    "น้ำมันมะกอก 1 ช้อนโต๊ะ",
-    "ผักเครื่องเคียง แครอท สลัด 50 กรัม"
-  ]);
-  const [tempIngredients, setTempIngredients] = useState([...ingredients]); // ค่าชั่วคราวเมื่อแก้ไข
-  const [showConfirm, setShowConfirm] = useState(false); // สถานะแสดงข้อความ "แก้ไขสำเร็จ"
+const Dolly = () => {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // ฟังก์ชันเมื่อกดปุ่ม "แก้ไข"
-  const handleEdit = () => {
-    setIsEditing(true);
+  // ฟังก์ชันดึงข้อมูลจาก API
+  useEffect(() => {
+    axios.get('http://localhost:3002/api/orders') // เปลี่ยน URL ให้ตรงกับ API ของคุณ
+      .then((response) => {
+        console.log('Response data:', response.data);  // แสดงข้อมูลทั้งหมดที่ได้รับ
+        setOrders(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching orders:', error);
+        setLoading(false);
+      });
+  }, []);
+
+  // ฟังก์ชันจัดกลุ่มออร์เดอร์ตาม tableId
+  const groupOrdersByTable = (orders) => {
+    return orders.reduce((acc, order) => {
+      const { tableid } = order;
+      if (!acc[tableid]) {
+        acc[tableid] = [];
+      }
+      acc[tableid].push(order);
+      return acc;
+    }, {});
   };
 
-  // ฟังก์ชันเมื่อมีการเปลี่ยนแปลงค่าของช่อง Input
-  const handleChange = (index, value) => {
-    const newIngredients = [...tempIngredients];
-    newIngredients[index] = value;
-    setTempIngredients(newIngredients);
+  const groupedOrders = groupOrdersByTable(orders);
+
+  // ฟังก์ชันลบออร์เดอร์ทั้งหมดของโต๊ะ
+  const deleteAllOrdersForTable = (tableId) => {
+    axios.delete(`http://localhost:3002/api/orders/table/${tableId}`)
+      .then((response) => {
+        console.log('All orders for table', tableId, 'deleted successfully');
+        // หลังจากลบข้อมูลทั้งหมดสำเร็จ, อัพเดต UI โดยลบทุกออร์เดอร์ที่เกี่ยวข้องกับโต๊ะนั้น
+        setOrders(orders.filter(order => order.tableid !== tableId));
+      })
+      .catch((error) => {
+        console.error('Error deleting orders for table:', error);
+      });
   };
 
-  // ฟังก์ชันเมื่อกดปุ่ม "ยืนยัน"
-  const handleSave = () => {
-    setIngredients(tempIngredients);
-    setIsEditing(false);
-    setShowConfirm(true);
-    setTimeout(() => setShowConfirm(false), 2000); // ข้อความ "แก้ไขสำเร็จ" หายไปเองใน 2 วินาที
-  };
+  if (loading) {
+    return <div>กำลังโหลดข้อมูล...</div>;
+  }
 
   return (
-    <div className="container">
-      <h2 className="title">ระบบจัดการเมนูอาหาร</h2>
-
-      <div className="content">
-        <h3 className="menu-title">สเต็กปลาดอลลี่</h3>
-        
-        {/* กล่องรูปภาพ */}
-        <div className="image-box">
-          <img src="https://via.placeholder.com/250" alt="steak" className="image" />
-        </div>
-
-        {/* กล่องวัตถุดิบ */}
-        <div className="ingredients-box">
-          <h4 className="ingredients-title">วัตถุดิบ</h4>
-          <ul className="ingredient-list">
-            {tempIngredients.map((item, index) => (
-              <li key={index}>
-                {isEditing ? (
-                  <input
-                    type="text"
-                    value={item}
-                    onChange={(e) => handleChange(index, e.target.value)}
-                    className="edit-input"
-                  />
-                ) : (
-                  <span className="ingredient-text">• {item}</span> // ไข่ปลาแทนหมายเลขลำดับ
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* ปุ่มแก้ไข / ยืนยัน */}
-        {isEditing ? (
-          <button className="confirm-btn" onClick={handleSave}>ยืนยัน</button>
-        ) : (
-          <button className="edit-btn" onClick={handleEdit}>แก้ไข</button>
-        )}
-      </div>
-
-      {/* ข้อความยืนยันการแก้ไข */}
-      {showConfirm && <div className="confirm-message">แก้ไขสำเร็จ</div>}
+    <div className="dolly-container">
+      {/* ตรวจสอบว่า groupedOrders มีข้อมูลแล้วหรือยัง */}
+      {Object.keys(groupedOrders).length === 0 ? (
+        <div>ไม่พบข้อมูลออร์เดอร์</div>
+      ) : (
+        Object.keys(groupedOrders).map((tableId) => (
+          <div key={tableId} className="dolly-table">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <h2>โต๊ะที่ {tableId}</h2>
+              <button 
+                onClick={() => deleteAllOrdersForTable(tableId)}
+                style={{
+                  padding: '5px 10px',
+                  backgroundColor: 'red',
+                  color: 'white',
+                  border: 'none',
+                  cursor: 'pointer',
+                  borderRadius: '4px',
+                }}
+              >
+                ลบทั้งหมด
+              </button>
+            </div>
+            <table style={{ width: '100%', marginTop: '10px', borderCollapse: 'collapse' }}>
+              <thead>
+                <tr>
+                  <th>สินค้า</th>
+                  <th>บันทึก</th>
+                  <th>ราคา</th>
+                </tr>
+              </thead>
+              <tbody>
+                {groupedOrders[tableId].map((order) => (
+                  <tr key={order.oderid}>
+                    <td>{order.manu}</td>
+                    <td>{order.note}</td>
+                    <td>{order.price} บาท</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ))
+      )}
     </div>
   );
 };
