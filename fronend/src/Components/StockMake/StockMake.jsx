@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import './StockMake.css'; // นำเข้า CSS
+import { toast } from 'react-toastify'; // Notification library
 
 const Stockmack = () => {
   const [product, setProduct] = useState({ name: "", count: 0, unit: "", image: "" });
@@ -17,6 +18,7 @@ const Stockmack = () => {
         setProduct(data);
       } catch (error) {
         console.error("Error fetching product data:", error);
+        toast.error('เกิดข้อผิดพลาดในการดึงข้อมูลสินค้า'); // การแจ้งเตือนหากมีข้อผิดพลาด
       }
     };
     fetchProduct();
@@ -42,13 +44,16 @@ const Stockmack = () => {
       });
 
       if (response.ok) {
+        toast.success('อัปเดตข้อมูลสินค้าสำเร็จ!'); // การแจ้งเตือนเมื่อข้อมูลถูกอัปเดตสำเร็จ
         setSuccessMessage("อัปเดตข้อมูลสินค้าสำเร็จ!");
         setTimeout(() => setSuccessMessage(''), 3000);
         navigate("/Stock"); // Redirect back to the store list page
       } else {
+        toast.error('ไม่สามารถอัปเดตข้อมูลสินค้าได้'); // แจ้งเตือนหากการอัปเดตล้มเหลว
         console.error("Failed to update product");
       }
     } catch (error) {
+      toast.error('เกิดข้อผิดพลาดในการอัปเดตข้อมูลสินค้า'); // แจ้งเตือนหากเกิดข้อผิดพลาด
       console.error("Error updating product:", error);
     }
   };
@@ -104,8 +109,6 @@ const Stockmack = () => {
               onChange={(e) => setProduct({ ...product, unit: e.target.value })}
             />
           </div>
-
-          
         </div>
 
         <button type="submit" className="confirm-button">อัปเดตข้อมูล</button>
