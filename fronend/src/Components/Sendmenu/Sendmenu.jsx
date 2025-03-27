@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Sendmenu.css';
 
 export const DisplayMenu = () => {
     const [menuItems, setMenuItems] = useState([]);
+    const navigate = useNavigate();
 
-    // Fetch the menu items from the backend when the component mounts
     useEffect(() => {
-        axios.get('http://localhost:3002/api/menu') // Adjust if your backend uses a different port
+        axios.get('http://localhost:3002/api/menu')
             .then((response) => {
-                setMenuItems(response.data); // Set the fetched menu data to state
+                setMenuItems(response.data);
             })
             .catch((error) => {
-                console.error('There was an error fetching the menu data:', error);
+                console.error('Error fetching menu data:', error);
             });
     }, []);
+
+    const handleItemClick = (item) => {
+        navigate('/Chosemenu', { state: { item } });
+    };
 
     return (
         <div className="menu-container">
@@ -22,7 +27,11 @@ export const DisplayMenu = () => {
             <div className="menu-items">
                 {menuItems.length > 0 ? (
                     menuItems.map((item) => (
-                        <div key={item.menuid} className="menu-item">
+                        <div 
+                            key={item.menuid} 
+                            className="menu-item" 
+                            onClick={() => handleItemClick(item)}
+                        >
                             <h3>{item.name}</h3>
                             <p><strong>Price:</strong> {item.price}</p>
                             <p><strong>Details:</strong> {item.details}</p>
@@ -31,7 +40,7 @@ export const DisplayMenu = () => {
                                 alt={item.name} 
                                 className="item-image" 
                                 onError={(e) => e.target.src = "/placeholder.jpg"} 
-                                />
+                            />
                         </div>
                     ))
                 ) : (

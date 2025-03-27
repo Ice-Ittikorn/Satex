@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import "./Store.css";
 
-
 // Export default คอมโพเนนต์นี้
 const Store = () => {
   const [products, setProducts] = useState([]);

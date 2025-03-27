@@ -16,9 +16,7 @@ import TerminalO from '../Pages/TerminalO/TerminalO'
 import STM from '../Pages/STM/STM';
 import Stockmack from '../Pages/Stockmack/Stockmack';
 import Send from '../Pages/Send/Send';
-
-
-
+import Chosemenu from '../Pages/Chosemenu/Chosemenu';
 
 
 const AppRoutes = () => {
@@ -42,6 +40,7 @@ const AppRoutes = () => {
             <Route path='/STM' element={<STM/>}/>
             <Route path="/Stockmack/:storeid" element={<Stockmack/>} /> 
             <Route path="/Send" element={<Send/>} /> 
+            <Route path="/Chosemenu" element={<Chosemenu/>} /> 
 
         </Routes>
     </Router>
