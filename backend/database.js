@@ -235,7 +235,7 @@ let db = new sqlite3.Database('example.db', (err) => {
               stmt2.finalize();
             });
             
-            stmt2.run('พริกไทยดำบด', '4', 'กิโลกรัม', '/uploads/s_พริกไทยดำบด.jpg', (err) => {
+            stmt2.run('พริกไทยดำบด', '0', 'กิโลกรัม', '/uploads/s_พริกไทยดำบด.jpg', (err) => {
               if (err) {
                 console.error('Error inserting data:', err.message);
               } else {

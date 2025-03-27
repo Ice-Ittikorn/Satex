@@ -147,6 +147,12 @@
     border: none;
 
 }
+.edit-btn2:hover{
+    background-color:  #eca036;
+    cursor: pointer;
+}
+
+
 
 .delete-btn {
     background-color: #f44336;
@@ -157,35 +163,9 @@
     border-radius: 10px;
 }
 
-.edit-btn:hover {
-    background-color: #45a049;
-}
 
 .delete-btn:hover {
     background-color: #d32f2f;
+    cursor: pointer;
 }
 
-.store-card {
-    /* Style สำหรับ store-card ปกติ */
-    background-color: #fff;  /* default background */
-    /* เพิ่ม styles อื่น ๆ ที่คุณต้องการ */
-  }
-  
-  /* เพิ่มเงื่อนไขสำหรับสินค้าที่หมดสต็อก */
-  .out-of-stock {
-    background-color: red;  /* พื้นหลังสีแดงเมื่อสินค้าหมด */
-    color: white;  /* เปลี่ยนสีตัวอักษรให้เป็นสีขาว */
-  }
-  
-  /* เพิ่มเงื่อนไขสำหรับสินค้าที่ใกล้หมดสต็อก */
-  .low-stock {
-    background-color: rgb(255, 153, 0);  /* พื้นหลังสีเหลืองเมื่อสินค้าคงคลังต่ำกว่า 5 */
-  }
-  
-  /* หากต้องการให้ตัวอักษรในสินค้าหมดสต็อกดูเด่นขึ้น */
-  .out-of-stock p,
-  .out-of-stock .gard-info2,
-  .out-of-stock .button-container2 {
-    color: white;  /* ให้ข้อความเป็นสีขาวเมื่อสินค้าหมดสต็อก */
-  }
-  

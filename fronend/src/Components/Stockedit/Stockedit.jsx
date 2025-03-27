@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';  // import useNavigate
 import './Stockedit.css';
 
 const Stockedit = ({ storeData }) => {
   const [name, setName] = useState(storeData?.name || '');
-  const [instore, setInstore] = useState(storeData?.instore || '');
+  const [count, setCount] = useState(storeData?.count || '');  // ใช้ count แทน instore
   const [unit, setUnit] = useState(storeData?.unit || '');
   const [file, setFile] = useState(null);
+  const navigate = useNavigate(); // useNavigate hook to navigate programmatically
 
   // ✅ ตัวเลือกของหน่วย
   const unitOptions = [
@@ -24,24 +26,34 @@ const Stockedit = ({ storeData }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // ตรวจสอบค่าจำนวนคงเหลือ (count) ถ้าเป็นข้อความที่สามารถแปลงเป็นตัวเลขได้
+    const countValue = count.trim();
+    if (countValue === '' || isNaN(Number(countValue)) || Number(countValue) <= 0) {
+      alert("กรุณากรอกจำนวนคงเหลือของสินค้าให้ถูกต้อง");
+      return;
+    }
+
     try {
       const formData = new FormData();
       formData.append('name', name);
-      formData.append('instore', instore);
+      formData.append('count', countValue);  // ส่ง count เป็นข้อความ
       formData.append('unit', unit);
       if (file) formData.append('image', file);
 
       if (storeData?.storeid) {
+        // Update existing store
         await axios.put(`http://localhost:3002/api/stores/${storeData.storeid}`, formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
-        alert('Store updated successfully');
       } else {
+        // Add new store
         await axios.post('http://localhost:3002/api/stores', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
-        alert('Store added successfully');
       }
+
+      // After successful operation, navigate to the /Stock page with success message
+      navigate('/Stock', { state: { successMessage: 'เพิ่มวัตถุดิบสำเร็จ' } });
     } catch (error) {
       console.error('There was an error saving the product:', error);
       alert(`Error: ${error.response?.data?.message || error.message}`);
@@ -54,9 +66,8 @@ const Stockedit = ({ storeData }) => {
         {storeData?.storeid ? 'Update Store' : 'Add New Store'}
       </h2>
 
-
       <form onSubmit={handleSubmit} className="edit-box">
-      <p className='vut'>กรอกข้อมูลวัตถุดิบ</p>
+        <p className='vut'>กรอกข้อมูลวัตถุดิบ</p>
         {/* ✅ Name */}
         <div className="form-group">
           <label>Name:</label>
@@ -68,13 +79,13 @@ const Stockedit = ({ storeData }) => {
           />
         </div>
 
-        {/* ✅ Instore */}
+        {/* ✅ Count (จำนวนคงเหลือ) */}
         <div className="form-group">
-          <label>Instore:</label>
+          <label>Count (จำนวนคงเหลือ):</label>
           <input
             type="number"
-            value={instore}
-            onChange={(e) => setInstore(e.target.value)}
+            value={count}
+            onChange={(e) => setCount(e.target.value)}
             required
           />
         </div>
