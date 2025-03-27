@@ -11,6 +11,8 @@ export const Editemp = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    
+
     // ✅ รับข้อความแจ้งเตือนจากการแก้ไขข้อมูล
     useEffect(() => {
         if (location.state?.successMessage) {

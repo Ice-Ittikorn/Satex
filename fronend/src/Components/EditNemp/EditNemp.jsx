@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './EditNemp.css';
 
 export const EditNemp = () => {
-    const { empId } = useParams(); 
+    const { empId } = useParams(); // รับ empId จาก URL params
     const navigate = useNavigate();  
 
     const [formData, setFormData] = useState({
@@ -18,13 +18,13 @@ export const EditNemp = () => {
         job: '',
     });
 
+    // ดึงข้อมูลพนักงานจาก API โดยใช้ empId
     useEffect(() => {
         if (!empId) {
             alert('ไม่พบข้อมูลพนักงาน');
             return;
         }
 
-        // ✅ ดึงข้อมูลพนักงานจาก API โดยใช้ empId
         const fetchEmployeeData = async () => {
             try {
                 const response = await axios.get(`http://localhost:3002/api/employees/${empId}`);
@@ -40,7 +40,7 @@ export const EditNemp = () => {
         fetchEmployeeData();
     }, [empId]);
 
-    // ✅ ฟังก์ชันสำหรับอัปเดตข้อมูลฟอร์ม
+    // ฟังก์ชันสำหรับอัปเดตข้อมูลฟอร์ม
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setFormData((prevData) => ({
@@ -49,18 +49,26 @@ export const EditNemp = () => {
         }));
     };
 
-    // ✅ ฟังก์ชันการยืนยันข้อมูล
+    // ฟังก์ชันการยืนยันข้อมูล
     const handleSubmit = async () => {
-        if (!formData.empid) {
-            alert('ข้อมูลพนักงานไม่สมบูรณ์');
+        if (!empId) {
+            alert('ไม่พบ empId');
             return;
         }
-    
+
         try {
-            await axios.put(`http://localhost:3002/api/employees/${formData.empid}`, formData);
+            // ส่งคำขอ PUT เพื่ออัปเดตข้อมูลพนักงาน
+            await axios.put(`http://localhost:3002/api/employees/${empId}`, formData);
             navigate('/Manage_employee', { state: { successMessage: 'ข้อมูลพนักงานถูกอัปเดตสำเร็จ!' } });
         } catch (error) {
-            alert('ไม่สามารถอัปเดตข้อมูลพนักงานได้');
+            // จัดการข้อผิดพลาดที่เกิดขึ้น
+            if (error.response) {
+                console.error('Error response:', error.response.data);
+                alert(`ไม่สามารถอัปเดตข้อมูลพนักงานได้: ${error.response.data.message}`);
+            } else {
+                console.error('Error:', error.message);
+                alert('ไม่สามารถอัปเดตข้อมูลพนักงานได้');
+            }
         }
     };
 
@@ -77,7 +85,7 @@ export const EditNemp = () => {
                                 name={key}
                                 value={value || ''}
                                 onChange={handleInputChange}
-                                disabled={key === 'empid'}
+                                disabled={key === 'empid'} // ไม่ให้แก้ไข empid
                             />
                         </div>
                     ))}

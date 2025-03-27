@@ -14,6 +14,7 @@ import { Add_emp } from '../Pages/add_emp/Add_emp';
 import { StockEdit } from '../Pages/StockEdit/Stockedit';
 import TerminalO from '../Pages/TerminalO/TerminalO'
 import STM from '../Pages/STM/STM';
+import Stockmack from '../Pages/Stockmack/Stockmack';
 
 
 
@@ -38,6 +39,7 @@ const AppRoutes = () => {
             <Route path='/TerminalO' element={<TerminalO/>}/> 
             <Route path='/StockEdit' element={<StockEdit/>}/>
             <Route path='/STM' element={<STM/>}/>
+            <Route path="/Stockmack/:storeid" element={<Stockmack/>} /> 
 
         </Routes>
     </Router>
