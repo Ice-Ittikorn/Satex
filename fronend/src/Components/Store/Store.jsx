@@ -1,5 +1,68 @@
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate, Link } from "react-router-dom";
+import "./Store.css";
+
+
+// Export default คอมโพเนนต์นี้
 const Store = () => {
-  // ...existing code...
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // ฟังก์ชันต่างๆ
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch("http://localhost:3002/api/stores");
+      const data = await response.json();
+      setProducts(data);
+      setFilteredProducts(data);  // Set initial filtered products
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    if (location.state?.successMessage) {
+      setSuccessMessage(location.state.successMessage);
+      setTimeout(() => setSuccessMessage(''), 3000);
+    }
+  }, [location.state]);
+
+  useEffect(() => {
+    if (searchTerm) {
+      const filtered = products.filter(
+        (product) =>
+          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.Storeid.toString().includes(searchTerm) ||  // Search by Storeid
+          product.count.toString().includes(searchTerm) // Search by count quantity
+      );
+      setFilteredProducts(filtered);
+    } else {
+      setFilteredProducts(products); // Reset to all products if search term is empty
+    }
+  }, [searchTerm, products]);
+
+  const handleEditClick = (Storeid) => {
+    navigate(`/StockMack/${Storeid}`);
+  };
+
+  const handleDeleteClick = (Storeid) => {
+    if (window.confirm("คุณแน่ใจว่าจะลบสินค้านี้?")) {
+      fetch(`http://localhost:3002/api/stores/${Storeid}`, {
+        method: 'DELETE',
+      })
+        .then(response => response.json())
+        .then(() => fetchProducts())
+        .catch(error => console.error("Error deleting product:", error));
+    }
+  };
 
   return (
     <div className="stock-container">
@@ -26,11 +89,10 @@ const Store = () => {
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product, index) => {
             const isLowStock = product.count < 5;
-            const isOutOfStock = product.count === 0;  // Check if stock is 0
             return (
               <div
-                key={`${product.Storeid}-${index}`}
-                className={`store-card ${isLowStock ? 'low-stock' : ''} ${isOutOfStock ? 'out-of-stock' : ''}`}  // Add out-of-stock class
+                key={`${product.Storeid}-${index}`}  // เพิ่ม index เพื่อให้ key เป็นเอกลักษณ์
+                className={`store-card ${isLowStock ? 'low-stock' : ''}`}
               >
                 <p><strong>ชื่อสินค้า:</strong> {product.name}</p>
                 <img
@@ -39,6 +101,8 @@ const Store = () => {
                   className="product-image"
                   onError={(e) => e.target.src = "/placeholder.jpg"}
                 />
+
+
                 <div className="gard-info2">
                   <p><strong>รหัสสินค้า:</strong> {product.Storeid}</p>
                   <p><strong>จำนวนคงเหลือ:</strong> {product.count} {product.unit}</p>
@@ -57,3 +121,6 @@ const Store = () => {
     </div>
   );
 };
+
+// Export default คอมโพเนนต์นี้
+export default Store;
