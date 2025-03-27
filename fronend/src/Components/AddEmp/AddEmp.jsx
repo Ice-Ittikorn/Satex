@@ -49,6 +49,7 @@ export const AddEmp = () => {
                 <div className="form-group">
                     <label htmlFor="name">Name:</label>
                     <input
+                        className="long"
                         type="text"
                         id="name"
                         name="name"
@@ -60,6 +61,7 @@ export const AddEmp = () => {
                 <div className="form-group">
                     <label htmlFor="lastname">Lastname:</label>
                     <input
+                        className="long"
                         type="text"
                         id="lastname"
                         name="lastname"
@@ -71,6 +73,7 @@ export const AddEmp = () => {
                 <div className="form-group">
                     <label htmlFor="phone">Phone:</label>
                     <input
+                        className="long"
                         type="text"
                         id="phone"
                         name="phone"
@@ -82,6 +85,7 @@ export const AddEmp = () => {
                 <div className="form-group">
                     <label htmlFor="email">Email:</label>
                     <input
+                        className="long"
                         type="text"
                         id="email"
                         name="email"
@@ -93,6 +97,7 @@ export const AddEmp = () => {
                 <div className="form-group">
                     <label htmlFor="gardID">Gard ID:</label>
                     <input
+                        className="long"
                         type="text"
                         id="gardID"
                         name="gardID"
@@ -104,6 +109,7 @@ export const AddEmp = () => {
                 <div className="form-group">
                     <label htmlFor="username">Username:</label>
                     <input
+                        className="long"
                         type="text"
                         id="username"
                         name="username"
@@ -115,6 +121,7 @@ export const AddEmp = () => {
                 <div className="form-group">
                     <label htmlFor="password">Password:</label>
                     <input
+                        className="long"
                         type="text"
                         id="password"
                         name="password"
@@ -126,6 +133,7 @@ export const AddEmp = () => {
                 <div className="form-group">
                     <label htmlFor="job">Job:</label>
                     <input
+                        className="long"
                         type="text"
                         id="job"
                         name="job"

@@ -1,122 +1,99 @@
 /* คอนเทนเนอร์หลัก */
 .editnemp-container {
-    width: 60%;
-    margin: auto;
-    text-align: left;
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fafafa;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     font-family: 'Arial', sans-serif;
 }
 
 /* หัวข้อ */
 .title {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
-    color: #5a2d0c;
-    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 /* กล่องฟอร์ม */
 .edit-box {
     border: 2px solid #ddd;
-    padding: 20px;
+    padding: 30px;
     border-radius: 10px;
-    background: #f9f9f9;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* อัปโหลดรูปภาพ */
-.image-upload {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.image-placeholder {
-    width: 150px;
-    height: 150px;
-    background-color: #ddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    color: #5a2d0c;
-    border-radius: 5px;
-    cursor: pointer;
-    border: 2px dashed #aaa;
-}
-
-/* แสดงรูปที่อัปโหลด */
-.image-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.preview-image {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 5px;
-}
-
-/* ปุ่มลบรูปภาพ */
-.remove-image-button {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 5px 8px;
-    cursor: pointer;
-    border-radius: 50%;
-    font-size: 14px;
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    transition: background-color 0.3s ease;
-}
-
-.remove-image-button:hover {
-    background-color: darkred;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
 /* ฟอร์มข้อมูล */
 .form-container {
     width: 100%;
-    max-width: 400px;
+    max-width: 700px;
+    margin: 0 auto;
 }
 
 .form-group {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+    justify-content: flex-start;
     align-items: center;
+    margin-bottom: 25px; /* เพิ่มระยะห่างระหว่างแต่ละฟอร์ม */
+    width: 100%;
 }
 
 .form-group label {
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 600;
     color: #5a2d0c;
-    width: 40%;
+    width: 35%; /* เพิ่มความกว้างให้ label */
+    text-align: left;
+    margin-right: 30px; /* เพิ่มระยะห่างระหว่าง label และ input */
 }
 
 .form-group input {
-    width: 60%;
-    padding: 8px;
+    width: 60%; /* กำหนดความกว้างของ input */
+    padding: 15px;
+    font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+/* เมื่อ input ถูก focus หรือมีค่า */
+.form-group input:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+    background-color: #e9f7e9;
+}
+
+/* เมื่อ input มีค่า หรือ focus ให้ label ขึ้นไปด้านบน */
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+    top: -10px;
+    left: 10px;
+    font-size: 12px;
+    color: #4CAF50;
 }
 
 /* ปุ่มยืนยัน */
 .confirm-button {
-    background-color: green;
+    background-color: #4CAF50;
     color: white;
-    padding: 10px 20px;
+    padding: 15px 25px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
-    margin-top: 20px;
+    font-size: 18px;
+    width: 100%;
+    max-width: 250px;
+    margin: 20px auto 0 auto;
+    transition: background-color 0.3s ease;
 }
 
 .confirm-button:hover {
-    background-color: darkgreen;
+    background-color: #45a049;
 }
-
