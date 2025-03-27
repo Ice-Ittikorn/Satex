@@ -104,10 +104,10 @@ export const Editemp = () => {
                         <div key={emp.empid} className="employee-card">
                             <p><strong>ชื่อ:</strong> {emp.name} {emp.lastname}</p>
                             <div className="employee-info">
-                                <p><strong>รหัสพนักงาน:</strong> {emp.empid}</p>
-                                <p><strong>เบอร์โทร:</strong> {emp.phone}</p>
-                                <p><strong>อีเมล:</strong> {emp.email}</p>
-                                <p><strong>ตำแหน่ง:</strong> {emp.job}</p>
+                                <p><strong>รหัสพนักงาน:</strong> {emp.Empid}</p>
+                                <p><strong>เบอร์โทร:</strong> {emp.Phone}</p>
+                                <p><strong>อีเมล:</strong> {emp.Email}</p>
+                                <p><strong>ตำแหน่ง:</strong> {emp.Job}</p>
                             </div>
                             <div className="employee-actions">
                                 <button className="edit-button" onClick={() => handleEditClick(emp.empid)}>

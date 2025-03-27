@@ -46,6 +46,21 @@ let db = new sqlite3.Database('example.db', (err) => {
   }
 });
 
+const fetchEmployees = async () => {
+  try {
+      const response = await axios.get('http://localhost:3002/api/employees');
+      console.log('Employee Data:', response.data); // ดูข้อมูลที่ได้รับจาก API
+      if (Array.isArray(response.data)) {
+          setEmployees(response.data);
+      } else {
+          setErrorMessage('ข้อมูลพนักงานไม่ถูกต้อง');
+      }
+  } catch (error) {
+      setErrorMessage('เกิดข้อผิดพลาดในการดึงข้อมูล');
+  }
+};
+
+
 // ✅ เช็ค Login
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
