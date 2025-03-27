@@ -94,9 +94,13 @@ const Store = () => {
                 key={`${product.Storeid}-${index}`}  // เพิ่ม index เพื่อให้ key เป็นเอกลักษณ์
                 className={`employee-card ${isLowStock ? 'low-stock' : ''}`} 
               >
-                <div className="product-image-wrapper">
-                <img src={`http://localhost:3002${product.image}`} alt={product.name} className="product-image" onError={(e) => e.target.src = "/placeholder.jpg"} />
-                </div>
+<img 
+  src={`http://localhost:3002${product.image}`} 
+  alt={product.name} 
+  className="product-image" 
+  onError={(e) => e.target.src = "/placeholder.jpg"} 
+/>
+
                 <p><strong>ชื่อสินค้า:</strong> {product.name}</p>
                 <div className="employee-info">
                   <p><strong>รหัสสินค้า:</strong> {product.Storeid}</p>

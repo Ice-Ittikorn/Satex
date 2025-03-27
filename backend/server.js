@@ -2,10 +2,13 @@ const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
 const multer = require('multer');
-const path = require('path');
+const path = require('path'); // Only declare it once
 
 const app = express();
 const port = 3002;
+
+// Serve static files from the 'uploads' folder
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -182,6 +185,56 @@ app.delete('/api/stores/:id', (req, res) => {
     res.json({ message: 'ลบร้านค้าสำเร็จ' });
   });
 });
+// ✅ อัปเดตข้อมูลร้านค้า
+// ✅ อัปเดตข้อมูลร้านค้า
+app.put('/api/stores/:id', (req, res) => {
+  const { id } = req.params;
+  const { name, count, unit } = req.body; // แค่รับข้อมูลที่ต้องการแก้ไข
+
+  const query = `
+    UPDATE store
+    SET name = ?, count = ?, unit = ?
+    WHERE storeid = ?
+  `;
+
+  db.run(query, [name, count, unit, id], function (err) {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json({ message: 'อัปเดตข้อมูลสินค้าสำเร็จ' });
+  });
+});
+
+app.get('/api/stores/:id', (req, res) => {
+  const storeid = req.params.id;
+  const query = `SELECT * FROM store WHERE storeid = ?`;
+
+  db.get(query, [storeid], (err, row) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    if (!row) {
+      return res.status(404).json({ message: 'Store not found' });
+    }
+    res.json(row);
+  });
+});
+
+app.put('/api/stores/:id', (req, res) => {
+  const storeid = req.params.id;
+  const { name, quantity } = req.body; // หรือค่าส่งมาอื่นๆ
+  
+  const query = `UPDATE store SET name = ?, quantity = ? WHERE storeid = ?`;
+
+  db.run(query, [name, quantity, storeid], function(err) {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    if (this.changes === 0) {
+      return res.status(404).json({ message: 'Store not found' });
+    }
+    res.json({ message: 'Product updated successfully' });
+  });
+});
+
 
 // ✅ เปิดเซิร์ฟเวอร์
 app.listen(port, () => {
