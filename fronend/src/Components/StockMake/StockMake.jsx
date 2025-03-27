@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import './StockMake.css'; // นำเข้า CSS
 
 const Stockmack = () => {
   const [product, setProduct] = useState({ name: "", count: 0, unit: "", image: "" });
@@ -53,51 +54,61 @@ const Stockmack = () => {
   };
 
   return (
-    <div className="stockmack-container">
+    <div className="editnemp-container">
       {successMessage && <div className="success-message">{successMessage}</div>}
-      <h1>แก้ไขข้อมูลสินค้า</h1>
-      <form onSubmit={handleFormSubmit}>
-        <div>
-          <label>ชื่อสินค้า:</label>
-          <input
-            type="text"
-            value={product.name}
-            onChange={(e) => setProduct({ ...product, name: e.target.value })}
-          />
-        </div>
-        <div>
-          <label>รหัสสินค้า:</label>
-          <input
-            type="text"
-            value={storeid} // ใช้รหัสสินค้าที่รับมาจาก URL
-            disabled
-          />
-        </div>
-        <div>
-          <label>จำนวนคงเหลือ:</label>
-          <input
-            type="number"
-            value={product.count}
-            onChange={(e) => setProduct({ ...product, count: e.target.value })}
-          />
-        </div>
-        <div>
-          <label>หน่วย:</label>
-          <input
-            type="text"
-            value={product.unit}
-            onChange={(e) => setProduct({ ...product, unit: e.target.value })}
-          />
-        </div>
-        <div>
-          <label>ภาพสินค้า:</label>
-          {product.image && (
-            <div>
-              <img src={`http://localhost:3002${product.image}`} alt="Product" width={100} />
+      <h1 className="title">แก้ไขข้อมูลสินค้า</h1>
+      <form onSubmit={handleFormSubmit} className="edit-box">
+        
+        <div className="image-upload">
+          {product.image ? (
+            <div className="image-wrapper">
+              <img src={`http://localhost:3002${product.image}`} alt="Product" className="preview-image" />
+            </div>
+          ) : (
+            <div className="image-placeholder">
+              ไม่มีภาพสินค้า
             </div>
           )}
         </div>
-        <button type="submit">อัปเดตข้อมูล</button>
+
+        <div className="form-container">
+          <div className="form-group">
+            <label>ชื่อสินค้า:</label>
+            <input
+              type="text"
+              value={product.name}
+              onChange={(e) => setProduct({ ...product, name: e.target.value })}
+            />
+          </div>
+          <div className="form-group">
+            <label>รหัสสินค้า:</label>
+            <input
+              type="text"
+              value={storeid} // ใช้รหัสสินค้าที่รับมาจาก URL
+              disabled
+            />
+          </div>
+          <div className="form-group">
+            <label>จำนวนคงเหลือ:</label>
+            <input
+              type="number"
+              value={product.count}
+              onChange={(e) => setProduct({ ...product, count: e.target.value })}
+            />
+          </div>
+          <div className="form-group">
+            <label>หน่วย:</label>
+            <input
+              type="text"
+              value={product.unit}
+              onChange={(e) => setProduct({ ...product, unit: e.target.value })}
+            />
+          </div>
+
+          
+        </div>
+
+        <button type="submit" className="confirm-button">อัปเดตข้อมูล</button>
       </form>
     </div>
   );

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import './Stockedit.css';
 
 const Stockedit = ({ storeData }) => {
   const [name, setName] = useState(storeData?.name || '');
@@ -48,46 +49,81 @@ const Stockedit = ({ storeData }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {/* ✅ Name */}
-      <div>
-        <label>Name:</label>
-        <input value={name} onChange={(e) => setName(e.target.value)} required />
-      </div>
+    <div className="editnemp-container">
+      <h2 className="title">
+        {storeData?.storeid ? 'Update Store' : 'Add New Store'}
+      </h2>
 
-      {/* ✅ Instore */}
-      <div>
-        <label>Instore:</label>
-        <input value={instore} onChange={(e) => setInstore(e.target.value)} required />
-      </div>
 
-      {/* ✅ Unit (เลือกหรือพิมพ์เองได้) */}
-      <div>
-        <label>Unit:</label>
-        <input 
-          list="unit-options" 
-          value={unit} 
-          onChange={(e) => setUnit(e.target.value)} 
-          required 
-        />
-        <datalist id="unit-options">
-          {unitOptions.map((option) => (
-            <option key={option} value={option} />
-          ))}
-        </datalist>
-      </div>
+      <form onSubmit={handleSubmit} className="edit-box">
+      <p className='vut'>กรอกข้อมูลวัตถุดิบ</p>
+        {/* ✅ Name */}
+        <div className="form-group">
+          <label>Name:</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
 
-      {/* ✅ Image */}
-      <div>
-        <label>Image:</label>
-        <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-      </div>
+        {/* ✅ Instore */}
+        <div className="form-group">
+          <label>Instore:</label>
+          <input
+            type="number"
+            value={instore}
+            onChange={(e) => setInstore(e.target.value)}
+            required
+          />
+        </div>
 
-      {/* ✅ Submit Button */}
-      <button type="submit">
-        {storeData?.storeid ? 'Update Store' : 'Add Store'}
-      </button>
-    </form>
+        {/* ✅ Unit */}
+        <div className="form-group">
+          <label>Unit:</label>
+          <input
+            list="unit-options"
+            value={unit}
+            onChange={(e) => setUnit(e.target.value)}
+            required
+          />
+          <datalist id="unit-options">
+            {unitOptions.map((option) => (
+              <option key={option} value={option} />
+            ))}
+          </datalist>
+        </div>
+
+        {/* ✅ Image Upload */}
+        <div className="image-upload">
+          <div className="image-placeholder" onClick={() => document.getElementById('image-input').click()}>
+            {file ? (
+              <div className="image-wrapper">
+                <img
+                  src={URL.createObjectURL(file)}
+                  alt="Preview"
+                  className="preview-image"
+                />
+              </div>
+            ) : (
+              'Click to upload an image'
+            )}
+          </div>
+          <input
+            type="file"
+            id="image-input"
+            style={{ display: 'none' }}
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+        </div>
+
+        {/* ✅ Submit Button */}
+        <button type="submit" className="confirm-button">
+          {storeData?.storeid ? 'Update Store' : 'Add Store'}
+        </button>
+      </form>
+    </div>
   );
 };
 
