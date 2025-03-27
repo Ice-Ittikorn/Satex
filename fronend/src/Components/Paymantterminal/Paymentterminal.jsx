@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css';  
 import './Paymentterminal.css';
 
 const Paymentterminal = () => {
   const location = useLocation();
+  const navigate = useNavigate();  
   const queryParams = new URLSearchParams(location.search);
   const tableId = queryParams.get('table');
-
   const [orders, setOrders] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [isPaid, setIsPaid] = useState(false);
@@ -26,15 +28,17 @@ const Paymentterminal = () => {
   const handlePayment = () => {
     setIsPaid(true);
     setTimeout(() => {
-      alert(`โต๊ะ ${tableId} ชำระเงินเรียบร้อยแล้ว`);
-      
-      // เรียก API เพื่อลบคำสั่งซื้อทั้งหมดสำหรับโต๊ะนั้น
+      toast.success(`โต๊ะ ${tableId} ชำระเงินเรียบร้อยแล้ว!`);
+
       fetch(`http://localhost:3002/api/orders/table/${tableId}`, {
         method: 'DELETE',
       })
         .then(response => response.json())
         .then(data => {
           console.log('Orders deleted:', data);
+
+          // นำทางไปที่ /Payment2
+          navigate("/Payment2");
         })
         .catch(error => {
           console.error('Error deleting orders:', error);
@@ -70,6 +74,8 @@ const Paymentterminal = () => {
       >
         {isPaid ? "กำลังชำระเงิน..." : "ยืนยันการชำระเงิน"}
       </button>
+      
+      <ToastContainer />
     </div>
   );
 };

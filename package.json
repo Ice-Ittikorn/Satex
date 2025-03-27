@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "remixicon": "^4.6.0",
-    "sqlite3": "^5.1.7"
+    "remixicon": "^4.6.0"
   }
 }
