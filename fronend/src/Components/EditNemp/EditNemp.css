@@ -2,6 +2,7 @@
 .editnemp-container {
     width: 50%;
     margin: 0 auto;
+    margin-top: 10px;
     padding: 20px;
     background-color: #fafafa;
     border-radius: 10px;
@@ -30,29 +31,33 @@
 /* ฟอร์มข้อมูล */
 .form-container {
     width: 100%;
-    max-width: 700px;
-    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
+/* กล่องที่เก็บ label และ input */
 .form-group {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 25px; /* เพิ่มระยะห่างระหว่างแต่ละฟอร์ม */
+    margin-bottom: 25px;
     width: 100%;
 }
 
+/* ปรับขนาดของ label ให้เหมาะสม */
 .form-group label {
     font-size: 16px;
     font-weight: 600;
     color: #5a2d0c;
-    width: 35%; /* เพิ่มความกว้างให้ label */
+    width: 25%; /* ลดความกว้างของ label ให้เหลือ 25% */
     text-align: left;
     margin-right: 30px; /* เพิ่มระยะห่างระหว่าง label และ input */
 }
 
+/* ขยายขนาดช่องรับข้อมูล (input) */
 .form-group input {
-    width: 60%; /* กำหนดความกว้างของ input */
+    width: 80%; /* เพิ่มความกว้างของ input เป็น 80% */
     padding: 15px;
     font-size: 16px;
     border: 1px solid #ccc;
@@ -96,4 +101,28 @@
 
 .confirm-button:hover {
     background-color: #45a049;
+}
+
+.message {
+    position: fixed;         /* ตำแหน่งคงที่บนหน้าจอ */
+    top: 50%;                /* ตั้งตำแหน่งกลางในแนวตั้ง */
+    left: 50%;               /* ตั้งตำแหน่งกลางในแนวนอน */
+    transform: translate(-50%, -50%); /* จัดให้อยู่กลางหน้าจอ */
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    max-width: 90%;
+    z-index: 1000;           /* ให้ข้อความอยู่ด้านหน้า */
+    text-align: center;
+}
+
+.message.success {
+    background-color: #4CAF50; /* สีพื้นหลังสำหรับข้อความสำเร็จ */
+    color: white;
+}
+
+.message.error {
+    background-color: #f44336; /* สีพื้นหลังสำหรับข้อความผิดพลาด */
+    color: white;
 }
