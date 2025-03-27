@@ -44,12 +44,12 @@ export const AddEmp = () => {
 
     return (
         <div className="form-container">
-            <h2>Employee Information</h2>
+            <h2 className='ti'>Employee Information</h2>
             <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="name">Name:</label>
-                    <input
-                        className="long"
+                <div className='t2'>
+                    <label htmlFor="name" className='textin'>Name:</label>
+                    <input 
+                        className="chlonginput"
                         type="text"
                         id="name"
                         name="name"
@@ -58,10 +58,10 @@ export const AddEmp = () => {
                         required
                     />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="lastname">Lastname:</label>
+                <div className='t2'>
+                    <label htmlFor="lastname" className='textin'>Lastname:</label>
                     <input
-                        className="long"
+                         className="chlonginput"
                         type="text"
                         id="lastname"
                         name="lastname"
@@ -70,10 +70,10 @@ export const AddEmp = () => {
                         required
                     />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="phone">Phone:</label>
+                <div className='t2'>
+                    <label htmlFor="phone" className='textin'>Phone:</label>
                     <input
-                        className="long"
+                         className="chlonginput"
                         type="text"
                         id="phone"
                         name="phone"
@@ -82,10 +82,10 @@ export const AddEmp = () => {
                         required
                     />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="email">Email:</label>
+                <div className='t2'>
+                    <label htmlFor="email" className='textin'>Email:</label>
                     <input
-                        className="long"
+                         className="chlonginput"
                         type="text"
                         id="email"
                         name="email"
@@ -94,10 +94,10 @@ export const AddEmp = () => {
                         required
                     />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="gardID">Gard ID:</label>
+                <div className='t2'>
+                    <label htmlFor="gardID" className='textin'>Gard ID:</label>
                     <input
-                        className="long"
+                         className="chlonginput"
                         type="text"
                         id="gardID"
                         name="gardID"
@@ -106,10 +106,10 @@ export const AddEmp = () => {
                         required
                     />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="username">Username:</label>
+                <div className='t2'>
+                    <label htmlFor="username" className='textin'>Username:</label>
                     <input
-                        className="long"
+                         className="chlonginput"
                         type="text"
                         id="username"
                         name="username"
@@ -118,10 +118,10 @@ export const AddEmp = () => {
                         required
                     />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password:</label>
+                <div className='t2'>
+                    <label htmlFor="password" className='textin'>Password:</label>
                     <input
-                        className="long"
+                         className="chlonginput"
                         type="text"
                         id="password"
                         name="password"
@@ -130,10 +130,10 @@ export const AddEmp = () => {
                         required
                     />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="job">Job:</label>
+                <div className='t2'>
+                    <label htmlFor="job" className='textin'>Job:</label>
                     <input
-                        className="long"
+                        className="chlonginput"
                         type="text"
                         id="job"
                         name="job"
