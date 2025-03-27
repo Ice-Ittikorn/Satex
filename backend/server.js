@@ -332,6 +332,45 @@ app.delete('/api/orders/table/:tableId', (req, res) => {
   });
 });
 
+app.get('/api/orders/:id', (req, res) => {
+  const { id } = req.params;
+  db.get('SELECT * FROM oder WHERE oderid = ?', [id], (err, row) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    if (row) {
+      res.json(row); // ส่งข้อมูลออร์เดอร์ที่มี oderid ตามที่ระบุ
+    } else {
+      res.status(404).json({ message: 'Order not found' });
+    }
+  });
+});
+
+// ✅ อัปเดตข้อมูลออร์เดอร์รวมถึงราคา
+app.put('/api/orders/:id', (req, res) => {
+  const { id } = req.params;
+  const { manu, note, status, price } = req.body;
+
+  const query = `
+    UPDATE oder
+    SET manu = ?, note = ?, status = ?, price = ?
+    WHERE oderid = ?
+  `;
+
+  db.run(query, [manu, note, status, price, id], function(err) {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    if (this.changes === 0) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+    res.json({ message: 'Order updated successfully' });
+  });
+});
+
+
+
+
 
 
 // ✅ เปิดเซิร์ฟเวอร์

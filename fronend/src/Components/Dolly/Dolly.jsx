@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';  // ใช้ useNavigate สำหรับการนำทาง
 import './Dolly.css';
 
 const Dolly = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();  // Hook สำหรับนำทาง
+
+  
 
   // ฟังก์ชันดึงข้อมูลจาก API
   useEffect(() => {
@@ -39,12 +43,16 @@ const Dolly = () => {
     axios.delete(`http://localhost:3002/api/orders/table/${tableId}`)
       .then((response) => {
         console.log('All orders for table', tableId, 'deleted successfully');
-        // หลังจากลบข้อมูลทั้งหมดสำเร็จ, อัพเดต UI โดยลบทุกออร์เดอร์ที่เกี่ยวข้องกับโต๊ะนั้น
         setOrders(orders.filter(order => order.tableid !== tableId));
       })
       .catch((error) => {
         console.error('Error deleting orders for table:', error);
       });
+  };
+
+  // ฟังก์ชันสำหรับนำทางไปหน้า Edit_odertable
+  const handleEditOrder = (orderId) => {
+    navigate(`/Edit_odertable`, { state: { orderId } });  // ส่ง orderId ไปด้วย
   };
 
   if (loading) {
@@ -81,6 +89,7 @@ const Dolly = () => {
                   <th>สินค้า</th>
                   <th>บันทึก</th>
                   <th>ราคา</th>
+                  <th>แก้ไข</th>
                 </tr>
               </thead>
               <tbody>
@@ -89,6 +98,21 @@ const Dolly = () => {
                     <td>{order.manu}</td>
                     <td>{order.note}</td>
                     <td>{order.price} บาท</td>
+                    <td>
+                      <button
+                        onClick={() => handleEditOrder(order.oderid)}  // เมื่อคลิกปุ่มจะไปที่หน้าแก้ไข
+                        style={{
+                          padding: '5px 10px',
+                          backgroundColor: 'blue',
+                          color: 'white',
+                          border: 'none',
+                          cursor: 'pointer',
+                          borderRadius: '4px',
+                        }}
+                      >
+                        แก้ไข
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>

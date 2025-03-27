@@ -52,13 +52,18 @@ const Store = () => {
     navigate(`/StockMack/${Storeid}`);
   };
 
+  
   const handleDeleteClick = (Storeid) => {
     if (window.confirm("คุณแน่ใจว่าจะลบสินค้านี้?")) {
       fetch(`http://localhost:3002/api/stores/${Storeid}`, {
         method: 'DELETE',
       })
         .then(response => response.json())
-        .then(() => fetchProducts())
+        .then(() => {
+          fetchProducts();  // Refresh product list
+          setSuccessMessage("สินค้าถูกลบสำเร็จ!");  // Display success message after deletion
+          setTimeout(() => setSuccessMessage(''), 3000);  // Clear success message after 3 seconds
+        })
         .catch(error => console.error("Error deleting product:", error));
     }
   };
@@ -101,14 +106,15 @@ const Store = () => {
                   onError={(e) => e.target.src = "/placeholder.jpg"}
                 />
 
-
                 <div className="gard-info2">
                   <p><strong>รหัสสินค้า:</strong> {product.Storeid}</p>
                   <p><strong>จำนวนคงเหลือ:</strong> {product.count} {product.unit}</p>
                 </div>
                 <div className="button-container2">
                   <button className="edit-btn2" onClick={() => handleEditClick(product.Storeid)}>แก้ไข</button>
-                  <button className="delete-btn" onClick={() => handleDeleteClick(product.Storeid)} title="ลบสินค้า"><i className="ri-delete-bin-5-line"></i></button>
+                  <button className="delete-btn" onClick={() => handleDeleteClick(product.Storeid)} title="ลบสินค้า">
+                    <i className="ri-delete-bin-5-line"></i>
+                  </button>
                 </div>
               </div>
             );
