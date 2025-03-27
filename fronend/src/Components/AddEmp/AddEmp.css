@@ -21,9 +21,10 @@ body {
 .form-title {
     font-size: 24px;
     color: #333;
-    text-align: center;
+    text-align: center;  /* ใช้ text-align: center เพื่อจัดกลาง */
     margin-bottom: 30px;
 }
+
 
 /* ฟอร์มกรอกข้อมูล */
 .form-group {
@@ -48,21 +49,6 @@ body {
 }
 
 /* ความยาวของช่องกรอกข้อมูล */
-.long {
-    width: 100%;  /* ทำให้ช่องกรอกข้อมูลเต็มความกว้าง */
-    padding: 14px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    transition: border-color 0.3s;
-}
-
-/* เมื่อช่องกรอกข้อมูลถูกโฟกัส */
-.long:focus {
-    border-color: #4CAF50;
-    outline: none;
-}
 
 /* ปุ่มส่ง */
 .submit-button {
@@ -75,8 +61,10 @@ body {
     cursor: pointer;
     width: 100%;
     transition: background-color 0.3s;
+    text-align: center;
 }
 
 .submit-button:hover {
     background-color: #45a049;
+
 }
