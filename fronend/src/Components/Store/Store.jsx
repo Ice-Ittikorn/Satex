@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./Store.css";
 
-// Export default คอมโพเนนต์นี้
 const Store = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
 
-  // ฟังก์ชันต่างๆ
+  // ฟังก์ชันดึงข้อมูลสินค้า
   const fetchProducts = async () => {
     try {
       const response = await fetch("http://localhost:3002/api/stores");
       const data = await response.json();
       setProducts(data);
-      setFilteredProducts(data);  // Set initial filtered products
+      setFilteredProducts(data); // Set initial filtered products
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -29,8 +29,7 @@ const Store = () => {
 
   useEffect(() => {
     if (location.state?.successMessage) {
-      setSuccessMessage(location.state.successMessage);
-      setTimeout(() => setSuccessMessage(''), 3000);
+      toast.success(location.state.successMessage);  // แจ้งเตือนเมื่อมีการส่ง successMessage จาก StockEdit
     }
   }, [location.state]);
 
@@ -39,8 +38,8 @@ const Store = () => {
       const filtered = products.filter(
         (product) =>
           product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          product.Storeid.toString().includes(searchTerm) ||  // Search by Storeid
-          product.count.toString().includes(searchTerm) // Search by count quantity
+          product.Storeid.toString().includes(searchTerm) ||
+          product.count.toString().includes(searchTerm)
       );
       setFilteredProducts(filtered);
     } else {
@@ -48,11 +47,14 @@ const Store = () => {
     }
   }, [searchTerm, products]);
 
+  // ฟังก์ชันสำหรับการแก้ไขสินค้า
   const handleEditClick = (Storeid) => {
+    // เมื่อคลิกแก้ไข, แสดงการแจ้งเตือนก่อนที่จะแก้ไข
+    toast.success("กำลังเข้าสู่หน้าแก้ไขสินค้า...");
     navigate(`/StockMack/${Storeid}`);
   };
 
-  
+  // ฟังก์ชันสำหรับการลบสินค้า
   const handleDeleteClick = (Storeid) => {
     if (window.confirm("คุณแน่ใจว่าจะลบสินค้านี้?")) {
       fetch(`http://localhost:3002/api/stores/${Storeid}`, {
@@ -60,9 +62,8 @@ const Store = () => {
       })
         .then(response => response.json())
         .then(() => {
-          fetchProducts();  // Refresh product list
-          setSuccessMessage("สินค้าถูกลบสำเร็จ!");  // Display success message after deletion
-          setTimeout(() => setSuccessMessage(''), 3000);  // Clear success message after 3 seconds
+          fetchProducts();
+          toast.success("สินค้าถูกลบสำเร็จ!");  // แสดงการแจ้งเตือนเมื่อสินค้าถูกลบ
         })
         .catch(error => console.error("Error deleting product:", error));
     }
@@ -70,16 +71,15 @@ const Store = () => {
 
   return (
     <div className="stock-container">
+      {/* ToastContainer สำหรับการแจ้งเตือน */}
+      <ToastContainer position="top-right" autoClose={3000} />
       <div className="header">
-        {successMessage && <div className="success-message">{successMessage}</div>}
         <h1 className="stock-title">สินค้าคงคลัง</h1>
-
         <Link to="/StockEdit">
           <button className="update-button">อัปเดตสต็อกสินค้า</button>
         </Link>
       </div>
 
-      {/* Search box */}
       <div className="search-box">
         <input
           type="text"
@@ -94,10 +94,7 @@ const Store = () => {
           filteredProducts.map((product, index) => {
             const isLowStock = product.count < 5;
             return (
-              <div
-                key={`${product.Storeid}-${index}`}  // เพิ่ม index เพื่อให้ key เป็นเอกลักษณ์
-                className={`store-card ${isLowStock ? 'low-stock' : ''}`}
-              >
+              <div key={`${product.Storeid}-${index}`} className={`store-card ${isLowStock ? 'low-stock' : ''}`}>
                 <p><strong>ชื่อสินค้า:</strong> {product.name}</p>
                 <img
                   src={`http://localhost:3002${product.image}`}
@@ -105,7 +102,6 @@ const Store = () => {
                   className="product-image"
                   onError={(e) => e.target.src = "/placeholder.jpg"}
                 />
-
                 <div className="gard-info2">
                   <p><strong>รหัสสินค้า:</strong> {product.Storeid}</p>
                   <p><strong>จำนวนคงเหลือ:</strong> {product.count} {product.unit}</p>
@@ -127,5 +123,4 @@ const Store = () => {
   );
 };
 
-// Export default คอมโพเนนต์นี้
 export default Store;

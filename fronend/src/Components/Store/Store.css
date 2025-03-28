@@ -140,7 +140,7 @@
 .edit-btn2 {
     background-color:  #FFB856;
     color: white;
-    width: 140px;
+    width: 180px;
     height: 50px;
     margin-right: 15px ;
     border-radius: 10px;
@@ -158,7 +158,7 @@
     background-color: #f44336;
     color: white;
     height: 50px;
-    width: 70px;
+    width: 110px;
     border: none;
     border-radius: 10px;
 }
