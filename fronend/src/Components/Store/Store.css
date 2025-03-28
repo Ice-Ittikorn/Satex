@@ -169,3 +169,21 @@
     cursor: pointer;
 }
 
+.employee-grid2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .employee-grid2 .store-card {
+    background-color: #ffffff; /* Default background color */
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .employee-grid2 .store-card.low-stock {
+    background-color: #ffe6e6; /* Red background color for low stock */
+  }
+  

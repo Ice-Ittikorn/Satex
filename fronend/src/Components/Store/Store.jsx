@@ -89,30 +89,31 @@ const Store = () => {
         />
       </div>
 
-      <div className="employee-grid">
+      <div className="employee-grid2">
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product, index) => {
             const isLowStock = product.count < 5;
             return (
-              <div key={`${product.Storeid}-${index}`} className={`store-card ${isLowStock ? 'low-stock' : ''}`}>
-                <p><strong>ชื่อสินค้า:</strong> {product.name}</p>
-                <img
-                  src={`http://localhost:3002${product.image}`}
-                  alt={product.name}
-                  className="product-image"
-                  onError={(e) => e.target.src = "/placeholder.jpg"}
-                />
-                <div className="gard-info2">
-                  <p><strong>รหัสสินค้า:</strong> {product.Storeid}</p>
-                  <p><strong>จำนวนคงเหลือ:</strong> {product.count} {product.unit}</p>
-                </div>
-                <div className="button-container2">
-                  <button className="edit-btn2" onClick={() => handleEditClick(product.Storeid)}>แก้ไข</button>
-                  <button className="delete-btn" onClick={() => handleDeleteClick(product.Storeid)} title="ลบสินค้า">
-                    <i className="ri-delete-bin-5-line"></i>
-                  </button>
-                </div>
-              </div>
+<div className={`store-card ${isLowStock ? 'low-stock' : ''}`}>
+  <p><strong>ชื่อสินค้า:</strong> {product.name}</p>
+  <img
+    src={`http://localhost:3002${product.image}`}
+    alt={product.name}
+    className="product-image"
+    onError={(e) => e.target.src = "/placeholder.jpg"}
+  />
+  <div className="gard-info2">
+    <p><strong>รหัสสินค้า:</strong> {product.Storeid}</p>
+    <p><strong>จำนวนคงเหลือ:</strong> {product.count} {product.unit}</p>
+  </div>
+  <div className="button-container2">
+    <button className="edit-btn2" onClick={() => handleEditClick(product.Storeid)}>แก้ไข</button>
+    <button className="delete-btn" onClick={() => handleDeleteClick(product.Storeid)} title="ลบสินค้า">
+      <i className="ri-delete-bin-5-line"></i>
+    </button>
+  </div>
+</div>
+
             );
           })
         ) : (
