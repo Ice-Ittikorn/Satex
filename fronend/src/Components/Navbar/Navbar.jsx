@@ -35,7 +35,6 @@ const Navbar = () => {
             // ถ้ายังไม่ได้ล็อกอิน ก็แสดงลิงก์ Login
             <>
               <Link to="/Login">Login</Link>
-              <Link to="/Register">Register</Link>
             </>
           )}
         </div>
