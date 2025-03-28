@@ -25,6 +25,7 @@ import Send from '../Pages/Send/Send';
 import Chosemenu from '../Pages/Chosemenu/Chosemenu';
 import Edit_odertable from '../Pages/Edit_odertable/Edit_oder';
 import PMT from '../Pages/PMT/PMT';
+import MenuShow from '../Pages/MenuShow/MenuShow';
 
 
 const AppRoutes = () => {
@@ -54,6 +55,8 @@ const AppRoutes = () => {
           <Route path="/Chosemenu" element={<Chosemenu />} />
           <Route path="/Edit_odertable" element={<Edit_odertable />} />
           <Route path="/PMT" element={<PMT/>} />
+          <Route path="/MenuShow/:menuid" element={<MenuShow />} />
+
 
         </Routes>
       </Router>

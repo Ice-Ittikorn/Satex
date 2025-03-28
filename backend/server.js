@@ -403,6 +403,22 @@ app.delete('/api/orders/table/:tableId', (req, res) => {
   });
 });
 
+app.get('/api/menu/:menuid', (req, res) => {
+  const menuid = req.params.menuid;
+  // Query the database for the menu with the given menuid
+  db.get('SELECT * FROM menu WHERE menuid = ?', [menuid], (err, row) => {
+    if (err) {
+      return res.status(500).json({ error: 'Database error' });
+    }
+    if (!row) {
+      return res.status(404).json({ error: 'Menu not found' });
+    }
+    res.json(row);
+  });
+});
+
+
+
 
 // ✅ เปิดเซิร์ฟเวอร์
 app.listen(port, () => {
