@@ -38,23 +38,7 @@ label {
   width: 30%;  /* กำหนดความกว้างของ label */
 }
 
-input[type="text"],
-input[type="file"],
-select {
-  width: 70%;  /* ปรับความกว้างของ input ให้เพิ่มขึ้นเป็น 70% */
-  padding: 12px 15px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  outline: none;
-  transition: border-color 0.3s;
-}
 
-input[type="text"]:focus,
-input[type="file"]:focus,
-select:focus {
-  border-color: #4caf50;
-}
 
 .save-button4 {
   padding: 12px 20px;
