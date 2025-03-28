@@ -126,7 +126,7 @@ let db = new sqlite3.Database('example.db', (err) => {
               stmt2.finalize();
             });
             
-            stmt2.run('Ribeye', '25', 'กิโลกรัม', '/uploads/s_Ribeye.jpg', (err) => {
+            stmt2.run('Ribeye', '0', 'กิโลกรัม', '/uploads/s_Ribeye.jpg', (err) => {
               if (err) {
                 console.error('Error inserting data:', err.message);
               } else {
@@ -144,7 +144,7 @@ let db = new sqlite3.Database('example.db', (err) => {
               stmt2.finalize();
             });
             
-            stmt2.run('Tenderloin', '27', 'กิโลกรัม', '/uploads/s_Tenderloin.jpg', (err) => {
+            stmt2.run('Tenderloin', '0', 'กิโลกรัม', '/uploads/s_Tenderloin.jpg', (err) => {
               if (err) {
                 console.error('Error inserting data:', err.message);
               } else {
@@ -319,14 +319,14 @@ let db = new sqlite3.Database('example.db', (err) => {
                   }
                 });
 
-                stmt3.run('สเต็กไก่','Chicken Steak', '3', "169", 'ทำจากไก่ที่เลี้ยงด้วยกระสุนจากอัฟกานิสถาน', 'เนื้ออกไก่,ซอสหมัก,เกลือ,พริกไทย,น้ำมันมะกอก,สลัด,ซอสพริกไทยดำ', 'ทอด ย่าง', 'สเต็ก', "/uploads/1927Chicken.jpg", (err) => {
+                stmt3.run('สเต็กไก่','Chicken Steak', '0', "169", 'ทำจากไก่ที่เลี้ยงด้วยกระสุนจากอัฟกานิสถาน', 'เนื้ออกไก่,ซอสหมัก,เกลือ,พริกไทย,น้ำมันมะกอก,สลัด,ซอสพริกไทยดำ', 'ทอด ย่าง', 'สเต็ก', "/uploads/1927Chicken.jpg", (err) => {
                   if (err) {
                     console.error(err.message);
                   } else {
                     console.log("เพิ่มเมนูเสร็จสิ้น");
                   }
                 });
-stmt3.run('สเต็กปลาดอลลี่','Dolly Steak', '5', "169", 'ทำจากปลาดอลลี่ที่ตกมาได้จากน่านน้ำอเมซอน', 'เนื้อปลาดอลลี่,เกลือ,พริกไทย,น้ำมันมะกอก,สลัด', 'ทอด ย่าง', 'สเต็ก', "/uploads/1928Dolly.jpg", (err) => {
+stmt3.run('สเต็กปลาดอลลี่','Dolly Steak', '0', "169", 'ทำจากปลาดอลลี่ที่ตกมาได้จากน่านน้ำอเมซอน', 'เนื้อปลาดอลลี่,เกลือ,พริกไทย,น้ำมันมะกอก,สลัด', 'ทอด ย่าง', 'สเต็ก', "/uploads/1928Dolly.jpg", (err) => {
                   if (err) {
                     console.error(err.message);
                   } else {
@@ -381,7 +381,7 @@ stmt3.run('สลัด','Salad', '10', "72", 'ปลูกด้วยสาร
                   }
                 });
 
-                stmt3.run('น้ำส้ม','Orenge juice', '10', "25", 'ปลูกด้วยสารเคมี z', 'น้ำแข็ง,น้ำส้มคั้น', 'เทใส่แก้ว', 'เครื่องดื่ม', "/uploads/2026น้ำส้ม.jpg", (err) => {
+                stmt3.run('น้ำส้ม','Orenge juice', '0', "25", 'ปลูกด้วยสารเคมี z', 'น้ำแข็ง,น้ำส้มคั้น', 'เทใส่แก้ว', 'เครื่องดื่ม', "/uploads/2026น้ำส้ม.jpg", (err) => {
                   if (err) {
                     console.error(err.message);
                   } else {
