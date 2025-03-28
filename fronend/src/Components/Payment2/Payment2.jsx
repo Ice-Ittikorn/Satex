@@ -11,9 +11,9 @@ const Payment2= () => {
 
   return (
     <div className='payment'>
-      <h1>ระบบชำระเงิน</h1>
+      <h1 className='texh'>ระบบชำระเงิน</h1>
       <div className="payment_content">
-        {[...Array(13)].map((_, index) => (
+        {[...Array(12)].map((_, index) => (
           <button key={index} onClick={() => handleTableClick(index + 1)}>
             โต๊ะ{index + 1}
           </button>

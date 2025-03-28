@@ -32,15 +32,19 @@ export const DisplayMenu = () => {
                             className="menu-item" 
                             onClick={() => handleItemClick(item)}
                         >
-                            <h3>{item.name}</h3>
-                            <p><strong>Price:</strong> {item.price}</p>
-                            <p><strong>Details:</strong> {item.details}</p>
+                            <h3 className="menu-content">{item.name}</h3>
                             <img 
                                 src={`http://localhost:3002${item.menuimg}`} 
                                 alt={item.name} 
                                 className="item-image" 
                                 onError={(e) => e.target.src = "/placeholder.jpg"} 
                             />
+                            <div className="menu-content">
+                                
+                                <p className="menu-price"><strong>Price:</strong> {item.price} บาท</p>
+                                <p className="menu-details"><strong>Details:</strong> {item.details}</p>
+                                
+                            </div>
                         </div>
                     ))
                 ) : (
