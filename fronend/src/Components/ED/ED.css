@@ -1,4 +1,92 @@
-.brd{
+.brd {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     margin-top: 110px;
-    margin-left: 100px;
-}
+  }
+  
+  h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .order-form2 {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .txlabel{
+    margin-top: 20px;
+  }
+
+  
+  label {
+    font-size: 16px;
+    color: #333;
+    width: 80px; /* กำหนดความกว้างของ label ให้เท่ากันทั้งหมด */
+  }
+  
+  .input-field23 {
+    margin-top: 20px;
+    width: 560px;
+    height: 40px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .input-field234 {
+    margin-top: 20px;
+    width: 560px;
+    height: 40px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .input-field23,.input-field23:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .save-button {
+    margin-top: 20px;
+    margin-left: 220px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .save-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .save-button:focus {
+    outline: none;
+  }
+  
+  .Toastify__toast-container {
+    font-size: 16px;
+  }
+  
+  .Toastify__toast {
+    border-radius: 8px;
+  }
+  
+  .Toastify__toast--success {
+    background-color: #28a745;
+  }
+  
+  .Toastify__toast--error {
+    background-color: #dc3545;
+  }
+  
