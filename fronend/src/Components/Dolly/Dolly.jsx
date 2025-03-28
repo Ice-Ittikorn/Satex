@@ -87,17 +87,9 @@ const Dolly = () => {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <h2>โต๊ะที่ {tableId}</h2>
               <button 
-                onClick={() => deleteAllOrdersForTable(tableId)}
-                style={{
-                  padding: '5px 10px',
-                  backgroundColor: 'red',
-                  color: 'white',
-                  border: 'none',
-                  cursor: 'pointer',
-                  borderRadius: '4px',
-                }}
+                onClick={() => deleteAllOrdersForTable(tableId)} className='btntro'
               >
-                ลบทั้งหมด
+                ลบโต๊ะ
               </button>
             </div>
             <table style={{ width: '100%', marginTop: '10px', borderCollapse: 'collapse' }}>
@@ -106,7 +98,6 @@ const Dolly = () => {
                   <th>สินค้า</th>
                   <th>บันทึก</th>
                   <th>ราคา</th>
-                  <th>แก้ไข</th>
                 </tr>
               </thead>
               <tbody>
@@ -117,17 +108,9 @@ const Dolly = () => {
                     <td>{order.price} บาท</td>
                     <td>
                       <button
-                        onClick={() => handleEditOrder(order.oderid)}
-                        style={{
-                          padding: '5px 10px',
-                          backgroundColor: 'blue',
-                          color: 'white',
-                          border: 'none',
-                          cursor: 'pointer',
-                          borderRadius: '4px',
-                        }}
+                        onClick={() => handleEditOrder(order.oderid)} className='btneed'
                       >
-                        แก้ไข
+                        แก้ไขเมนู
                       </button>
                     </td>
                   </tr>
