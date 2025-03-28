@@ -482,6 +482,19 @@ app.put('/api/menu/:menuid', (req, res) => {
 });
 
 
+app.delete('/api/orders/:oderid', (req, res) => {
+  const oderid = req.params.menuid;
+
+  db.run(`DELETE FROM oder WHERE oderid = ?`, [oderid], function (err) {
+      if (err) {
+          console.error("❌ ลบไม่สำเร็จ:", err.message);
+          res.status(500).send("เกิดข้อผิดพลาดในการลบ");
+      } else {
+          console.log(`✅ ลบ Order ID: ${oderid} สำเร็จ!`);
+          res.status(200).send("ลบสำเร็จ");
+      }
+  });
+});
 
 
 

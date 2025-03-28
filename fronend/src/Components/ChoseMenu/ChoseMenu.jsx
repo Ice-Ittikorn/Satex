@@ -1,38 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import "./Chosemenu.css";
 
 export const Chosemenu = () => {
     const location = useLocation();
-    const { item } = location.state || {}; // ดึงเฉพาะ item จาก location.state
-
-    const tableid = "4"; // กำหนดค่า tableid ให้เป็น 4 เสมอ
+    const navigate = useNavigate();
+    const { item } = location.state || {}; // รับ item จากหน้าอื่น
+    const tableid = "4";
 
     const [selectedOption, setSelectedOption] = useState("");
     const [additionalNotes, setAdditionalNotes] = useState("");
-    const [quantity, setQuantity] = useState(0);
-    const [orderPrice, setOrderPrice] = useState(0); // เปลี่ยนค่าเริ่มต้นเป็น 0
+    const [quantity, setQuantity] = useState(1);
+    const [orderPrice, setOrderPrice] = useState(0);
 
-    // ถ้าไม่มี item ให้แสดงข้อความ
-    if (!item) {
-        return <p>No item selected.</p>;
-    }
+    if (!item) return <p>No item selected.</p>;
 
-    // ฟังก์ชันในการเพิ่มหรือลดจำนวน
-    const handleQuantityChange = (change) => {
-        setQuantity((prev) => Math.max(0, prev + change));
-    };
-
-    // ดึงราคาจากฐานข้อมูลตามเมนู ID
     useEffect(() => {
         const fetchMenuData = async () => {
             try {
                 const response = await fetch(`http://localhost:3002/api/menu/${item.menuid}`);
                 const data = await response.json();
-
-                // ตรวจสอบว่ามีข้อมูลราคาใน response หรือไม่
-                if (data && data.price) {
-                    setOrderPrice(data.price); // ตั้งค่าราคาเมนูจากฐานข้อมูล
+                if (data?.price) {
+                    setOrderPrice(data.price);
                 } else {
                     console.error("ไม่พบข้อมูลราคาเมนู");
                 }
@@ -41,12 +30,11 @@ export const Chosemenu = () => {
             }
         };
 
-        if (item && item.menuid) {
+        if (item?.menuid) {
             fetchMenuData();
         }
-    }, [item.menuid]);
+    }, [item?.menuid]);
 
-    // ฟังก์ชันส่งคำสั่งซื้อ
     const handleOrder = async () => {
         if (quantity <= 0) {
             alert("กรุณาเลือกจำนวนอาหารก่อนสั่ง!");
@@ -55,11 +43,11 @@ export const Chosemenu = () => {
 
         const orderData = {
             manu: item.name,
-            note: `${additionalNotes} ${selectedOption ? `ระดับความสุก/หวาน: ${selectedOption}` : ''}`,
-            tableid: tableid,  // ใช้ค่า tableid ที่กำหนดเป็น 4
+            note: `${additionalNotes} ${selectedOption ? `ระดับ: ${selectedOption}` : ''}`,
+            tableid,
             status: "รับออร์เดอร์",
-            price: orderPrice,  // ใช้ราคาเมนูจากฐานข้อมูลที่ดึงมา
-            quantity: quantity  // จำนวนที่ลูกค้าสั่ง
+            price: orderPrice * quantity, // คำนวณราคารวม
+            quantity
         };
 
         try {
@@ -69,75 +57,26 @@ export const Chosemenu = () => {
                 body: JSON.stringify(orderData)
             });
 
-            if (!response.ok) {
-                throw new Error("สั่งอาหารไม่สำเร็จ!");
-            }
+            if (!response.ok) throw new Error("สั่งอาหารไม่สำเร็จ!");
 
             alert(`✅ สั่ง ${item.name} จำนวน ${quantity} ชิ้นสำเร็จ!`);
-            setQuantity(0);
-            setAdditionalNotes("");
-            setSelectedOption("");
+            navigate('/cart', { state: { refresh: true } }); // ไปยังหน้าตะกร้าและส่งค่า refresh
 
         } catch (error) {
             alert(`❌ เกิดข้อผิดพลาด: ${error.message}`);
         }
     };
 
-    // ฟังก์ชันในการเลือกระดับความสุกหรือความหวาน
-    const getOptionLabel = () => {
-        if (item.type === "สเต็ก") return "ระดับความสุก";
-        if (item.name === "ชาใต้") return "ระดับความหวาน";
-        return "";
-    };
-
-    const getOptionChoices = () => {
-        if (item.type === "สเต็ก") return ["Rare", "Medium", "Well done"];
-        if (item.name === "ชาใต้") return ["หวานน้อย", "หวานปกติ", "หวานมาก"];
-        return [];
-    };
-
-    const options = getOptionChoices();
-
     return (
         <div className="menu-container">
             <img className="menu-image" src={`http://localhost:3002${item.menuimg}`} alt={item.name} />
             <h2 className="menu-title">{item.name}</h2>
-            {orderPrice !== 0 && <p className="menu-price">{orderPrice} บาท</p>} {/* แสดงราคา */}
-
-            <div className="section-divider"></div>
-
-            {options.length > 0 && (
-                <div className="option-section">
-                    <p className="section-title">{getOptionLabel()}</p>
-                    {options.map((option) => (
-                        <label key={option} className="option-label">
-                            <input 
-                                type="radio" 
-                                name="option" 
-                                value={option} 
-                                checked={selectedOption === option} 
-                                onChange={(e) => setSelectedOption(e.target.value)}
-                            />
-                            {option}
-                        </label>
-                    ))}
-                </div>
-            )}
-
-            <div className="additional-section">
-                <p className="section-title">รายละเอียดเพิ่มเติม</p>
-                <textarea 
-                    className="additional-input"
-                    placeholder="เพิ่ม โน้ตสั่ง"
-                    value={additionalNotes}
-                    onChange={(e) => setAdditionalNotes(e.target.value)}
-                ></textarea>
-            </div>
+            <p className="menu-price">{orderPrice} บาท</p>
 
             <div className="quantity-section">
-                <button className="quantity-btn" onClick={() => handleQuantityChange(-1)}>−</button>
+                <button className="quantity-btn" onClick={() => setQuantity(q => Math.max(1, q - 1))}>−</button>
                 <span className="quantity-number">{quantity}</span>
-                <button className="quantity-btn" onClick={() => handleQuantityChange(1)}>+</button>
+                <button className="quantity-btn" onClick={() => setQuantity(q => q + 1)}>+</button>
             </div>
 
             <button className="order-button" onClick={handleOrder}>สั่ง</button>
