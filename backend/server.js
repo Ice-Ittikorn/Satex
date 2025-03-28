@@ -417,7 +417,20 @@ app.get('/api/menu/:menuid', (req, res) => {
   });
 });
 
+// Assuming you're using Express.js for the backend
 
+app.delete('/api/menu/:menuid', (req, res) => {
+  const menuid = req.params.menuid;
+
+  // Perform deletion logic, e.g., SQL query
+  db.run('DELETE FROM menu WHERE menuid = ?', [menuid], function(err) {
+    if (err) {
+      console.error('Error deleting menu item:', err);
+      return res.status(500).json({ error: 'Failed to delete menu item' });
+    }
+    res.status(200).json({ message: 'Menu item deleted successfully' });
+  });
+});
 
 
 // ✅ เปิดเซิร์ฟเวอร์
