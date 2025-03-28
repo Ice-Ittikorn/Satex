@@ -53,6 +53,11 @@ export const EDM = () => {
     navigate(`/EditMenuShow/${menuid}`);
   };
 
+  // Conditional styling based on the value of `inkitchen`
+  const getBackgroundColor = (inkitchen) => {
+    return inkitchen === "0" ? "rgb(255, 230, 229)" : "white";  // New background color
+  };
+
   return (
     <div className="menu-container5">
       <h1>🍽️ ระบบจัดการเมนูอาหาร</h1>
@@ -70,6 +75,7 @@ export const EDM = () => {
           <div 
             key={item.menuid} 
             className="menu-itemedm"
+            style={{ backgroundColor: getBackgroundColor(item.inkitchen) }} // Apply the background color dynamically
             onClick={() => navigate(`/MenuShow/${item.menuid}`)} // คลิกที่กล่องเพื่อนำทาง
           >
             <p className="menu-name">{item.name}</p>
