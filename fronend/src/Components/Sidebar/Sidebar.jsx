@@ -9,11 +9,6 @@ const Sidebar = () => {
     <div className='sidebar'>
 
       <div className='sidebar_menu'>
-        <i className="ri-pie-chart-2-fill"></i>
-        <Link to="/Dashboard_menu" className='text_link'>Dashboard</Link>
-      </div>
-
-      <div className='sidebar_menu'>
         <i className="ri-bit-coin-fill"/>
         <Link to="/Payment" className='text_link'>ระบบชำระเงิน</Link>
       </div>
