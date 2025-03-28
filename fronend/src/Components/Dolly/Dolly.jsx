@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';  // ใช้ useNavigate สำหรับการนำทาง
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './Dolly.css';
 
 const Dolly = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();  // Hook สำหรับนำทาง
+  const navigate = useNavigate();
 
-  
-
-  // ฟังก์ชันดึงข้อมูลจาก API
+  // ดึงข้อมูลจาก API
   useEffect(() => {
-    axios.get('http://localhost:3002/api/orders') // เปลี่ยน URL ให้ตรงกับ API ของคุณ
+    axios.get('http://localhost:3002/api/orders')
       .then((response) => {
-        console.log('Response data:', response.data);  // แสดงข้อมูลทั้งหมดที่ได้รับ
+        console.log('Response data:', response.data);
         setOrders(response.data);
         setLoading(false);
       })
@@ -24,7 +24,7 @@ const Dolly = () => {
       });
   }, []);
 
-  // ฟังก์ชันจัดกลุ่มออร์เดอร์ตาม tableId
+  // จัดกลุ่มออร์เดอร์ตาม tableId
   const groupOrdersByTable = (orders) => {
     return orders.reduce((acc, order) => {
       const { tableid } = order;
@@ -41,18 +41,35 @@ const Dolly = () => {
   // ฟังก์ชันลบออร์เดอร์ทั้งหมดของโต๊ะ
   const deleteAllOrdersForTable = (tableId) => {
     axios.delete(`http://localhost:3002/api/orders/table/${tableId}`)
-      .then((response) => {
-        console.log('All orders for table', tableId, 'deleted successfully');
+      .then(() => {
         setOrders(orders.filter(order => order.tableid !== tableId));
+        toast.success(`ลบข้อมูลของโต๊ะที่ ${tableId} สำเร็จ!`, {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: 'colored',
+        });
       })
       .catch((error) => {
         console.error('Error deleting orders for table:', error);
+        toast.error(`ลบข้อมูลของโต๊ะที่ ${tableId} ไม่สำเร็จ`, {
+          position: 'top-right',
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: 'colored',
+        });
       });
   };
 
-  // ฟังก์ชันสำหรับนำทางไปหน้า Edit_odertable
+  // ฟังก์ชันนำทางไปหน้า Edit_odertable
   const handleEditOrder = (orderId) => {
-    navigate(`/Edit_odertable`, { state: { orderId } });  // ส่ง orderId ไปด้วย
+    navigate(`/Edit_odertable`, { state: { orderId } });
   };
 
   if (loading) {
@@ -61,7 +78,7 @@ const Dolly = () => {
 
   return (
     <div className="dolly-container">
-      {/* ตรวจสอบว่า groupedOrders มีข้อมูลแล้วหรือยัง */}
+      <ToastContainer /> {/* เพิ่ม ToastContainer เพื่อแสดงข้อความแจ้งเตือน */}
       {Object.keys(groupedOrders).length === 0 ? (
         <div>ไม่พบข้อมูลออร์เดอร์</div>
       ) : (
@@ -100,7 +117,7 @@ const Dolly = () => {
                     <td>{order.price} บาท</td>
                     <td>
                       <button
-                        onClick={() => handleEditOrder(order.oderid)}  // เมื่อคลิกปุ่มจะไปที่หน้าแก้ไข
+                        onClick={() => handleEditOrder(order.oderid)}
                         style={{
                           padding: '5px 10px',
                           backgroundColor: 'blue',
