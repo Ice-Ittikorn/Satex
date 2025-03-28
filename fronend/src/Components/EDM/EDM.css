@@ -1,105 +1,181 @@
-.menu-container {
-    padding: 40px 20px; /* ขยาย padding และเพิ่มระยะห่างข้างบน */
-    margin-top: 30px; /* เลื่อนลงทั้งกล่อง */
+.menu-container5 {
     text-align: center;
-    margin-top: 110px; /* ย้ายลงมานิดนึง */
+    font-family: 'Arial', sans-serif;
+    /* margin: auto; */
+    padding: 20px;
+    margin-left: 100px;
+    margin-top: 20px;
+
 }
 
 h1 {
     font-size: 28px;
     color: #333;
-    margin-top: 80px; /* ให้ "ระบบจัดการเมนูอาหาร" ลงมาจากช่องค้นหา */
+    margin-top: 80px;
 }
 
-.search-box2 {
-    margin-top: 10px; /* ลดระยะห่างด้านบน */
-    margin-left: 0; /* ช่องค้นหาจะเลื่อนไปทางซ้ายสุด */
-    margin-bottom: 40px; /* เพิ่มระยะห่างด้านล่าง */
-    display: flex; /* ให้กล่องค้นหามีความยืดหยุ่น */
-    justify-content: flex-start; /* ให้ช่องค้นหาชิดซ้าย */
+.search-box3 {
+    margin-top: 10px;
+    margin-left: 300px;
+    margin-bottom: 40px;
+    display: flex;
 }
 
-.search-box2 input {
-    width: 100%; /* ช่องค้นหาจะขยายเต็มความกว้าง */
-    max-width: 1200px; /* กำหนดความกว้างสูงสุด */
-    padding: 14px; /* เพิ่ม padding เพื่อให้ช่องค้นหากว้างขึ้น */
+.search-box3 input {
+    width: 100%;
+    max-width: 1200px;
+    padding: 14px;
     font-size: 18px;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(4, minmax(250px, 1fr)); /* 4 คอลัมน์ */
-    gap: 40px; /* เพิ่มช่องว่างระหว่างรายการ */
-    padding-top: 30px; /* เลื่อนรายการเมนูลงมา */
+    grid-template-columns: repeat(4, minmax(250px, 1fr));
+    gap: 40px;
+    padding-top: 30px;
     justify-content: center;
 }
 
 .menu-itemedm {
     border: 1px solid #ddd;
-    padding: 20px; /* เพิ่ม padding ให้ใหญ่ขึ้น */
+    padding: 20px;
     border-radius: 10px;
     background-color: #fff;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
     width: 100%;
-    max-width: 400px; /* ขยายให้เหมาะสมกับ 4 คอลัมน์ */
+    max-width: 400px;
     position: relative;
     gap: 15px;
-    border-bottom: 4px solid #ffcc00; /* ทำให้เส้นขอบล่างเด่นขึ้น */
+    border-bottom: 4px solid #ffcc00;
+    transition: transform 0.2s ease;
+}
+
+/* เพิ่มเอฟเฟกต์ hover */
+.menu-itemedm:hover {
+    transform: translateY(-5px);
 }
 
 .food-image {
     width: 100%;
-    height: 200px; /* ขยายให้รูปใหญ่ขึ้น */
+    height: 200px;
     object-fit: cover;
     border-radius: 8px;
-    margin-bottom: 15px; /* เพิ่มช่องว่างใต้รูป */
+    margin-bottom: 15px;
 }
 
 .menu-name {
-    font-size: 24px; /* ขยายขนาดชื่อให้ใหญ่ขึ้น */
+    font-size: 24px;
     font-weight: bold;
-    margin-bottom: 15px; /* เพิ่มระยะห่างจากชื่อไปถึงรูป */
+    margin-bottom: 15px;
 }
 
-.menu-itemedm p {
-    font-size: 20px; /* ขยายตัวหนังสือให้ใหญ่ขึ้น */
-    font-weight: bold;
+.menu-id,
+.menu-kitchen {
+    font-size: 16px; /* ลดขนาดตัวอักษร */
+    font-weight: normal;
+    color: #888; /* เปลี่ยนสีเป็นสีเทา */
+    margin-bottom: 8px;
 }
 
-.button-container {
+.button-container2 {
     display: flex;
-    justify-content: center;
-    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 10px;
-  }
-  
-  .delete-button {
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-  }
-  
-  .delete-button:hover {
-    background-color: #e60000;
-  }
-  
-  .edit-button {
+}
+
+.edit-btn2 {
     background-color: #4caf50;
     color: white;
+    width: 140px;
     border: none;
     padding: 8px 12px;
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s;
-  }
-  
-  .edit-button:hover {
+}
+
+.edit-btn2:hover {
     background-color: #45a049;
-  }
-  
+}
+
+.delete-btn {
+    background-color: #ff4d4d;
+    color: white;
+    width: 70px;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+    background-color: #e60000;
+}
+
+/* Toastify ปรับแต่ง */
+.Toastify__toast {
+    font-size: 16px;
+}
+
+.Toastify__toast--success {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.Toastify__toast--error {
+    background-color: #ff4d4d;
+    color: #fff;
+}
+
+/* Responsive สำหรับมือถือ */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .menu-itemedm {
+        padding: 15px;
+    }
+
+    .food-image {
+        height: 150px;
+    }
+
+    .edit-btn2,
+    .delete-btn {
+        width: 100px;
+        padding: 6px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .menu-itemedm {
+        padding: 10px;
+    }
+
+    .food-image {
+        height: 120px;
+    }
+
+    .edit-btn2,
+    .delete-btn {
+        width: 80px;
+        padding: 5px 8px;
+    }
+
+    .search-box3 input {
+        padding: 12px;
+        font-size: 16px;
+    }
+}

@@ -41,27 +41,34 @@
   }
 
   .input-field234 {
-    margin-top: 20px;
-    width: 560px;
-    height: 40px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    width: 70%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s;
   }
   
   .input-field23,.input-field23:focus {
-    border-color: #007bff;
+    width: 70%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     outline: none;
+    transition: border-color 0.3s;
   }
   
   .save-button {
+    padding: 15px;
     margin-top: 20px;
     margin-left: 220px;
     font-size: 16px;
-    background-color: #007bff;
+    background-color: #28a745;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 15px;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }

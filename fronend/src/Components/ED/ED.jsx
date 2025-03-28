@@ -85,12 +85,15 @@ const ED = () => {
         </div>
         <div className='form-group2'>
           <label className='txlabel'>สถานะ:</label>
-          <input 
-            type="text" 
-            value={order.status || ''} 
+          <select
+            value={order.status || ''}
             onChange={(e) => setOrder({ ...order, status: e.target.value })}
             className='input-field23'
-          />
+          >
+            <option value="รับออร์เดอร์">รับออร์เดอร์</option>
+            <option value="กำลังปรุงอาหาร">กำลังปรุงอาหาร</option>
+            <option value="เสริฟแล้ว">เสริฟแล้ว</option>
+          </select>
         </div>
         <div className='form-group2'>
           <label className='txlabel'>ราคา:</label>

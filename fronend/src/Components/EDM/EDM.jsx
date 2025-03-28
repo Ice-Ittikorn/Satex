@@ -50,13 +50,13 @@ export const EDM = () => {
   };
 
   const handleEditClick = (menuid) => {
-    navigate(`/EditMenuShow/${menuid}`); // นำทางไปที่หน้าสำหรับแก้ไขข้อมูลเมนู
+    navigate(`/EditMenuShow/${menuid}`);
   };
 
   return (
-    <div className="menu-container">
+    <div className="menu-container5">
       <h1>🍽️ ระบบจัดการเมนูอาหาร</h1>
-      <div className="search-box2">
+      <div className="search-box3">
         <input
           type="text"
           value={searchTerm}
@@ -67,7 +67,11 @@ export const EDM = () => {
 
       <div className="grid-container">
         {filteredFoodItems.map((item) => (
-          <div key={item.menuid} className="menu-itemedm">
+          <div 
+            key={item.menuid} 
+            className="menu-itemedm"
+            onClick={() => navigate(`/MenuShow/${item.menuid}`)} // คลิกที่กล่องเพื่อนำทาง
+          >
             <p className="menu-name">{item.name}</p>
             <img 
               src={`http://localhost:3002${item.menuimg}`} 
@@ -77,14 +81,26 @@ export const EDM = () => {
             />
             <p className="menu-id"><strong>Menu ID:</strong> {item.menuid}</p>
             <p className="menu-kitchen"><strong>In Kitchen:</strong> {item.inkitchen}</p>
-            <div className="button-container">
-              {/* ปุ่มลบ */}
-              <button onClick={() => handleDeleteClick(item.menuid)} className="delete-button">
-                ลบ
-              </button>
+            <div className="button-container2">
               {/* ปุ่มแก้ไข */}
-              <button onClick={() => handleEditClick(item.menuid)} className="edit-button">
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation(); // ป้องกัน event bubbling
+                  handleEditClick(item.menuid);
+                }} 
+                className="edit-btn2"
+              >
                 แก้ไข
+              </button>
+              {/* ปุ่มลบ */}
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation(); // ป้องกัน event bubbling
+                  handleDeleteClick(item.menuid);
+                }} 
+                className="delete-btn"
+              >
+                ลบ
               </button>
             </div>
           </div>
