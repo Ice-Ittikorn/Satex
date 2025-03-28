@@ -304,10 +304,10 @@ app.get('/api/orders', (req, res) => {
 
 // API สำหรับการเพิ่มข้อมูลออร์เดอร์
 app.post('/api/orders', express.json(), (req, res) => {
-  const { manu, note, tableid, status } = req.body;
-  const stmt = db.prepare('INSERT INTO "oder" (manu, note, tableid, status) VALUES (?, ?, ?, ?)');
-  
-  stmt.run(manu, note, tableid, status, (err) => {
+  const { manu, note, tableid, status, price } = req.body;  // เพิ่ม price ในการรับข้อมูลจาก request
+  const stmt = db.prepare('INSERT INTO "oder" (manu, note, tableid, status, price) VALUES (?, ?, ?, ?, ?)');  // เพิ่ม price ใน query
+
+  stmt.run(manu, note, tableid, status, price, (err) => {  // เพิ่ม price ในการใส่ค่าลงในฐานข้อมูล
     if (err) {
       res.status(500).json({ error: err.message });
       return;
@@ -316,7 +316,6 @@ app.post('/api/orders', express.json(), (req, res) => {
   });
   stmt.finalize();
 });
-
 // กำหนด API สำหรับลบข้อมูลทั้งหมดของโต๊ะ
 // กำหนด API สำหรับลบข้อมูลทั้งหมดของโต๊ะ
 app.delete('/api/orders/table/:tableId', (req, res) => {
@@ -481,6 +480,8 @@ app.put('/api/menu/:menuid', (req, res) => {
     res.status(200).json({ message: 'Menu updated successfully' });
   });
 });
+
+
 
 
 
