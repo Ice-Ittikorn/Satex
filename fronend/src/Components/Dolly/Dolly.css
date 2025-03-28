@@ -1,53 +1,115 @@
+/* Container styling */
 .dolly-container {
-    margin-top: 110px;
-    margin-left: 100px;
-  }
-  
-  .dolly-table {
-    margin-bottom: 30px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #ddd;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-    width: 25%; /* กำหนดความกว้างของแต่ละคอลัมน์ */
-  }
-  
-  td {
-    width: 25%; /* กำหนดความกว้างของแต่ละคอลัมน์ */
-  }
-  
-  tbody tr:hover {
-    background-color: #f9f9f9;
-  }
-  
-  .btntro {
-    font-size: 18px;
-    width: 80px;
-    height: 50px;
-    background-color: red;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    border-radius: 20px;
-  }
-  
-  .btneed{
-    padding: 5px 10px;
-    background-color: blue;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-  }
+  margin-top: 110px;
+  margin-left: 100px;
+  font-family: Arial, sans-serif; /* Apply a clean font */
+  padding: 20px;
+}
+
+/* Table styling */
+.dolly-table {
+  margin-bottom: 30px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+  font-size: 16px;
+}
+
+th {
+  background-color: #f2f2f2;
+  width: 25%;
+  color: #333;
+  font-weight: bold;
+}
+
+td {
+  background-color: #fff;
+}
+
+tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #f8f8f8; /* Slightly different color for odd rows */
+}
+
+/* Status color styles */
+.order-received {
+  color: #ffd500; /* สีเขียว สำหรับ "รับออร์เดอร์" */
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.cooking {
+  color: #ff9800; /* สีส้ม สำหรับ "กำลังปรุงอาหาร" */
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.served {
+  color: #388e3c; /* สีเขียวเข้ม สำหรับ "เสริฟแล้ว" */
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* Button styling */
+.btntro {
+  font-size: 18px;
+  width: 100px;
+  height: 50px;
+  background-color: #f44336; /* Red for delete button */
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 25px;
+  transition: background-color 0.3s ease;
+}
+
+.btntro:hover {
+  background-color: #e53935; /* Darker red on hover */
+}
+
+.btneed {
+  padding: 8px 15px;
+  background-color: #2196f3; /* Blue for edit button */
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 25px;
+  transition: background-color 0.3s ease;
+}
+
+.btneed:hover {
+  background-color: #1976d2; /* Darker blue on hover */
+}
+
+/* Heading styling */
+.dolly-table h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Optional: Add some padding for better visual spacing */
+.dolly-container .dolly-table {
+  padding: 20px;
+}
+
+.dolly-container .dolly-table table {
+  margin-top: 20px;
+}
