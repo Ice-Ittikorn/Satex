@@ -20,17 +20,17 @@ const Sidebar = () => {
 
       <div className='sidebar_menu'>
         <i className="ri-list-unordered"/>
-        <Link to="/Oder" className='text_link'>Oder</Link>
+        <Link to="/Oder" className='text_link'>ระบบจัดการออเดอร์</Link>
       </div>
 
       <div className='sidebar_menu'>
         <i className="ri-store-fill"/>
-        <Link to="/Stock" className='text_link'>Stock</Link>
+        <Link to="/Stock" className='text_link'>ระบบจัดการสต็อก</Link>
       </div>
 
       <div className='sidebar_menu'>
         <i className="ri-team-fill"/>
-        <Link to="/Manage_employee" className='text_link'>Manage employee</Link>
+        <Link to="/Manage_employee" className='text_link'>ระบบจัดการพนักงาน</Link>
       </div>
 
 

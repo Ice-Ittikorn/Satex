@@ -432,6 +432,60 @@ app.delete('/api/menu/:menuid', (req, res) => {
   });
 });
 
+// ✅ Add a menu item
+app.post('/api/menu', (req, res) => {
+  const { name, inkitchen, price, details, component, todo, type, menuimg } = req.body;
+  const stmt = db.prepare(`
+    INSERT INTO "menu" (name, emgname, inkitchen, price, details, component, todo, type, menuimg)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)
+  `);
+
+  stmt.run(name,eventNames, inkitchen, price, details, component, todo, type, menuimg, (err) => {
+    if (err) {
+      res.status(500).send('Error inserting data: ' + err.message);
+    } else {
+      res.status(200).send('Menu item added successfully');
+    }
+    stmt.finalize();
+  });
+});
+
+
+
+app.put('/api/menu/:menuid', (req, res) => {
+  const { menuid } = req.params;
+  const { name, inkitchen, price, details, component, todo, type } = req.body;
+  console.log('Received data:', req.body);  // Log incoming data
+
+  // Check for missing fields
+  if (!name || !inkitchen || !price || !details || !component || !todo || !type) {
+    return res.status(400).json({ error: 'กรุณากรอกข้อมูลให้ครบถ้วน' });
+  }
+
+  const sql = `
+    UPDATE menu
+    SET name = ?, inkitchen = ?, price = ?, details = ?, component = ?, todo = ?, type = ?
+    WHERE menuid = ?
+  `;
+
+  db.run(sql, [name, inkitchen, price, details, component, todo, type, menuid], function (err) {
+    if (err) {
+      console.error('Error updating menu:', err);
+      return res.status(500).json({ error: 'Failed to update menu' });
+    }
+
+    if (this.changes === 0) {
+      return res.status(404).json({ error: 'Menu not found' });
+    }
+
+    res.status(200).json({ message: 'Menu updated successfully' });
+  });
+});
+
+
+
+
+
 
 // ✅ เปิดเซิร์ฟเวอร์
 app.listen(port, () => {

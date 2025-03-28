@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";  // นำเข้า toast และ ToastContainer
-import 'react-toastify/dist/ReactToastify.css';  // นำเข้า CSS ของ react-toastify
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import './EDM.css';
 
 export const EDM = () => {
   const [foodItems, setFoodItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get('http://localhost:3002/api/menu')
@@ -34,18 +36,21 @@ export const EDM = () => {
   });
 
   const handleDeleteClick = (menuid) => {
-    console.log('Deleting menu with ID:', menuid);  // Log the menuid
     if (window.confirm("คุณแน่ใจหรือไม่ที่จะลบเมนูนี้?")) {
       axios.delete(`http://localhost:3002/api/menu/${menuid}`)
         .then(() => {
-          setFoodItems(foodItems.filter(item => item.menuid !== menuid)); // Remove deleted item from state
-          toast.success("เมนูถูกลบเรียบร้อยแล้ว!");  // ใช้ toast เพื่อแสดงข้อความแจ้งเตือน
+          setFoodItems(foodItems.filter(item => item.menuid !== menuid));
+          toast.success("เมนูถูกลบเรียบร้อยแล้ว!");
         })
         .catch((error) => {
           console.error('Error deleting menu item:', error);
-          toast.error("เกิดข้อผิดพลาดในการลบเมนู");  // ใช้ toast เพื่อแสดงข้อความแจ้งเตือนในกรณีที่เกิดข้อผิดพลาด
+          toast.error("เกิดข้อผิดพลาดในการลบเมนู");
         });
     }
+  };
+
+  const handleEditClick = (menuid) => {
+    navigate(`/EditMenuShow/${menuid}`); // นำทางไปที่หน้าสำหรับแก้ไขข้อมูลเมนู
   };
 
   return (
@@ -72,13 +77,21 @@ export const EDM = () => {
             />
             <p className="menu-id"><strong>Menu ID:</strong> {item.menuid}</p>
             <p className="menu-kitchen"><strong>In Kitchen:</strong> {item.inkitchen}</p>
-            {/* ปุ่มลบในช่องเดียวกัน */}
-            <button onClick={() => handleDeleteClick(item.menuid)} className="delete-button">ลบ</button>
+            <div className="button-container">
+              {/* ปุ่มลบ */}
+              <button onClick={() => handleDeleteClick(item.menuid)} className="delete-button">
+                ลบ
+              </button>
+              {/* ปุ่มแก้ไข */}
+              <button onClick={() => handleEditClick(item.menuid)} className="edit-button">
+                แก้ไข
+              </button>
+            </div>
           </div>
         ))}
       </div>
 
-      {/* Toast container สำหรับการแสดงข้อความแจ้งเตือน */}
+      {/* Toast container */}
       <ToastContainer />
     </div>
   );
