@@ -449,7 +449,7 @@ stmt3.run('น้ำเปล่า','Water', '10', "10", 'เป็นน้ำ
               VALUES (?,?,?,?,?)
             `);
         
-            stmt4.run('ส้ม', 'หวานมาก', '1', 'รับออร์เดอร์', 50.0, (err) => {
+            stmt4.run('มันบด', '', '1', 'รับออร์เดอร์', 68.0, (err) => {
               if (err) {
                 console.error('Error inserting data:', err.message);
               } else {
@@ -457,7 +457,7 @@ stmt3.run('น้ำเปล่า','Water', '10', "10", 'เป็นน้ำ
               }
             });
         
-            stmt4.run('มะนาว', 'หวานกว่าส้ม', '1', 'รับออร์เดอร์', 40.0, (err) => {
+            stmt4.run('นักเกตไก่', 'ขอร้อนๆ', '1', 'รับออร์เดอร์', 69.0, (err) => {
               if (err) {
                 console.error('Error inserting data:', err.message);
               } else {
@@ -465,7 +465,7 @@ stmt3.run('น้ำเปล่า','Water', '10', "10", 'เป็นน้ำ
               }
             });
         
-            stmt4.run('มะม่วง', 'หวานสุด', '1', 'รับออร์เดอร์', 60.0, (err) => {
+            stmt4.run('สลัด', 'ไม่เอาผักในเขียว', '1', 'รับออร์เดอร์', 72.0, (err) => {
               if (err) {
                 console.error('Error inserting data:', err.message);
               } else {
@@ -481,7 +481,29 @@ stmt3.run('น้ำเปล่า','Water', '10', "10", 'เป็นน้ำ
               }
             });
         
-            stmt4.run('น้ำเปล่ากว่า', 'ไม่เปรี้ยว', '2', 'รับออร์เดอร์', 25.0, (err) => {
+            stmt4.run('ชาใต้', 'หวานน้อย', '2', 'รับออร์เดอร์', 35.0, (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+            });
+
+            stmt4.run('สเต็กไก่', 'Rare', '3', 'รับออร์เดอร์', 169.0, (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+            });
+            stmt4.run('สเต็กปลาดอรี่', 'Medium', '3', 'รับออร์เดอร์', 169.0, (err) => {
+              if (err) {
+                console.error('Error inserting data:', err.message);
+              } else {
+                console.log('Data inserted successfully.');
+              }
+            });
+            stmt4.run('น้ำแข็งแอดแลนติก', '', '3', 'รับออร์เดอร์', 5, (err) => {
               if (err) {
                 console.error('Error inserting data:', err.message);
               } else {
