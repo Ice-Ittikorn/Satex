@@ -152,7 +152,7 @@ const Edshowmenu4 = () => {
 
         {/* ทำเสร็จ */}
         <div className="form-group4">
-          <label htmlFor="todo">ทำเสร็จ:</label>
+          <label htmlFor="todo">วิธีการทำ:</label>
           <input
             type="text"
             id="todo"
